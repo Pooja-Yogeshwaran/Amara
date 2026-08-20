@@ -1,0 +1,66 @@
+{
+  "_generatedFrom": "examples/minimalist-swiss/theme.json, via the chat-widget-SDK adapter in references/platform-and-output.md",
+  "_note": "Flat shape modeled on common third-party widget SDK theming APIs (color map, font map, corner-radius, avatar/state map) -- adapt field names to your specific SDK's schema; the values themselves are what matter.",
+  "colors": {
+    "primary": "#3F52E8",
+    "background": "#FFFFFF",
+    "backgroundSecondary": "#F7F7F5",
+    "textPrimary": "#161613",
+    "textSecondary": "#57574F",
+    "textOnPrimary": "#FFFFFF",
+    "border": "#DEDEDA",
+    "success": "#2F7D4F",
+    "warning": "#9C6B15",
+    "danger": "#B3402D",
+    "approval": "#F5A623",
+    "agentBubbleBackground": "#FFFFFF",
+    "userBubbleBackground": "#EDEDEA"
+  },
+  "fonts": {
+    "primary": "Archivo, sans-serif",
+    "secondary": "Newsreader, serif",
+    "monospace": "IBM Plex Mono, monospace",
+    "baseSizePx": 16,
+    "scaleRatio": 1.25
+  },
+  "shape": {
+    "cornerRadiusSm": 6,
+    "cornerRadiusMd": 10,
+    "cornerRadiusLg": 16
+  },
+  "motion": {
+    "durationMsFast": 120,
+    "durationMsBase": 160,
+    "easingStandard": "cubic-bezier(.2,.6,.2,1)",
+    "reducedMotion": "respect-system"
+  },
+  "avatar": {
+    "shape": "circle",
+    "states": {
+      "idle": { "color": "#454B52", "animated": false },
+      "listening": { "color": "#3F52E8", "animated": true, "animationMs": 160 },
+      "thinking": { "color": "#57574F", "animated": true, "animationMs": 900 },
+      "needsApproval": { "color": "#F5A623", "animated": false },
+      "error": { "color": "#B3402D", "animated": false },
+      "success": { "color": "#2F7D4F", "animated": true, "animationMs": 200 }
+    }
+  },
+  "launcher": {
+    "position": "bottom-right",
+    "backgroundColor": "#161613",
+    "iconColor": "#FFFFFF",
+    "presenceIndicatorColor": "#2F7D4F"
+  },
+  "header": {
+    "backgroundColor": "#FFFFFF",
+    "textColor": "#161613",
+    "showPresenceLabel": true
+  },
+  "approvalBanner": {
+    "backgroundColor": "#FFF4E0",
+    "borderColor": "#F5A623",
+    "textColor": "#161613",
+    "elevationZIndex": 50,
+    "note": "This SDK field must render above every other in-widget surface -- see agent-states.md's pre-action gate rules."
+  }
+}

@@ -12,3 +12,10 @@ Open any `preview.html` directly in a browser (no build step; pulls fonts from G
 | [`maximalist-editorial/`](maximalist-editorial/) | Maximalist / Editorial | Editorial confidence, not decoration for its own sake |
 
 Each `theme.json` also records what got cut during the self-critique pass in `meta.removedElement` — worth checking, since it's the part of the process that doesn't show up in a static screenshot.
+
+## The other two output adapters
+
+`preview.html` is the plain-HTML/CSS adapter. The other two adapters `platform-and-output.md` describes are demonstrated once, on `minimalist-swiss/`, rather than duplicated across all four:
+
+- [`minimalist-swiss/adapter-react/`](minimalist-swiss/adapter-react/) — a `tailwind.config.js` extension generated from the theme, plus `ApprovalBanner.tsx` built on it. The component type-checks clean under `tsc --strict` (verified against real `react`/`@types/react`, not just read over).
+- [`minimalist-swiss/adapter-widget-sdk/`](minimalist-swiss/adapter-widget-sdk/) — `widget-theme.json`, a flat config in the shape a typical third-party chat-widget SDK expects (color map, font map, corner-radius, avatar/state map).
