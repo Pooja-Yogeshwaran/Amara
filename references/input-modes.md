@@ -33,6 +33,17 @@ Trigger phrases: precise token-level asks ("make the accent #2D5BFF", "the appro
 
 This is also the mechanism for the required **targeted override syntax** used post-generation: system-wide defaults (trust signals, session chrome, performance budgets — see SKILL.md) apply uniformly by default, and a request like "make the history panel more minimal than the rest" patches just that component's tokens without re-running the whole elicitation flow.
 
+## 5. Trend-aware / live research
+
+Trigger phrases: "what's trending in chat UI right now," "give me something that feels current for 2026," a named reference the taxonomy doesn't cover, a product/library reference that may postdate this skill's training data, or any request implying "the built-in 11 style families and resource list might be stale for this."
+
+**Process:** the 11-family taxonomy (`style-taxonomy.md`) and the resource picks (`resource-library.md`) are a snapshot, not a live feed — they will drift out of date, and design trends genuinely move (new open-source chat-UI kits ship, new interaction patterns become expected, new fonts/palettes come into fashion). When a request signals that currency matters, **use live web research before generating** rather than answering only from the static taxonomy:
+- A genuinely new/trending *aesthetic* the taxonomy doesn't name → research it, then generate as an interpolation between the nearest existing anchors (per `style-taxonomy.md`'s "continuous spectrum, not a fixed picker" rule) rather than forcing it into an ill-fitting existing label. If it's different enough to be its own anchor, that's the trigger for `styles/_template.md`'s contributor path — propose adding it, don't just quietly use it once.
+- A named reference or resource-library pick that might be outdated → verify before asserting, the same discipline already required for license claims (`resource-library.md`'s "verified" notes) and for reference-mode's characteristic-extraction rule. Don't recommend a library, font, or pattern by name from memory alone when it's checkable and the request implies currency matters.
+- This is the same move already demonstrated in this repo's own build process — the agent-state research that grounded `agent-states.md` in HAX/PAIR and the shipping-library research behind `resource-library.md`'s UI-kit picks came from live research, not the taxonomy inventing itself. That's not a one-off; it's how this input mode is supposed to work whenever currency is actually in question.
+
+Record what got researched and why in `meta.generatedFrom` (add a `"trend-research"` mode entry) so the provenance is visible in the output, same as any other input mode.
+
 ## Emoji policy (part of voice, not a separate toggle)
 
 Don't reduce this to on/off. Specify:

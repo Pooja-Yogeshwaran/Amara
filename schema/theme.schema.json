@@ -33,7 +33,7 @@
           "properties": {
             "modes": {
               "type": "array",
-              "items": { "enum": ["reference", "vibe", "wizard", "override"] }
+              "items": { "enum": ["reference", "vibe", "wizard", "override", "trend-research"] }
             },
             "referenceDescription": {
               "type": "string",
