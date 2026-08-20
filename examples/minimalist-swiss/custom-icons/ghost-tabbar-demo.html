@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Amara — custom thematic icon set (ghost tab bar)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-canvas:#F7F7F5; --bg-surface:#FFFFFF;
+    --text-primary:#161613; --text-secondary:#57574F; --text-muted:#9C9C94; --text-inverse:#FFFFFF;
+    --border-default:#DEDEDA; --border-subtle:#EDEDEA;
+    --accent:#3F52E8;
+    --font-ui:'Archivo',sans-serif; --font-mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg-canvas);font-family:var(--font-ui);color:var(--text-primary);padding:48px 24px;}
+  .wrap{max-width:900px;margin:0 auto;}
+  .kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:600;margin-bottom:8px;}
+  h1{font-size:22px;margin:0 0 12px;font-weight:600;}
+  .note{font-size:14px;line-height:22px;color:var(--text-secondary);max-width:680px;margin:0 0 32px;}
+  .note code{font-family:var(--font-mono);font-size:12.5px;background:var(--border-subtle);padding:1px 4px;border-radius:3px;}
+
+  .panel{width:380px;background:var(--bg-surface);border-radius:16px;box-shadow:0 8px 24px rgba(22,22,19,.10);border:1px solid var(--border-subtle);overflow:hidden;}
+  .panel-header{padding:16px;border-bottom:1px solid var(--border-subtle);font-weight:600;font-size:14px;}
+  .panel-body{padding:24px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-muted);font-size:13px;height:160px;justify-content:center;}
+
+  .tabbar{display:flex;border-top:1px solid var(--border-subtle);}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;cursor:pointer;}
+  .tab svg{width:24px;height:24px;}
+  .tab .ghost-body{fill:none;stroke:var(--text-muted);stroke-width:1.5;stroke-linejoin:round;}
+  .tab.active .ghost-body{fill:var(--accent);stroke:var(--accent);}
+  .tab .eye{fill:var(--bg-surface);}
+  .tab.active .eye{fill:var(--text-inverse);}
+  .tab .badge{stroke:var(--text-muted);stroke-width:1.5;fill:none;}
+  .tab.active .badge{stroke:var(--text-inverse);}
+  .tab-label{font-size:11px;color:var(--text-muted);font-weight:500;}
+  .tab.active .tab-label{color:var(--accent);font-weight:600;}
+
+  .swatch-row{display:flex;gap:32px;margin-top:40px;flex-wrap:wrap;}
+  .swatch{text-align:center;}
+  .swatch svg{width:48px;height:48px;}
+  .swatch-lbl{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Amara · custom thematic icon set</div>
+  <h1>"Cute ghost icons for each tab" — a worked example</h1>
+  <p class="note">
+    A generic open-source icon library (Lucide, used for this system's ordinary UI icons) has no "cute ghost" glyph — that's a thematic/character request, mapped to <code>iconography.customMotif</code> instead of <code>setReference</code>. These three icons are original, hand-authored SVG paths (one shared ghost silhouette, distinguished per tab by a small functional badge) — not sourced from anywhere, so there's no license to get wrong. <code>customMotif.authorship: "hand-authored-original"</code> in <code>theme.json</code>.
+  </p>
+
+  <div class="panel">
+    <div class="panel-header">Finch</div>
+    <div class="panel-body">— thread content above —</div>
+    <div class="tabbar">
+      <div class="tab active">
+        <svg viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/><path class="badge" d="M15.5 6.5 h3 v2.2 h-1.2 l-0.8 0.9 v-0.9 h-1 z"/></svg>
+        <div class="tab-label">Chat</div>
+      </div>
+      <div class="tab">
+        <svg viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/><circle class="badge" cx="16.5" cy="7.5" r="1.6"/><path class="badge" d="M16.5 6.6 v0.9 l0.6 0.6"/></svg>
+        <div class="tab-label">History</div>
+      </div>
+      <div class="tab">
+        <svg viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/><circle class="badge" cx="16.5" cy="7.5" r="1.5"/><circle class="badge" cx="16.5" cy="7.5" r="0.4" fill="var(--text-muted)" stroke="none"/></svg>
+        <div class="tab-label">Settings</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch">
+      <svg viewBox="0 0 24 24"><path class="ghost-body" style="stroke:var(--text-primary)" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle fill="var(--text-primary)" cx="9.5" cy="10.3" r="1"/><circle fill="var(--text-primary)" cx="14.5" cy="10.3" r="1"/></svg>
+      <div class="swatch-lbl">shared base silhouette</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

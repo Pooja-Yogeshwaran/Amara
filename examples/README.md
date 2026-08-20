@@ -19,3 +19,7 @@ Each `theme.json` also records what got cut during the self-critique pass in `me
 
 - [`minimalist-swiss/adapter-react/`](minimalist-swiss/adapter-react/) — a `tailwind.config.js` extension generated from the theme, plus `ApprovalBanner.tsx` built on it. The component type-checks clean under `tsc --strict` (verified against real `react`/`@types/react`, not just read over).
 - [`minimalist-swiss/adapter-widget-sdk/`](minimalist-swiss/adapter-widget-sdk/) — `widget-theme.json`, a flat config in the shape a typical third-party chat-widget SDK expects (color map, font map, corner-radius, avatar/state map).
+
+## Custom & thematic icon requests ("cute ghost icons for each tab")
+
+A generic open-source icon library covers *semantic* UI icons (send, close, settings) but not a *thematic* request like this — see [`minimalist-swiss/custom-icons/`](minimalist-swiss/custom-icons/) for a worked example: three original, hand-authored ghost icons (one shared silhouette, a small badge distinguishing each tab) applied to a real tab bar, with active/inactive states. Maps to the schema's `iconography.customMotif` and `components.tabBar` — see `references/resource-library.md`'s "Custom & thematic icon sets" section for the authorship decision this requires (hand-authored / AI-generated-with-license-review / commissioned).

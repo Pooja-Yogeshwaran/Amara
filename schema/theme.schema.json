@@ -161,7 +161,21 @@
         "styleDescriptor": { "type": "string", "description": "e.g. 'rounded, 1.5px stroke, no fill' -- a written spec so any icon added later stays consistent." },
         "strokeWidth": { "type": "number" },
         "cornerStyle": { "enum": ["sharp", "rounded", "mixed"] },
-        "setReference": { "type": "string", "description": "Name of an icon set consistent with styleDescriptor (e.g. 'Phosphor Regular', 'Lucide'), not bundled assets." }
+        "setReference": { "type": "string", "description": "Name of an OPEN-SOURCE icon set consistent with styleDescriptor (e.g. 'Phosphor Regular', 'Lucide'), not bundled assets. Covers generic/semantic UI icons only (send, close, settings, chevron) -- for a thematic/character request ('cute ghost icons'), use customMotif instead, since no open-source library reliably has the exact right mascot." },
+        "customMotif": {
+          "type": "object",
+          "description": "Optional. For thematic or character-based icon requests a generic open-source library can't satisfy (a mascot motif, a branded character set, 'cute ghost icons for each tab'). Modeled like a miniature version of avatar's state machine, not sourced from setReference -- see references/resource-library.md's 'Custom & thematic icon sets' section for the authorship decision this requires.",
+          "required": ["theme", "authorship"],
+          "properties": {
+            "theme": { "type": "string", "description": "One-line description of the motif, e.g. 'friendly rounded ghost, two dot eyes, no mouth'." },
+            "tier": { "enum": ["static", "micro-interaction", "lottie", "gif", "video-loop"], "description": "Same tier ladder as avatar/motion.iconTier -- see motion-icon-tiers.md." },
+            "authorship": {
+              "enum": ["hand-authored-original", "ai-generated-review-license", "commissioned"],
+              "description": "hand-authored-original = simple original SVG paths drawn to match styleDescriptor, safe by construction. ai-generated-review-license = made with a proprietary tool (per resource-library.md's AI-tools caveat) -- the generated asset's license must be independently reviewed before shipping, never assumed. commissioned = sourced from a human illustrator under an explicit license, outside Amara's own generation."
+            },
+            "appliesTo": { "type": "array", "items": { "type": "string" }, "description": "Which slots use this motif, e.g. ['tabBar.chat', 'tabBar.history', 'tabBar.settings']." }
+          }
+        }
       }
     },
 
@@ -199,6 +213,13 @@
         "input": { "type": "object" },
         "footer": { "type": "object" },
         "emptyState": { "type": "object" },
+        "tabBar": {
+          "type": "object",
+          "description": "Optional. Multi-section navigation (e.g. Chat / History / Settings) for full-app or expanded-widget platform modes -- see platform-and-output.md. Per-tab icons are frequently a thematic/custom set rather than generic UI icons; reference iconography.customMotif rather than iconography.setReference when that's the case.",
+          "properties": {
+            "tabs": { "type": "array", "items": { "type": "object", "properties": { "label": { "type": "string" }, "iconRef": { "type": "string", "description": "Dot-path into iconography.setReference (generic) or iconography.customMotif (thematic)." } } } }
+          }
+        },
         "presenceIndicator": {
           "type": "object",
           "description": "online / working-in-background / asleep. Distinct from thinkingVsDoing.",

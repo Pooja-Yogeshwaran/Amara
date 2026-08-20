@@ -56,7 +56,18 @@
     "easing": { "standard": "cubic-bezier(.2,.6,.2,1)", "enter": "cubic-bezier(.2,.6,.2,1)", "exit": "cubic-bezier(.4,0,1,1)" },
     "reducedMotion": { "strategy": "disable transform/opacity transitions, keep instant state swaps", "appliesTo": ["avatar", "presenceIndicator", "approvalBanner-entry"] }
   },
-  "iconography": { "styleDescriptor": "1.5px stroke, no fill, sharp-to-slightly-rounded joins", "strokeWidth": 1.5, "cornerStyle": "sharp", "setReference": "Lucide" },
+  "iconography": {
+    "styleDescriptor": "1.5px stroke, no fill, sharp-to-slightly-rounded joins",
+    "strokeWidth": 1.5,
+    "cornerStyle": "sharp",
+    "setReference": "Lucide",
+    "customMotif": {
+      "theme": "friendly rounded ghost, two dot eyes, no mouth -- one shared silhouette, distinguished per tab by a small badge, not a different character",
+      "tier": "static",
+      "authorship": "hand-authored-original",
+      "appliesTo": ["tabBar.chat", "tabBar.history", "tabBar.settings"]
+    }
+  },
   "avatar": {
     "tier": "micro-interaction",
     "states": {
@@ -75,7 +86,14 @@
       { "token": "inputBar", "shadow": "0 -1px 0 rgba(22,22,19,.06)", "zIndex": 30 },
       { "token": "approvalBanner", "shadow": "0 12px 32px rgba(22,22,19,.18)", "zIndex": 50 }
     ],
-    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 160ms slide-down, no loop" }
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 160ms slide-down, no loop" },
+    "tabBar": {
+      "tabs": [
+        { "label": "Chat", "iconRef": "iconography.customMotif.tabBar.chat" },
+        { "label": "History", "iconRef": "iconography.customMotif.tabBar.history" },
+        { "label": "Settings", "iconRef": "iconography.customMotif.tabBar.settings" }
+      ]
+    }
   },
   "resources": {
     "iconSet": { "name": "Lucide", "url": "https://lucide.dev", "license": "OSI", "note": "1.5px stroke matches iconography.strokeWidth exactly; swap to Tabler if a needed glyph is missing." },
