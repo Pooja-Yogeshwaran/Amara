@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Amara — custom thematic icon set (ghost tab bar)</title>
+<title>Amara — custom thematic icon set (ghost tab bar, adaptive + animated)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,65 +17,119 @@
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg-canvas);font-family:var(--font-ui);color:var(--text-primary);padding:48px 24px;}
-  .wrap{max-width:900px;margin:0 auto;}
+  .wrap{max-width:1000px;margin:0 auto;}
   .kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:600;margin-bottom:8px;}
   h1{font-size:22px;margin:0 0 12px;font-weight:600;}
-  .note{font-size:14px;line-height:22px;color:var(--text-secondary);max-width:680px;margin:0 0 32px;}
+  .note{font-size:14px;line-height:22px;color:var(--text-secondary);max-width:720px;margin:0 0 32px;}
   .note code{font-family:var(--font-mono);font-size:12.5px;background:var(--border-subtle);padding:1px 4px;border-radius:3px;}
 
-  .panel{width:380px;background:var(--bg-surface);border-radius:16px;box-shadow:0 8px 24px rgba(22,22,19,.10);border:1px solid var(--border-subtle);overflow:hidden;}
-  .panel-header{padding:16px;border-bottom:1px solid var(--border-subtle);font-weight:600;font-size:14px;}
-  .panel-body{padding:24px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-muted);font-size:13px;height:160px;justify-content:center;}
+  .row{display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start;}
+  .col-label{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin:0 0 12px;}
 
-  .tabbar{display:flex;border-top:1px solid var(--border-subtle);}
-  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;cursor:pointer;}
-  .tab svg{width:24px;height:24px;}
-  .tab .ghost-body{fill:none;stroke:var(--text-muted);stroke-width:1.5;stroke-linejoin:round;}
-  .tab.active .ghost-body{fill:var(--accent);stroke:var(--accent);}
-  .tab .eye{fill:var(--bg-surface);}
-  .tab.active .eye{fill:var(--text-inverse);}
-  .tab .badge{stroke:var(--text-muted);stroke-width:1.5;fill:none;}
-  .tab.active .badge{stroke:var(--text-inverse);}
+  /* Ghost icon, shared across every layout -- one definition, reused, never redrawn per position */
+  .ghost{width:24px;height:24px;flex-shrink:0;}
+  .ghost .ghost-body{fill:none;stroke:var(--text-muted);stroke-width:1.5;stroke-linejoin:round;}
+  .ghost .eye{fill:var(--bg-surface);}
+  .active .ghost .ghost-body{fill:var(--accent);stroke:var(--accent);}
+  .active .ghost .eye{fill:var(--text-inverse);}
+  /* Micro-interaction tier: the active tab's ghost gets a real, running animation -- a gentle float, not a static icon claiming to be animated */
+  .active .ghost{animation:ghost-float 1.8s ease-in-out infinite;}
+  @keyframes ghost-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-2px);}}
+  @media (prefers-reduced-motion: reduce){ .active .ghost{animation:none;} }
+
+  /* Layout A: bottom bar -- icon over label, horizontal row of tabs (embedded widget / mobile default) */
+  .panel-bottom{width:320px;background:var(--bg-surface);border-radius:16px;box-shadow:0 8px 24px rgba(22,22,19,.10);border:1px solid var(--border-subtle);overflow:hidden;}
+  .panel-bottom .body{height:140px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px;}
+  .tabbar-bottom{display:flex;border-top:1px solid var(--border-subtle);}
+  .tabbar-bottom .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;}
+
+  /* Layout B: left rail -- icon over label, vertical column, full-app desktop default */
+  .panel-left{width:380px;height:220px;background:var(--bg-surface);border-radius:16px;box-shadow:0 8px 24px rgba(22,22,19,.10);border:1px solid var(--border-subtle);display:flex;overflow:hidden;}
+  .rail-left{width:64px;background:var(--bg-canvas);border-right:1px solid var(--border-subtle);display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:24px;}
+  .rail-left .tab{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .panel-left .body{flex:1;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px;}
+
+  /* Layout C: top bar -- icon beside label, horizontal row, dashboard-style full-app */
+  .panel-top{width:380px;background:var(--bg-surface);border-radius:16px;box-shadow:0 8px 24px rgba(22,22,19,.10);border:1px solid var(--border-subtle);overflow:hidden;}
+  .tabbar-top{display:flex;gap:8px;border-bottom:1px solid var(--border-subtle);padding:8px 12px;}
+  .tabbar-top .tab{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:8px;}
+  .tabbar-top .active{background:var(--border-subtle);}
+  .panel-top .body{height:140px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px;}
+
   .tab-label{font-size:11px;color:var(--text-muted);font-weight:500;}
-  .tab.active .tab-label{color:var(--accent);font-weight:600;}
-
-  .swatch-row{display:flex;gap:32px;margin-top:40px;flex-wrap:wrap;}
-  .swatch{text-align:center;}
-  .swatch svg{width:48px;height:48px;}
-  .swatch-lbl{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:8px;}
+  .active .tab-label{color:var(--accent);font-weight:600;}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="kicker">Amara · custom thematic icon set</div>
-  <h1>"Cute ghost icons for each tab" — a worked example</h1>
+  <div class="kicker">Amara · custom icon adaptability</div>
+  <h1>Same ghost icon set — three real layouts, one animated</h1>
   <p class="note">
-    A generic open-source icon library (Lucide, used for this system's ordinary UI icons) has no "cute ghost" glyph — that's a thematic/character request, mapped to <code>iconography.customMotif</code> instead of <code>setReference</code>. These three icons are original, hand-authored SVG paths (one shared ghost silhouette, distinguished per tab by a small functional badge) — not sourced from anywhere, so there's no license to get wrong. <code>customMotif.authorship: "hand-authored-original"</code> in <code>theme.json</code>.
+    <code>components.tabBar.position</code> is layout-adaptive, not fixed to one edge — the same <code>iconography.customMotif</code> ghost icons render correctly whichever edge the host platform puts navigation on (bottom for an embedded widget, a left rail for full-app desktop, a top bar for a dashboard layout), per <code>platform-and-output.md</code>. The active tab's icon also actually animates (a real CSS <code>@keyframes</code> float, micro-interaction tier, with a <code>prefers-reduced-motion</code> fallback) — not just described as animatable.
   </p>
 
-  <div class="panel">
-    <div class="panel-header">Finch</div>
-    <div class="panel-body">— thread content above —</div>
-    <div class="tabbar">
-      <div class="tab active">
-        <svg viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/><path class="badge" d="M15.5 6.5 h3 v2.2 h-1.2 l-0.8 0.9 v-0.9 h-1 z"/></svg>
-        <div class="tab-label">Chat</div>
-      </div>
-      <div class="tab">
-        <svg viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/><circle class="badge" cx="16.5" cy="7.5" r="1.6"/><path class="badge" d="M16.5 6.6 v0.9 l0.6 0.6"/></svg>
-        <div class="tab-label">History</div>
-      </div>
-      <div class="tab">
-        <svg viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/><circle class="badge" cx="16.5" cy="7.5" r="1.5"/><circle class="badge" cx="16.5" cy="7.5" r="0.4" fill="var(--text-muted)" stroke="none"/></svg>
-        <div class="tab-label">Settings</div>
+  <div class="row">
+    <div>
+      <p class="col-label">position: bottom</p>
+      <div class="panel-bottom">
+        <div class="body">— thread content —</div>
+        <div class="tabbar-bottom">
+          <div class="tab active">
+            <svg class="ghost" viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/></svg>
+            <div class="tab-label">Chat</div>
+          </div>
+          <div class="tab">
+            <svg class="ghost" viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/></svg>
+            <div class="tab-label">History</div>
+          </div>
+          <div class="tab">
+            <svg class="ghost" viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/></svg>
+            <div class="tab-label">Settings</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="swatch-row">
-    <div class="swatch">
-      <svg viewBox="0 0 24 24"><path class="ghost-body" style="stroke:var(--text-primary)" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle fill="var(--text-primary)" cx="9.5" cy="10.3" r="1"/><circle fill="var(--text-primary)" cx="14.5" cy="10.3" r="1"/></svg>
-      <div class="swatch-lbl">shared base silhouette</div>
+    <div>
+      <p class="col-label">position: left</p>
+      <div class="panel-left">
+        <div class="rail-left">
+          <div class="tab active">
+            <svg class="ghost" viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/></svg>
+            <div class="tab-label">Chat</div>
+          </div>
+          <div class="tab">
+            <svg class="ghost" viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/></svg>
+            <div class="tab-label">History</div>
+          </div>
+          <div class="tab">
+            <svg class="ghost" viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/></svg>
+            <div class="tab-label">Settings</div>
+          </div>
+        </div>
+        <div class="body">— thread content —</div>
+      </div>
+    </div>
+
+    <div>
+      <p class="col-label">position: top</p>
+      <div class="panel-top">
+        <div class="tabbar-top">
+          <div class="tab active">
+            <svg class="ghost" viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/></svg>
+            <div class="tab-label">Chat</div>
+          </div>
+          <div class="tab">
+            <svg class="ghost" viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/></svg>
+            <div class="tab-label">History</div>
+          </div>
+          <div class="tab">
+            <svg class="ghost" viewBox="0 0 24 24"><path class="ghost-body" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle class="eye" cx="9.5" cy="10.3" r="1"/><circle class="eye" cx="14.5" cy="10.3" r="1"/></svg>
+            <div class="tab-label">Settings</div>
+          </div>
+        </div>
+        <div class="body">— thread content —</div>
+      </div>
     </div>
   </div>
 </div>

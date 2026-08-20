@@ -215,9 +215,10 @@
         "emptyState": { "type": "object" },
         "tabBar": {
           "type": "object",
-          "description": "Optional. Multi-section navigation (e.g. Chat / History / Settings) for full-app or expanded-widget platform modes -- see platform-and-output.md. Per-tab icons are frequently a thematic/custom set rather than generic UI icons; reference iconography.customMotif rather than iconography.setReference when that's the case.",
+          "description": "Optional. Multi-section navigation (e.g. Chat / History / Settings) for full-app or expanded-widget platform modes -- see platform-and-output.md. Per-tab icons are frequently a thematic/custom set rather than generic UI icons; reference iconography.customMotif rather than iconography.setReference when that's the case. Position is layout-adaptive, not fixed -- the same icon set must render correctly whichever edge the host platform places it on (see platform-and-output.md's widget/app/mobile split): a left/right rail stacks icon-over-label in a vertical column, a top/bottom bar lays them out horizontally. Never assume bottom-bar as the only shape.",
           "properties": {
-            "tabs": { "type": "array", "items": { "type": "object", "properties": { "label": { "type": "string" }, "iconRef": { "type": "string", "description": "Dot-path into iconography.setReference (generic) or iconography.customMotif (thematic)." } } } }
+            "tabs": { "type": "array", "items": { "type": "object", "properties": { "label": { "type": "string" }, "iconRef": { "type": "string", "description": "Dot-path into iconography.setReference (generic) or iconography.customMotif (thematic)." } } } },
+            "position": { "enum": ["bottom", "left", "top", "right"], "description": "Which edge of the platform surface the bar occupies. Full-app desktop commonly uses left; embedded widget and mobile commonly use bottom; top is rarer but valid for a dashboard-style full-app layout." }
           }
         },
         "presenceIndicator": {
