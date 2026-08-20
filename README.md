@@ -63,14 +63,6 @@ Same sample chatbot (thread, approval checkpoint, input bar), ten different styl
 
 **Adding a video:** record your screen with any recorder (Windows: Win+G / Xbox Game Bar; Mac: Cmd+Shift+5) while opening a `preview.html`/`index.html` file above, then send the recording to me in chat — I'll save it under `docs/previews/<style-name>.<ext>`, embed it in the table row above, and commit + push both. GIF autoplays inline on GitHub without a click; MP4 needs a click to play, so GIF is the better fit for a table cell if the file size stays reasonable.
 
-## Scope
-
-**In scope:** conversational AI interfaces — chat widgets, agent dashboards, always-on assistant UIs. This is where `theme.schema.json` and the full component set (avatar states, approval banners, presence) apply.
-
-**Not in scope (v1):**
-- Multi-agent / sub-agent handoff UI (roster views, delegation transitions) — a real, adjacent problem this version doesn't solve.
-- `theme.schema.json` conformance for non-chat UI — the schema's required components are chat-agent-shaped and don't map onto a marketing site's hero/nav/product-grid needs. The method generalizes (`/showcase`); the schema doesn't yet.
-- Literal reproduction of any named brand's actual assets — reference-mode input extracts *style characteristics* only, never a logo or literal identity.
 
 ## Repo structure
 
@@ -95,10 +87,6 @@ Both exit non-zero on failure. Every `theme.json` under `/examples` passes both.
 ## Resource library
 
 Every dimension (icon set, font source, illustrations, chart library, UI kit) is a swappable pick, not a hardcoded default — see [`references/resource-library.md`](references/resource-library.md), each entry license-tagged (OSI/OFL/CC0/Free/Freemium). Populated into `theme.json`'s `resources` block; swap any pick with the same override syntax as any other token.
-
-## Honest limitations
-
-- Color and iconography defaults in `references/color-theory.md` are drawn from Western commercial convention and aren't localized — check them for non-Western-commercial audiences rather than trusting them.
 
 ## License
 
