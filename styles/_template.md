@@ -15,4 +15,4 @@ One or two sentences placing this family relative to its neighbors on the contin
 
 ## Worked example (optional but encouraged)
 
-If useful, a short color/type snippet in the same shape as the four in `/examples`, so reviewers can see the family applied rather than only described.
+If useful, a short color/type snippet in the same shape as the ones in `/examples`, so reviewers can see the family applied rather than only described.

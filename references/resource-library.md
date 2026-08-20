@@ -17,7 +17,7 @@ These have a home in `schema/theme.schema.json`'s optional `resources` block —
 ### Fonts
 | Pick | License | Notes |
 |---|---|---|
-| [Google Fonts](https://fonts.google.com) | OFL (per family) | Default source across all four `/examples`. Huge range, easy pairing, CDN or self-host. |
+| [Google Fonts](https://fonts.google.com) | OFL (per family) | Default source across most `/examples`. Huge range, easy pairing, CDN or self-host. |
 | [Fontshare](https://www.fontshare.com) | Free (per-family terms vary, many OFL) | Smaller, more distinctive catalog — good when a style family wants to avoid the most-common Google Fonts picks. |
 | [Font Squirrel](https://www.fontsquirrel.com) | Mostly OFL/Free, filterable by commercial-use | Useful for self-hosted `@font-face` kits without a Google Fonts CDN dependency. |
 
