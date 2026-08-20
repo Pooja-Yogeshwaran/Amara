@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "styleFamily": "Glassmorphism, futuristic-white register (material-derived: cool glass + one warm metal)",
+    "designPrinciple": "Cool as brushed glass, warm exactly once -- the rose-gold never spreads past the one moment it's meant to mark.",
+    "removedElement": "First draft used the rose-gold accent on the primary CTA, the tab-bar active state, and link text -- three places for one 'warm metal' idea to show up read as an accent color, not a material contrast. Cut it down to exactly two surfaces that earn the metaphor: the orb's core glow and the single primary CTA. Everything else stays cool chrome and glass.",
+    "version": "1.0.0",
+    "generatedFrom": {
+      "modes": ["vibe"],
+      "vibeWords": ["futuristic", "white", "glass", "classy"],
+      "overridesApplied": []
+    }
+  },
+  "color": {
+    "harmonyModel": "material-derived",
+    "distributionRatio": { "dominant": 75, "secondary": 18, "accent": 7 },
+    "primitive": {
+      "neutral": { "0": "#FFFFFF", "50": "#F4F6F8", "100": "#E6EAEF", "300": "#C2CAD3", "500": "#66707D", "700": "#414B57", "900": "#1B2129" },
+      "primary": { "500": "#6B7785", "700": "#46505C" },
+      "secondary": { "500": "#D9A26C", "700": "#8C5F2E" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.0", "surface": "primitive.neutral.0@0.65-blur", "surfaceRaised": "primitive.neutral.0@0.8-blur", "overlay": "primitive.neutral.900@0.35" },
+      "text": { "primary": "primitive.neutral.900", "secondary": "primitive.neutral.700", "muted": "primitive.neutral.500", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.0@0.5", "subtle": "primitive.neutral.0@0.3", "focus": "primitive.primary.700" },
+      "success": "#1D7A5F", "warning": "primitive.secondary.700", "danger": "#B23A3A", "info": "primitive.primary.700",
+      "agentBubble": "primitive.neutral.0", "userBubble": "primitive.neutral.50",
+      "approvalRequired": "#6B4FA8"
+    },
+    "dark": {
+      "background": { "canvas": "#0F1216", "surface": "#171B20@0.65-blur", "surfaceRaised": "#1D222A@0.8-blur" },
+      "text": { "primary": "#F4F6F8", "secondary": "#C2CAD3", "muted": "#7C8896" },
+      "agentBubble": "#171B20", "userBubble": "#1D222A"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.25,
+    "families": { "ui": "Manrope", "messageBody": "Instrument Sans", "monospace": "Red Hat Mono" },
+    "weights": [400, 500, 600],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 16 }, { "token": "sm", "px": 14, "lineHeight": 20 },
+      { "token": "base", "px": 16, "lineHeight": 24 }, { "token": "lg", "px": 20, "lineHeight": 28 }, { "token": "xl", "px": 25, "lineHeight": 32 }
+    ]
+  },
+  "spacing": { "baseUnit": 8, "scale": [8, 16, 24, 32, 48, 64, 96] },
+  "motion": {
+    "iconTier": "micro-interaction",
+    "duration": { "instant": 90, "fast": 140, "base": 200, "slow": 320 },
+    "easing": { "standard": "cubic-bezier(.16,1,.3,1)", "enter": "cubic-bezier(.16,1,.3,1)", "exit": "ease-in" },
+    "reducedMotion": { "strategy": "the orb's drag-rotate and spring-back both collapse to an instant snap to the requested state; the blur-intensity transition on panel entry is disabled", "appliesTo": ["avatar", "panel-entry"] },
+    "signatureInteraction": {
+      "element": "avatar",
+      "library": "Hand-rolled RAF integrator (numerically solves the damped mass-spring-damper equation F = -k*x - c*v frame by frame) -- not a third-party library, but a genuine simulation rather than an eased CSS transition, which is the actual distinction motion-icon-tiers.md's rule cares about. Switched from an initial CDN-loaded Motion (motion.dev) implementation after live testing surfaced integration issues with that library's handling of a directly-manipulated rotateY value; the self-contained version removes both the bug and the external network dependency for a file meant to work by opening it directly.",
+      "behavior": "drag the glass orb horizontally -- it rotates in real 3D to show a different depth layer, release and it springs back to center with real momentum and one overshoot bounce.",
+      "trigger": "pointer drag"
+    },
+    "dimensionality": {
+      "element": "avatar",
+      "technique": "css-3d-transform",
+      "behavior": "the avatar is a real 3D object built from layered rotateY faces inside a perspective container, not a flat icon with a fake drop shadow -- dragging reveals genuinely different depth, not just a repositioned sprite."
+    }
+  },
+  "iconography": { "styleDescriptor": "1.5px stroke, no fill, precise geometric proportions -- nothing hand-drawn, everything reads machined/manufactured", "strokeWidth": 1.5, "cornerStyle": "rounded", "setReference": "Iconoir" },
+  "avatar": {
+    "tier": "micro-interaction",
+    "states": {
+      "idle": { "description": "Glass orb, slow ambient drift rotation, core holds a faint neutral glow.", "colorToken": "primitive.primary.500", "motion": "loop, 6s, very low amplitude", "reducedMotionFallback": "static, centered" },
+      "listening": { "description": "Core glow brightens one step, rotation pauses.", "colorToken": "primitive.primary.700", "motion": "single 180ms", "reducedMotionFallback": "static" },
+      "thinking": { "description": "Core glow pulses steadily while the orb holds still.", "colorToken": "primitive.neutral.500", "motion": "loop, 900ms", "reducedMotionFallback": "static frame + label" },
+      "needsApproval": { "description": "Core glow snaps to approval violet, orb stills.", "colorToken": "semantic.approvalRequired", "motion": "single 180ms, then static", "reducedMotionFallback": "static outlined frame" },
+      "error": { "description": "Core glow dims to a red tint.", "colorToken": "semantic.danger", "motion": "single 160ms", "reducedMotionFallback": "static" },
+      "success": { "description": "Core glow flashes warm rose-gold once -- the second of exactly two places that color appears, see meta.removedElement.", "colorToken": "semantic.success", "motion": "single 240ms", "reducedMotionFallback": "static" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "0 2px 8px rgba(27,33,41,.06)", "zIndex": 10 },
+      { "token": "panel", "shadow": "0 20px 48px rgba(27,33,41,.14), inset 0 1px 0 rgba(255,255,255,.6)", "zIndex": 20 },
+      { "token": "orbFace", "shadow": "inset 0 1px 1px rgba(255,255,255,.8), 0 4px 16px rgba(27,33,41,.18)", "zIndex": 15, "note": "The one 3D/signature-interaction surface in this system." },
+      { "token": "approvalBanner", "shadow": "0 18px 44px rgba(107,79,168,.22)", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 200ms rise on cubic-bezier(.16,1,.3,1), no loop" }
+  },
+  "resources": {
+    "iconSet": { "name": "Iconoir", "url": "https://iconoir.com", "license": "OSI" },
+    "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL" },
+    "animationLibrary": { "name": "n/a -- hand-rolled RAF spring integrator", "license": "Free", "note": "See motion.signatureInteraction for why this is self-contained rather than library-driven for this particular example." },
+    "uiKit": { "react": { "name": "Radix UI", "url": "https://www.radix-ui.com", "license": "OSI", "note": "Unstyled -- easier to layer blur/translucency without fighting a pre-styled component's own background, same reasoning as the existing glassmorphism example." } }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary #1B2129 on canvas white #FFFFFF", "ratio": 16.20, "pass": true },
+      { "pairing": "text.secondary neutral.700 #414B57 on canvas white #FFFFFF", "ratio": 8.87, "pass": true },
+      { "pairing": "text.muted neutral.500 #66707D on canvas white #FFFFFF", "ratio": 5.03, "pass": true, "note": "First candidate #7C8896 measured 3.61, fails -- darkened to #66707D. The original #7C8896 is reused as dark-mode muted instead, where it's light enough against the dark canvas to pass on its own." },
+      { "pairing": "primary.500 gunmetal #6B7785 on canvas white #FFFFFF", "ratio": 4.56, "pass": true },
+      { "pairing": "primary.700 gunmetal-dark #46505C on canvas white #FFFFFF", "ratio": 8.20, "pass": true },
+      { "pairing": "white #FFFFFF text on primary.700 fill #46505C", "ratio": 8.20, "pass": true },
+      { "pairing": "secondary.500 rose-gold #D9A26C as text on white #FFFFFF -- REJECTED", "ratio": 2.25, "pass": false, "note": "Fails badly -- rose-gold is fill/glow-only (the orb's core and the CTA fill), never text. secondary.700 below is the text-safe variant." },
+      { "pairing": "secondary.700 rose-gold-dark #8C5F2E on canvas white #FFFFFF", "ratio": 5.54, "pass": true, "note": "First darkening candidate #A97640 measured 3.92 and still failed the 4.5 floor -- darkened further to #8C5F2E, which passes. Used for the CTA label (white-on-fill, see next entry), never as free-standing body text elsewhere." },
+      { "pairing": "white #FFFFFF text on secondary.700 fill #8C5F2E (primary CTA button)", "ratio": 5.54, "pass": true },
+      { "pairing": "approval violet #6B4FA8 on canvas white #FFFFFF", "ratio": 6.35, "pass": true },
+      { "pairing": "danger #B23A3A on canvas white #FFFFFF", "ratio": 5.90, "pass": true },
+      { "pairing": "success #1D7A5F on canvas white #FFFFFF", "ratio": 5.25, "pass": true },
+      { "pairing": "text.primary dark-mode #F4F6F8 on dark canvas #0F1216", "ratio": 17.33, "pass": true }
+    ],
+    "reducedMotionDefault": false,
+    "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },
+    "readingOrder": "DOM order matches visual order; the orb's rotation and glow are decorative/aria-hidden -- avatar state is also communicated via the header status label, never by rotation alone."
+  }
+}

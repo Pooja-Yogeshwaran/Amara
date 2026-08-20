@@ -10,13 +10,19 @@ From the Greek *amarantos* — "unfading," the root of *amaranth*, the mythical 
 
 ## What it does
 
-Amara is scoped specifically to **conversational AI interfaces** — chat widgets, agent dashboards, always-on assistant UIs — not general frontend design. Point it at a reference, a vibe, or let it walk you through a short wizard, and it produces:
+Amara's *specialty* is **conversational AI interfaces** — chat widgets, agent dashboards, always-on assistant UIs — and that's where its deepest, most differentiated work lives (`references/agent-states.md`'s approval checkpoints, presence, thinking-vs-doing distinction; none of that has an equivalent in a general design tool). But the *method* underneath that specialty — divergent-concept generation before narrowing, a real verified token system, an honest self-critique pass — isn't chat-specific, and generalizes to any UI. See [`/showcase`](showcase/) for that method applied outside chat entirely. Point it at a reference, a vibe, or let it walk you through a short wizard, and it produces:
 
 - A framework-agnostic **design-token JSON** (`theme.json`) — color, typography, spacing, motion, iconography, and a full **agent-state component set**: presence indicators, thinking-vs-doing distinction, an approval/checkpoint UI that outranks everything else on screen, background-task notifications, error states designed to read as trustworthy rather than alarming.
 - Optional adapters emitting that token file as **React/Tailwind**, **plain HTML/CSS/JS**, or a **theme-config object** for existing chat-widget SDKs — the point at which "AI-generated design" becomes something you can actually ship.
 - A **self-critique QA pass** run automatically before anything is presented: contrast checks, spacing/type-scale discipline, a consistency audit, and confirmation that at least one thing was deliberately cut from the first draft. The contrast and spacing/type-scale checks aren't just described in prose — `scripts/check-contrast.js` and `scripts/check-tokens.js` mechanically recompute them from the actual token values and rendered CSS, so a passing QA claim is independently verifiable rather than self-reported. See [Verification tooling](#verification-tooling) below.
 
-See it applied across nine style tiers in [`/examples`](examples/) before installing.
+See it applied across ten style tiers in [`/examples`](examples/) before installing, and two favorites below.
+
+## A couple of favorites
+
+**[Futuristic white/glass chatbot](examples/futuristic-white-glass/)** — cool brushed-chrome + glass, warm rose-gold reserved for exactly two moments, and a genuinely three-dimensional avatar: a real CSS `rotateY` orb you can drag, released with a hand-rolled damped-spring integrator (an actual numerical simulation of the mass-spring-damper equation, not an eased CSS transition standing in for one). Fully schema-conformant — this is what Amara's chatbot pipeline actually produces end to end, contrast-verified and token-scale-verified like every other `/examples` entry.
+
+**[Water bottle landing page](showcase/waterbottle-landing/)** — a marketing site, built to test the same underlying method (real typographic pairing, a verified color system, one deliberately-cut element) outside Amara's chat-specific schema entirely. Real IntersectionObserver scroll-reveal, a pointer-driven product tilt, and an animated liquid surface drawn frame-by-frame from an actual sine function, not a looping GIF. Lives under `/showcase`, not `/examples`, because it doesn't use `theme.schema.json` — that schema's required components (avatar states, approval banners) don't apply to a page with no agent in it. Same craft bar, honestly different shape of deliverable.
 
 ## Prior art, and why the MIT license here is safe
 
@@ -94,16 +100,19 @@ amara/
 ├── styles/
 │   ├── _template.md             copy this to add a new style family
 │   └── README.md
-└── examples/                    the same sample chatbot across nine style tiers, each with a theme.json
-    ├── minimalist-swiss/
-    ├── claymorphism/
-    ├── brutalism/
-    ├── maximalist-editorial/
-    ├── neumorphism/
-    ├── glassmorphism/
-    ├── corporate-enterprise/
-    ├── playful-funky/
-    └── retro-skeuomorphic/
+├── examples/                    the same sample chatbot across ten style tiers, each with a theme.json
+│   ├── minimalist-swiss/
+│   ├── claymorphism/
+│   ├── brutalism/
+│   ├── maximalist-editorial/
+│   ├── neumorphism/
+│   ├── glassmorphism/
+│   ├── corporate-enterprise/
+│   ├── playful-funky/
+│   ├── retro-skeuomorphic/
+│   └── futuristic-white-glass/
+└── showcase/                    Amara's underlying method applied outside the chat-specific schema
+    └── waterbottle-landing/     a marketing page, not a theme.json output -- see its README section above
 ```
 
 ## Adding a new style family
@@ -119,7 +128,7 @@ No change to `SKILL.md` or `schema/theme.schema.json` required.
 ## Explicitly out of scope for v1
 
 - **Multi-agent / sub-agent handoff UI.** A real and adjacent problem — a roster view, delegation transitions, per-agent presence — but not one this version solves. If asked, the skill says so rather than improvising an unvalidated pattern.
-- **General website/app generation.** Amara reasons about conversational-agent surfaces specifically. For arbitrary frontend work, use a general UI-design skill instead.
+- **`theme.schema.json` conformance for non-chat UI.** The schema's required components (avatar state machine, approval banners, presence indicators) are built for conversational agents and don't map onto a marketing site's actual components (hero, nav, product grid). The underlying *method* generalizes — see `/showcase` — but there's no schema, adapters, or component library yet for general frontend work the way there is for chat. Building that out is a real, larger undertaking than adding one showcase page, not something this version claims to already solve.
 - **Literal reproduction of any named brand's actual assets.** Reference-mode input extracts and re-expresses *style characteristics* (weight, proportion, rhythm, palette feel) — never a brand's logo, trademarked marks, or literal identity. See `references/input-modes.md`.
 
 ## License
