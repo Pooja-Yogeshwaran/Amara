@@ -132,6 +132,34 @@
       </div>
     </div>
   </div>
+
+  <h1 style="margin-top:48px;">More description, more customized — not the same ghost relabeled</h1>
+  <p class="note">
+    <code>customMotif.theme</code> is meant to drive the actual artwork, not just a filename. Two runs of the same request type, different specificity in, different SVG paths out — same construction technique (simple original shapes, no source asset), genuinely different result.
+  </p>
+  <div class="row">
+    <div>
+      <p class="col-label">theme: "friendly rounded ghost, two dot eyes, no mouth"</p>
+      <div style="display:flex;align-items:center;gap:12px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:12px;padding:16px 20px;">
+        <svg class="ghost" style="width:40px;height:40px;" viewBox="0 0 24 24"><path class="ghost-body" style="stroke:var(--text-primary)" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/><circle fill="var(--text-primary)" cx="9.5" cy="10.3" r="1"/><circle fill="var(--text-primary)" cx="14.5" cy="10.3" r="1"/></svg>
+        <span style="font-size:13px;color:var(--text-secondary);">plain, minimal — matches a Swiss/restrained system</span>
+      </div>
+    </div>
+    <div>
+      <p class="col-label">theme: "same ghost, but Halloween-ish — tiny witch hat, a bit spookier eyebrows"</p>
+      <div style="display:flex;align-items:center;gap:12px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:12px;padding:16px 20px;">
+        <svg class="ghost" style="width:40px;height:40px;" viewBox="0 0 24 24">
+          <path class="ghost-body" style="stroke:var(--text-primary)" d="M6 10 A6 6 0 0 1 18 10 L18 19 L16 17 L14 19 L12 17 L10 19 L8 17 L6 19 Z"/>
+          <circle fill="var(--text-primary)" cx="9.5" cy="10.3" r="1"/>
+          <circle fill="var(--text-primary)" cx="14.5" cy="10.3" r="1"/>
+          <path fill="var(--text-primary)" d="M12 1 L14.5 5.5 L9.5 5.5 Z"/>
+          <rect fill="var(--text-primary)" x="8.5" y="5.2" width="7" height="1" rx="0.3"/>
+          <path stroke="var(--text-primary)" stroke-width="1" fill="none" d="M8 9 l1.5 -0.6 M16 9 l-1.5 -0.6"/>
+        </svg>
+        <span style="font-size:13px;color:var(--text-secondary);">hat + brim + angled brows added — same construction technique, visibly different result</span>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>
