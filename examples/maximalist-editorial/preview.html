@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Amara — Maximalist/Editorial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-canvas:#FBF4E9; --bg-surface:#FFFDF8;
+    --text-primary:#1A140D; --text-secondary:#5C4E37; --text-muted:#A08A62; --text-inverse:#FFFDF8;
+    --border-default:#E1D1B3; --border-subtle:#F1E6D3;
+    --primary:#7A2E3A; --primary-600:#5E212B;
+    --secondary:#C98A2E;
+    --accent:#1F6F63; --accent-600:#17554C;
+    --success:#2F8F5B; --danger:#A63C3C; --approval:#C23B6B; --approval-weak:#FBE7EF;
+    --agent-bubble:#FFFDF8; --user-bubble:#F1E6D3;
+    --font-ui:'Fraunces',serif; --font-body:'Karla',sans-serif; --font-mono:'Fira Code',monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg-canvas);font-family:var(--font-body);color:var(--text-primary);padding:56px 24px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .intro{max-width:660px;margin-bottom:48px;}
+  .kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);font-weight:500;margin-bottom:14px;}
+  h1{font-family:var(--font-ui);font-optical-sizing:auto;font-size:40px;line-height:1.1;margin:0 0 18px;font-weight:500;color:var(--text-primary);}
+  .principle{font-family:var(--font-ui);font-style:italic;font-size:20px;line-height:30px;color:var(--text-secondary);font-weight:400;margin:0;border-left:2px solid var(--accent);padding-left:20px;}
+  .stage{display:flex;gap:44px;align-items:flex-start;flex-wrap:wrap;}
+  .col-label{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin:0 0 14px;}
+
+  .bubble-stage{width:220px;height:220px;background:linear-gradient(160deg,#F1E6D3,#E1D1B3);border-radius:4px;position:relative;flex-shrink:0;}
+  .bubble{position:absolute;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:var(--primary);box-shadow:0 6px 16px rgba(122,46,58,.35);display:flex;align-items:center;justify-content:center;}
+  .bubble svg{width:24px;height:24px;stroke:#fff;}
+  .bubble .dot{position:absolute;top:0;right:0;width:13px;height:13px;border-radius:50%;background:var(--success);border:2px solid #E1D1B3;}
+
+  .panel{width:400px;background:var(--bg-surface);border-radius:6px;box-shadow:0 20px 48px rgba(26,20,13,.16);overflow:hidden;}
+  .panel-header{padding:20px 22px 18px;background:var(--primary);position:relative;}
+  .panel-header::after{content:"";position:absolute;left:22px;right:22px;bottom:0;height:2px;background:var(--secondary);}
+  .header-row{display:flex;align-items:center;gap:12px;}
+  .avatar{width:36px;height:36px;border-radius:50%;background:var(--bg-surface);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
+  .avatar svg{width:16px;height:16px;stroke:var(--primary);}
+  .avatar .presence{position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;border-radius:50%;background:var(--success);border:2px solid var(--primary);}
+  .header-text{flex:1;min-width:0;}
+  .header-name{font-family:var(--font-ui);font-size:19px;font-weight:500;line-height:23px;color:#fff;}
+  .header-status{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.75);line-height:15px;margin-top:2px;}
+  .header-close{width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.8);}
+
+  .thread{padding:22px;display:flex;flex-direction:column;gap:18px;max-height:480px;overflow-y:auto;}
+  .msg{max-width:88%;font-size:16px;line-height:24px;}
+  .msg.agent{align-self:flex-start;background:var(--agent-bubble);border:1px solid var(--border-subtle);border-radius:2px 16px 16px 16px;padding:14px 16px;}
+  .msg.user{align-self:flex-end;background:var(--user-bubble);border-radius:16px 2px 16px 16px;padding:14px 16px;}
+  .msg-meta{font-family:var(--font-mono);font-size:10.5px;color:var(--text-muted);margin-top:4px;}
+
+  .doing-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--accent);color:var(--accent-600);font-family:var(--font-mono);font-size:12px;padding:7px 12px;border-radius:20px;}
+  .doing-chip .spinner{width:7px;height:7px;border-radius:50%;background:var(--accent);}
+
+  .approval{align-self:stretch;background:var(--approval-weak);border-radius:4px;border-left:3px solid var(--approval);padding:16px 18px;box-shadow:0 22px 52px rgba(194,59,107,.22);}
+  .approval-head{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;font-weight:500;color:#93275A;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .approval-body{font-family:var(--font-ui);font-size:18px;line-height:25px;color:var(--text-primary);margin-bottom:14px;font-weight:400;}
+  .approval-actions{display:flex;gap:10px;}
+  .btn{font-family:var(--font-body);font-size:13px;font-weight:600;padding:9px 16px;border-radius:3px;border:none;cursor:pointer;}
+  .btn-primary{background:var(--primary);color:#fff;}
+  .btn-secondary{background:transparent;color:var(--text-secondary);border:1px solid var(--border-default);}
+
+  .code{font-family:var(--font-mono);font-size:12.5px;line-height:20px;background:#241C13;color:#F1E6D3;border-radius:4px;padding:12px 14px;overflow-x:auto;margin-top:10px;}
+  .code .kw{color:#D9A24C}
+  .code .cm{color:#8A7B5C}
+
+  .input-bar{display:flex;align-items:center;gap:10px;padding:16px 22px;border-top:1px solid var(--border-subtle);}
+  .input-field{flex:1;font-family:var(--font-ui);font-style:italic;background:transparent;border-bottom:1px solid var(--border-default);padding:6px 0;font-size:16px;color:var(--text-muted);}
+  .send-btn{width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .send-btn svg{width:15px;height:15px;stroke:#fff;}
+
+  .tokens{margin-top:60px;border-top:1px solid var(--border-default);padding-top:36px;}
+  .tokens h2{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin:0 0 22px;font-weight:500;}
+  .swatches{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;}
+  .swatch{width:68px;}
+  .swatch .chip{height:48px;border-radius:4px;}
+  .swatch .lbl{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-top:6px;}
+  .type-scale{display:flex;flex-direction:column;gap:12px;}
+  .type-scale div span{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-left:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <div class="kicker">Amara · Maximalist / Editorial</div>
+    <h1>Support agent, written well.</h1>
+    <p class="principle">"Editorial confidence, not decoration for its own sake. Typography and whitespace carry the expression, so every additional color or flourish has to earn a specific job — and loses that job the moment two of them compete for it."</p>
+  </div>
+
+  <div class="stage">
+    <div>
+      <p class="col-label">Collapsed</p>
+      <div class="bubble-stage">
+        <div class="bubble">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="col-label">Open — thread with checkpoint</p>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="header-row">
+            <div class="avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+              <div class="presence"></div>
+            </div>
+            <div class="header-text">
+              <div class="header-name">Marlow</div>
+              <div class="header-status">ONLINE</div>
+            </div>
+            <div class="header-close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="thread">
+          <div class="msg agent">I found it — the deploy failed because staging is missing one setting. Not your code, just a gap in configuration.</div>
+          <div class="msg user">Can you fix it?</div>
+          <div class="doing-chip"><span class="spinner"></span>Checking staging config</div>
+
+          <div class="approval">
+            <div class="approval-head">Approval needed</div>
+            <div class="approval-body">Set the missing webhook secret on staging, then redeploy?</div>
+            <div class="approval-actions">
+              <button class="btn btn-primary">Approve</button>
+              <button class="btn btn-secondary">Not now</button>
+            </div>
+          </div>
+
+          <div class="msg agent">
+            Here's the line that changed:
+            <div class="code"><span class="cm">// webhook.ts</span><br><span class="kw">const</span> secret = env.STRIPE_WEBHOOK_SECRET;</div>
+          </div>
+          <div class="msg-meta">Marlow · 2 minutes ago</div>
+        </div>
+
+        <div class="input-bar">
+          <div class="input-field">Message Marlow…</div>
+          <div class="send-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tokens">
+    <h2>Color</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#7A2E3A"></div><div class="lbl">primary.500</div></div>
+      <div class="swatch"><div class="chip" style="background:#C98A2E"></div><div class="lbl">secondary.500</div></div>
+      <div class="swatch"><div class="chip" style="background:#1F6F63"></div><div class="lbl">accent.500</div></div>
+      <div class="swatch"><div class="chip" style="background:#F1E6D3"></div><div class="lbl">neutral.100</div></div>
+      <div class="swatch"><div class="chip" style="background:#C23B6B"></div><div class="lbl">approval</div></div>
+      <div class="swatch"><div class="chip" style="background:#A63C3C"></div><div class="lbl">danger</div></div>
+    </div>
+    <h2>Type scale — Fraunces / Karla, ratio 1.333</h2>
+    <div class="type-scale">
+      <div style="font-family:var(--font-ui);font-size:30px;font-weight:500;">Reads at a glance <span>xl / 30px</span></div>
+      <div style="font-family:var(--font-ui);font-size:23px;font-style:italic;font-weight:400;">Reads at a glance <span>lg / 23px</span></div>
+      <div style="font-size:17px;">Reads at a glance <span>base / 17px</span></div>
+      <div style="font-size:15px;color:var(--text-secondary);">Reads at a glance <span>sm / 15px</span></div>
+      <div style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);">Reads at a glance <span>xs / 12px</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

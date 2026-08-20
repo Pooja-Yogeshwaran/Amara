@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Amara — Minimalist/Swiss</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-canvas:#F7F7F5; --bg-surface:#FFFFFF; --bg-raised:#FFFFFF;
+    --text-primary:#161613; --text-secondary:#57574F; --text-muted:#9C9C94; --text-inverse:#FFFFFF;
+    --border-default:#DEDEDA; --border-subtle:#EDEDEA;
+    --accent:#3F52E8; --accent-weak:#EDEFFD;
+    --success:#2F7D4F; --warning:#9C6B15; --danger:#B3402D; --approval:#F5A623; --approval-weak:#FFF4E0;
+    --agent-bubble:#FFFFFF; --user-bubble:#EDEDEA;
+    --radius-sm:6px; --radius-md:10px; --radius-lg:16px;
+    --shadow-bubble:0 1px 2px rgba(22,22,19,.08);
+    --shadow-panel:0 8px 24px rgba(22,22,19,.10);
+    --shadow-approval:0 12px 32px rgba(22,22,19,.18);
+    --font-ui:'Archivo',sans-serif; --font-body:'Newsreader',serif; --font-mono:'IBM Plex Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg-canvas);font-family:var(--font-ui);color:var(--text-primary);padding:48px 24px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .intro{max-width:640px;margin-bottom:40px;}
+  .kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);font-weight:600;margin-bottom:8px;}
+  h1{font-size:25px;line-height:32px;margin:0 0 12px;font-weight:600;}
+  .principle{font-family:var(--font-body);font-size:18px;line-height:28px;color:var(--text-secondary);font-style:italic;margin:0;}
+  .stage{display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;}
+  .col-label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);font-weight:600;margin:0 0 12px;}
+
+  /* Collapsed bubble */
+  .bubble-stage{width:220px;height:220px;background:linear-gradient(135deg,#EFEFEA,#E4E4DE);border-radius:20px;position:relative;flex-shrink:0;}
+  .bubble{position:absolute;right:20px;bottom:20px;width:56px;height:56px;border-radius:50%;background:var(--text-primary);box-shadow:var(--shadow-bubble);display:flex;align-items:center;justify-content:center;}
+  .bubble svg{width:24px;height:24px;stroke:var(--text-inverse);}
+  .bubble .dot{position:absolute;top:2px;right:2px;width:12px;height:12px;border-radius:50%;background:var(--success);border:2px solid #E4E4DE;}
+
+  /* Panel */
+  .panel{width:380px;background:var(--bg-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-panel);overflow:hidden;border:1px solid var(--border-subtle);}
+  .panel-header{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--border-subtle);}
+  .avatar{width:32px;height:32px;border-radius:50%;background:var(--text-primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
+  .avatar svg{width:16px;height:16px;stroke:var(--text-inverse);}
+  .avatar .presence{position:absolute;bottom:-1px;right:-1px;width:9px;height:9px;border-radius:50%;background:var(--success);border:2px solid var(--bg-surface);}
+  .header-text{flex:1;min-width:0;}
+  .header-name{font-size:14px;font-weight:600;line-height:18px;}
+  .header-status{font-size:12px;color:var(--text-muted);line-height:16px;}
+  .header-close{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);}
+
+  .thread{padding:16px 18px;display:flex;flex-direction:column;gap:14px;max-height:460px;overflow-y:auto;}
+  .msg{max-width:86%;font-size:15px;line-height:22px;font-family:var(--font-body);}
+  .msg.agent{align-self:flex-start;background:var(--agent-bubble);border:1px solid var(--border-subtle);border-radius:4px 14px 14px 14px;padding:10px 14px;}
+  .msg.user{align-self:flex-end;background:var(--user-bubble);border-radius:14px 4px 14px 14px;padding:10px 14px;font-family:var(--font-ui);font-size:14px;}
+  .msg-meta{font-family:var(--font-ui);font-size:11px;color:var(--text-muted);margin-top:4px;}
+
+  .doing-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:var(--accent-weak);color:var(--accent);font-size:12px;font-weight:500;padding:6px 10px;border-radius:20px;}
+  .doing-chip .spinner{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+
+  .approval{align-self:stretch;background:var(--approval-weak);border:1px solid var(--approval);border-radius:10px;padding:12px 14px;box-shadow:var(--shadow-approval);}
+  .approval-head{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#7A4E0E;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+  .approval-head .sq{width:8px;height:8px;background:var(--approval);border-radius:2px;}
+  .approval-body{font-family:var(--font-body);font-size:14px;line-height:20px;color:var(--text-primary);margin-bottom:10px;}
+  .approval-actions{display:flex;gap:8px;}
+  .btn{font-family:var(--font-ui);font-size:13px;font-weight:600;padding:7px 14px;border-radius:8px;border:none;cursor:pointer;}
+  .btn-primary{background:var(--text-primary);color:var(--text-inverse);}
+  .btn-secondary{background:transparent;color:var(--text-secondary);border:1px solid var(--border-default);}
+
+  .code{font-family:var(--font-mono);font-size:12.5px;line-height:20px;background:#1A1A17;color:#E4E4DE;border-radius:8px;padding:10px 12px;overflow-x:auto;}
+  .code .kw{color:#8FA6FF}
+  .code .cm{color:#8B8B80}
+
+  .input-bar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-top:1px solid var(--border-subtle);}
+  .input-field{flex:1;background:var(--bg-canvas);border:1px solid var(--border-default);border-radius:20px;padding:9px 14px;font-family:var(--font-ui);font-size:14px;color:var(--text-muted);}
+  .send-btn{width:34px;height:34px;border-radius:50%;background:var(--text-primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .send-btn svg{width:15px;height:15px;stroke:var(--text-inverse);}
+
+  /* Token strip */
+  .tokens{margin-top:56px;border-top:1px solid var(--border-default);padding-top:32px;}
+  .tokens h2{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin:0 0 20px;font-weight:600;}
+  .swatches{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+  .swatch{width:64px;}
+  .swatch .chip{height:44px;border-radius:8px;border:1px solid rgba(0,0,0,.06);}
+  .swatch .lbl{font-size:11px;color:var(--text-muted);margin-top:6px;font-family:var(--font-mono);}
+  .type-scale{display:flex;flex-direction:column;gap:10px;}
+  .type-scale div span{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-left:10px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <div class="kicker">Amara · Minimalist / Swiss</div>
+    <h1>Support agent, restrained.</h1>
+    <p class="principle">"Clarity over cleverness. Every element earns its place by reducing the effort it takes to find what you need, never by drawing attention to itself. When in doubt, remove."</p>
+  </div>
+
+  <div class="stage">
+    <div>
+      <p class="col-label">Collapsed</p>
+      <div class="bubble-stage">
+        <div class="bubble">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="col-label">Open — thread with checkpoint</p>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+            <div class="presence"></div>
+          </div>
+          <div class="header-text">
+            <div class="header-name">Finch</div>
+            <div class="header-status">Online</div>
+          </div>
+          <div class="header-close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+
+        <div class="thread">
+          <div class="msg agent">Looked at the failed deploy. It's a missing env var on staging, not the code change.</div>
+          <div class="msg user">Can you fix it?</div>
+          <div class="doing-chip"><span class="spinner"></span>Checking staging config…</div>
+
+          <div class="approval">
+            <div class="approval-head"><span class="sq"></span>Approval needed</div>
+            <div class="approval-body">Set <code>STRIPE_WEBHOOK_SECRET</code> on staging and redeploy?</div>
+            <div class="approval-actions">
+              <button class="btn btn-primary">Approve</button>
+              <button class="btn btn-secondary">Not now</button>
+            </div>
+          </div>
+
+          <div class="msg agent">
+            Here's the diff that broke it:
+            <div class="code" style="margin-top:8px;"><span class="cm">// webhook.ts</span><br><span class="kw">const</span> secret = env.STRIPE_WEBHOOK_SECRET;</div>
+          </div>
+          <div class="msg-meta">Finch · 2m ago</div>
+        </div>
+
+        <div class="input-bar">
+          <div class="input-field">Message Finch…</div>
+          <div class="send-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tokens">
+    <h2>Color</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#161613"></div><div class="lbl">neutral.900</div></div>
+      <div class="swatch"><div class="chip" style="background:#57574F"></div><div class="lbl">neutral.600</div></div>
+      <div class="swatch"><div class="chip" style="background:#DEDEDA"></div><div class="lbl">neutral.200</div></div>
+      <div class="swatch"><div class="chip" style="background:#F7F7F5;border:1px solid #DEDEDA"></div><div class="lbl">neutral.50</div></div>
+      <div class="swatch"><div class="chip" style="background:#3F52E8"></div><div class="lbl">accent.500</div></div>
+      <div class="swatch"><div class="chip" style="background:#F5A623"></div><div class="lbl">approval</div></div>
+      <div class="swatch"><div class="chip" style="background:#2F7D4F"></div><div class="lbl">success</div></div>
+      <div class="swatch"><div class="chip" style="background:#B3402D"></div><div class="lbl">danger</div></div>
+    </div>
+    <h2>Type scale — Archivo / Newsreader, ratio 1.25</h2>
+    <div class="type-scale">
+      <div style="font-size:25px;font-weight:600;">Reads at a glance <span>xl / 25px</span></div>
+      <div style="font-size:20px;font-weight:600;">Reads at a glance <span>lg / 20px</span></div>
+      <div style="font-family:var(--font-body);font-size:16px;">Reads at a glance <span>base / 16px</span></div>
+      <div style="font-size:14px;color:var(--text-secondary);">Reads at a glance <span>sm / 14px</span></div>
+      <div style="font-size:12px;color:var(--text-muted);">Reads at a glance <span>xs / 12px</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

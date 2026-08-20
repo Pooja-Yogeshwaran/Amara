@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "styleFamily": "Brutalism/Neo-brutalism",
+    "designPrinciple": "Honesty over polish. Show the mechanism instead of disguising it — structure, borders, and raw state changes are the decoration. Nothing hides behind a gradient or a blur.",
+    "removedElement": "First draft put a thick offset shadow on every message bubble, not just interactive elements. It made a static thread look like a pile of buttons. Cut the shadow from plain messages — kept it only on things you can actually click or that demand a decision.",
+    "version": "1.0.0",
+    "generatedFrom": {
+      "modes": ["vibe", "override"],
+      "vibeWords": ["raw", "blunt", "confident"],
+      "overridesApplied": ["iconography.strokeWidth"]
+    }
+  },
+  "color": {
+    "harmonyModel": "complementary",
+    "distributionRatio": { "dominant": 65, "secondary": 25, "accent": 10 },
+    "primitive": {
+      "neutral": { "0": "#FFFFFF", "50": "#F4F2ED", "100": "#E8E4DB", "200": "#D6D0C2", "300": "#B0A990", "600": "#4A4536", "800": "#221F17", "900": "#0F0E0A" },
+      "primary": { "500": "#1E3AF2", "600": "#1329C4" },
+      "secondary": { "500": "#FF3B7F", "600": "#D4235F" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.50", "surface": "primitive.neutral.0", "surfaceRaised": "primitive.neutral.0", "overlay": "primitive.neutral.900@0.55" },
+      "text": { "primary": "primitive.neutral.900", "secondary": "primitive.neutral.600", "muted": "primitive.neutral.300", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.900", "subtle": "primitive.neutral.800", "focus": "primitive.primary.500" },
+      "success": "#0F8A3C",
+      "warning": "#B8790C",
+      "danger": "#E01E1E",
+      "info": "primitive.primary.500",
+      "agentBubble": "primitive.neutral.0",
+      "userBubble": "primitive.primary.500",
+      "approvalRequired": "#F5FF3D"
+    },
+    "dark": {
+      "background": { "canvas": "#0F0E0A", "surface": "#1A1810", "surfaceRaised": "#221F17" },
+      "text": { "primary": "#F4F2ED", "secondary": "#B0A990", "muted": "#6E6852" },
+      "agentBubble": "#1A1810",
+      "userBubble": "#1E3AF2"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.333,
+    "families": { "ui": "Archivo Black", "messageBody": "Work Sans", "monospace": "Space Mono" },
+    "weights": [400, 700, 900],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 16 },
+      { "token": "sm", "px": 16, "lineHeight": 22 },
+      { "token": "base", "px": 16, "lineHeight": 24 },
+      { "token": "lg", "px": 21, "lineHeight": 26 },
+      { "token": "xl", "px": 28, "lineHeight": 32 }
+    ]
+  },
+  "spacing": { "baseUnit": 8, "scale": [8, 16, 24, 32, 48, 64] },
+  "motion": {
+    "iconTier": "static",
+    "duration": { "instant": 0, "fast": 60, "base": 90, "slow": 90 },
+    "easing": { "standard": "step-end", "enter": "linear", "exit": "linear" },
+    "reducedMotion": { "strategy": "already near-zero motion by default; the one 90ms snap-transitions become instant state swaps", "appliesTo": ["approvalBanner-entry"] }
+  },
+  "iconography": { "styleDescriptor": "2.5px stroke, hard square caps, no rounding, filled state on active only", "strokeWidth": 2.5, "cornerStyle": "sharp", "setReference": "Iconoir (bold cut)" },
+  "avatar": {
+    "tier": "static",
+    "states": {
+      "idle": { "description": "Flat block mark.", "colorToken": "primitive.neutral.900", "motion": "none", "reducedMotionFallback": "static" },
+      "listening": { "description": "Border flips to primary color.", "colorToken": "primitive.primary.500", "motion": "instant color swap", "reducedMotionFallback": "static" },
+      "thinking": { "description": "Block dithers between two frames.", "colorToken": "primitive.neutral.600", "motion": "60ms hard-cut alternation", "reducedMotionFallback": "static frame + 'THINKING' label" },
+      "needsApproval": { "description": "Block turns approval-yellow, thick border.", "colorToken": "semantic.approvalRequired", "motion": "instant", "reducedMotionFallback": "static" },
+      "error": { "description": "Block turns danger-red, X mark.", "colorToken": "semantic.danger", "motion": "instant", "reducedMotionFallback": "static" },
+      "success": { "description": "Block turns success-green, check mark.", "colorToken": "semantic.success", "motion": "instant", "reducedMotionFallback": "static" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "3px 3px 0 #0F0E0A", "zIndex": 10 },
+      { "token": "panel", "shadow": "6px 6px 0 #0F0E0A", "zIndex": 20 },
+      { "token": "inputBar", "shadow": "none, 3px solid border-top", "zIndex": 30 },
+      { "token": "approvalBanner", "shadow": "8px 8px 0 #0F0E0A", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "instant appear, no transition, single hard border" }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary on background.surface", "ratio": 19.6, "pass": true },
+      { "pairing": "text.inverse on primitive.primary.500", "ratio": 5.7, "pass": true },
+      { "pairing": "text.inverse on userBubble (primary.500)", "ratio": 5.7, "pass": true },
+      { "pairing": "approvalRequired fill with text.primary text", "ratio": 14.9, "pass": true, "note": "F5FF3D is bright enough that dark text on it clears AA comfortably, unlike most approval-accent colors" },
+      { "pairing": "secondary.500 on background.surface", "ratio": 4.6, "pass": true }
+    ],
+    "reducedMotionDefault": true,
+    "focusRing": { "color": "semantic.info", "width": 3, "offset": 0 },
+    "readingOrder": "DOM order matches visual order; thick borders are decorative (aria-hidden), never load-bearing for structure."
+  }
+}

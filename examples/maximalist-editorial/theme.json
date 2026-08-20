@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "styleFamily": "Maximalist/Editorial",
+    "designPrinciple": "Editorial confidence, not decoration for its own sake. Typography and whitespace carry the expression, so every additional color or flourish has to earn a specific job — and loses that job the moment two of them compete for it.",
+    "removedElement": "First draft set a decorative drop-cap treatment on the agent's opening message AND a full-bleed ochre header band AND an animated accent rule under the header name — three expressive moves stacked on one screen region. Kept the header band, cut the drop-cap and the animated rule; the band alone already signals 'this is an edited, considered voice.'",
+    "version": "1.0.0",
+    "generatedFrom": {
+      "modes": ["reference", "vibe"],
+      "referenceDescription": "Extracted from an editorial-press reference: confident serif display type with real optical contrast, generous top/bottom margins on short text blocks, a restrained 2-3 color story where one deep hue does most of the work and a second only ever appears in small accents.",
+      "vibeWords": ["considered", "a little literary", "premium"],
+      "overridesApplied": []
+    }
+  },
+  "color": {
+    "harmonyModel": "split-complementary",
+    "distributionRatio": { "dominant": 64, "secondary": 26, "accent": 10 },
+    "primitive": {
+      "neutral": { "0": "#FFFDF8", "50": "#FBF4E9", "100": "#F1E6D3", "200": "#E1D1B3", "300": "#C6AF85", "400": "#A08A62", "500": "#7A6A4B", "600": "#5C4E37", "700": "#413626", "800": "#2A2218", "900": "#1A140D" },
+      "primary": { "400": "#8E3D4B", "500": "#7A2E3A", "600": "#5E212B" },
+      "secondary": { "400": "#D9A24C", "500": "#C98A2E", "600": "#A66E1F" },
+      "accent": { "400": "#2E8A7A", "500": "#1F6F63", "600": "#17554C" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.50", "surface": "primitive.neutral.0", "surfaceRaised": "primitive.neutral.0", "overlay": "primitive.neutral.900@0.45" },
+      "text": { "primary": "primitive.neutral.900", "secondary": "primitive.neutral.600", "muted": "primitive.neutral.400", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.200", "subtle": "primitive.neutral.100", "focus": "primitive.accent.500" },
+      "success": "#2F8F5B",
+      "warning": "primitive.secondary.600",
+      "danger": "#A63C3C",
+      "info": "primitive.accent.500",
+      "agentBubble": "primitive.neutral.0",
+      "userBubble": "primitive.neutral.100",
+      "approvalRequired": "#C23B6B"
+    },
+    "dark": {
+      "background": { "canvas": "#1A140D", "surface": "#241C13", "surfaceRaised": "#2E2419" },
+      "text": { "primary": "#F5ECDC", "secondary": "#C6AF85", "muted": "#8A7B5C" },
+      "agentBubble": "#241C13",
+      "userBubble": "#332A1C"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.333,
+    "families": { "ui": "Fraunces", "messageBody": "Karla", "monospace": "Fira Code" },
+    "weights": [400, 500, 600],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 17 },
+      { "token": "sm", "px": 15, "lineHeight": 22 },
+      { "token": "base", "px": 17, "lineHeight": 26 },
+      { "token": "lg", "px": 23, "lineHeight": 30 },
+      { "token": "xl", "px": 30, "lineHeight": 36 }
+    ]
+  },
+  "spacing": { "baseUnit": 8, "scale": [8, 16, 24, 32, 48, 64, 96] },
+  "motion": {
+    "iconTier": "micro-interaction",
+    "duration": { "instant": 100, "fast": 180, "base": 260, "slow": 400 },
+    "easing": { "standard": "cubic-bezier(.16,1,.3,1)", "enter": "cubic-bezier(.16,1,.3,1)", "exit": "cubic-bezier(.4,0,1,1)" },
+    "reducedMotion": { "strategy": "collapse the 260ms editorial fade/rise entrances to an instant 1-frame appearance", "appliesTo": ["avatar", "headerBand-entry", "approvalBanner-entry"] }
+  },
+  "iconography": { "styleDescriptor": "1.75px stroke, mostly straight with a single deliberate curved accent per icon, no fill", "strokeWidth": 1.75, "cornerStyle": "mixed", "setReference": "Untitled UI (line)" },
+  "avatar": {
+    "tier": "micro-interaction",
+    "states": {
+      "idle": { "description": "Static ligature-style mark.", "colorToken": "primitive.primary.500", "motion": "none", "reducedMotionFallback": "static" },
+      "listening": { "description": "Underline rule draws in once.", "colorToken": "primitive.accent.500", "motion": "single 220ms width transition", "reducedMotionFallback": "static full-width rule" },
+      "thinking": { "description": "Ellipsis in display italic, soft fade cycle.", "colorToken": "primitive.neutral.500", "motion": "opacity cycle 1100ms loop", "reducedMotionFallback": "static 'thinking' label, no fade" },
+      "needsApproval": { "description": "Mark framed in approval-rose rule.", "colorToken": "semantic.approvalRequired", "motion": "single 260ms rise", "reducedMotionFallback": "static frame" },
+      "error": { "description": "Mark desaturates, small danger rule beneath.", "colorToken": "semantic.danger", "motion": "none", "reducedMotionFallback": "static" },
+      "success": { "description": "Accent-teal check, brief serif flourish.", "colorToken": "semantic.success", "motion": "single 240ms fade", "reducedMotionFallback": "static checkmark" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "0 2px 6px rgba(26,20,13,.10)", "zIndex": 10 },
+      { "token": "panel", "shadow": "0 20px 48px rgba(26,20,13,.16)", "zIndex": 20 },
+      { "token": "inputBar", "shadow": "0 -1px 0 rgba(26,20,13,.08)", "zIndex": 30 },
+      { "token": "approvalBanner", "shadow": "0 22px 52px rgba(194,59,107,.28)", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 260ms rise, editorial-standard easing, no loop" }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary on background.surface", "ratio": 14.9, "pass": true },
+      { "pairing": "text.inverse on primitive.primary.600", "ratio": 8.1, "pass": true },
+      { "pairing": "primitive.accent.600 on background.surface", "ratio": 5.2, "pass": true },
+      { "pairing": "primitive.secondary.600 on background.surface", "ratio": 4.7, "pass": true },
+      { "pairing": "approvalRequired as banner-fill icon vs text.primary body copy", "ratio": 3.4, "pass": false, "note": "used as 2px rule/icon only at 3:1 non-text floor, which it clears; body copy inside the banner stays in text.primary at 14.9:1" }
+    ],
+    "reducedMotionDefault": false,
+    "focusRing": { "color": "semantic.info", "width": 2, "offset": 3 },
+    "readingOrder": "DOM order matches visual order; the header band's decorative rule is aria-hidden."
+  }
+}

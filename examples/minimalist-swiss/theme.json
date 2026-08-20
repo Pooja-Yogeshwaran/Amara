@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "styleFamily": "Minimalist/Swiss",
+    "designPrinciple": "Clarity over cleverness. Every element earns its place by reducing the effort it takes to find what you need, never by drawing attention to itself. When in doubt, remove.",
+    "removedElement": "First draft gave the presence dot a permanent tooltip label ('Online') rendered at all times. Cut it — the dot's color and the header microcopy already say this; the label was explaining what the eye already understood.",
+    "version": "1.0.0",
+    "generatedFrom": {
+      "modes": ["vibe", "wizard"],
+      "vibeWords": ["calm", "trustworthy", "no-nonsense"],
+      "overridesApplied": []
+    }
+  },
+  "color": {
+    "harmonyModel": "monochromatic",
+    "distributionRatio": { "dominant": 62, "secondary": 30, "accent": 8 },
+    "primitive": {
+      "neutral": { "0": "#FFFFFF", "50": "#F7F7F5", "100": "#EDEDEA", "200": "#DEDEDA", "300": "#C4C4BE", "400": "#9C9C94", "500": "#75756C", "600": "#57574F", "700": "#3D3D37", "800": "#262622", "900": "#161613" },
+      "primary": { "500": "#2B2E24", "600": "#1E2019" },
+      "accent": { "400": "#5B6EF5", "500": "#3F52E8", "600": "#2E3EC2" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.50", "surface": "primitive.neutral.0", "surfaceRaised": "primitive.neutral.0", "overlay": "primitive.neutral.900@0.4" },
+      "text": { "primary": "primitive.neutral.900", "secondary": "primitive.neutral.600", "muted": "primitive.neutral.400", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.200", "subtle": "primitive.neutral.100", "focus": "primitive.accent.500" },
+      "success": "#2F7D4F",
+      "warning": "#9C6B15",
+      "danger": "#B3402D",
+      "info": "primitive.accent.500",
+      "agentBubble": "primitive.neutral.0",
+      "userBubble": "primitive.neutral.100",
+      "approvalRequired": "#F5A623"
+    },
+    "dark": {
+      "background": { "canvas": "#121210", "surface": "#1A1A17", "surfaceRaised": "#212119" },
+      "text": { "primary": "#F2F2EE", "secondary": "#B7B7AE", "muted": "#7A7A70" },
+      "agentBubble": "#1A1A17",
+      "userBubble": "#242420"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.25,
+    "families": { "ui": "Archivo", "messageBody": "Newsreader", "monospace": "IBM Plex Mono" },
+    "weights": [400, 500, 600],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 16 },
+      { "token": "sm", "px": 14, "lineHeight": 20 },
+      { "token": "base", "px": 16, "lineHeight": 24 },
+      { "token": "lg", "px": 20, "lineHeight": 28 },
+      { "token": "xl", "px": 25, "lineHeight": 32 }
+    ]
+  },
+  "spacing": { "baseUnit": 4, "scale": [4, 8, 12, 16, 24, 32, 48, 64] },
+  "motion": {
+    "iconTier": "micro-interaction",
+    "duration": { "instant": 80, "fast": 120, "base": 160, "slow": 240 },
+    "easing": { "standard": "cubic-bezier(.2,.6,.2,1)", "enter": "cubic-bezier(.2,.6,.2,1)", "exit": "cubic-bezier(.4,0,1,1)" },
+    "reducedMotion": { "strategy": "disable transform/opacity transitions, keep instant state swaps", "appliesTo": ["avatar", "presenceIndicator", "approvalBanner-entry"] }
+  },
+  "iconography": { "styleDescriptor": "1.5px stroke, no fill, sharp-to-slightly-rounded joins", "strokeWidth": 1.5, "cornerStyle": "sharp", "setReference": "Lucide" },
+  "avatar": {
+    "tier": "micro-interaction",
+    "states": {
+      "idle": { "description": "Static mark, low-key.", "colorToken": "primitive.neutral.700", "motion": "none", "reducedMotionFallback": "static" },
+      "listening": { "description": "Ring pulses once on focus.", "colorToken": "primitive.accent.500", "motion": "single 160ms scale pulse", "reducedMotionFallback": "static ring, no pulse" },
+      "thinking": { "description": "Three-dot ellipsis cycling.", "colorToken": "primitive.neutral.500", "motion": "opacity cycle 900ms loop", "reducedMotionFallback": "static 'thinking…' label" },
+      "needsApproval": { "description": "Mark outlined in approvalRequired color.", "colorToken": "semantic.approvalRequired", "motion": "single entry fade", "reducedMotionFallback": "static outline, no fade" },
+      "error": { "description": "Mark with a small danger-colored corner mark.", "colorToken": "semantic.danger", "motion": "none", "reducedMotionFallback": "static" },
+      "success": { "description": "Brief checkmark overlay.", "colorToken": "semantic.success", "motion": "single 200ms fade", "reducedMotionFallback": "static checkmark, no fade" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "0 1px 2px rgba(22,22,19,.08)", "zIndex": 10 },
+      { "token": "panel", "shadow": "0 8px 24px rgba(22,22,19,.10)", "zIndex": 20 },
+      { "token": "inputBar", "shadow": "0 -1px 0 rgba(22,22,19,.06)", "zIndex": 30 },
+      { "token": "approvalBanner", "shadow": "0 12px 32px rgba(22,22,19,.18)", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 160ms slide-down, no loop" }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary on background.surface", "ratio": 15.8, "pass": true },
+      { "pairing": "text.secondary on background.surface", "ratio": 6.1, "pass": true },
+      { "pairing": "text.inverse on primitive.primary.500", "ratio": 12.4, "pass": true },
+      { "pairing": "accent.500 on background.surface", "ratio": 4.9, "pass": true },
+      { "pairing": "approvalRequired text on background.surface", "ratio": 2.1, "pass": false, "note": "used as border/icon accent only, never as text color — resolved by keeping banner body copy in text.primary" }
+    ],
+    "reducedMotionDefault": false,
+    "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },
+    "readingOrder": "DOM order matches visual order top-to-bottom; RTL flips the input-bar icon cluster only, thread order unchanged."
+  }
+}

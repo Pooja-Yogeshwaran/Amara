@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/amara-design/amara/schema/theme.schema.json",
+  "title": "Amara Theme",
+  "description": "Framework-agnostic token schema for an AI agent/chatbot UI system. Three layers: primitive (raw values) -> semantic (purpose-mapped) -> component (surface-specific refs). Generators consume this file to emit React/Tailwind, plain HTML/CSS/JS, or chat-widget SDK theme configs.",
+  "type": "object",
+  "required": ["meta", "color", "typography", "spacing", "motion", "iconography", "avatar", "components", "a11y"],
+  "properties": {
+
+    "meta": {
+      "type": "object",
+      "description": "Identity of the generated system. designPrinciple is mandatory and must be stated before any token decisions are made -- every token in this file should be traceable back to it.",
+      "required": ["styleFamily", "designPrinciple", "version"],
+      "properties": {
+        "styleFamily": {
+          "type": "string",
+          "description": "Where on the style spectrum this system sits, e.g. 'Minimalist/Swiss', 'Claymorphism', 'Brutalism/Neo-brutalism'. See styles/ for the full taxonomy.",
+          "examples": ["Minimalist/Swiss", "Claymorphism", "Brutalism/Neo-brutalism", "Maximalist/Editorial"]
+        },
+        "designPrinciple": {
+          "type": "string",
+          "description": "2-3 sentence statement generated early and used to accept/reject every later decision. Not decorative copy -- an actual constraint.",
+          "minLength": 20
+        },
+        "removedElement": {
+          "type": "string",
+          "description": "What was deliberately cut from the first draft during the QA pass. Required by the self-critique loop; a non-empty value is evidence restraint was actually applied, not assumed."
+        },
+        "version": { "type": "string" },
+        "generatedFrom": {
+          "type": "object",
+          "description": "Provenance of the input that produced this theme -- which input modes were used and how they were blended.",
+          "properties": {
+            "modes": {
+              "type": "array",
+              "items": { "enum": ["reference", "vibe", "wizard", "override"] }
+            },
+            "referenceDescription": {
+              "type": "string",
+              "description": "If mode included 'reference': a description of the STYLE CHARACTERISTICS extracted (weight, proportion, rhythm, palette feel) -- never the source's literal name used as a brand claim, never copied assets."
+            },
+            "vibeWords": { "type": "array", "items": { "type": "string" } },
+            "overridesApplied": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Dot-paths of fields the user pinned directly, bypassing inference (e.g. 'color.primitive.accent.500', 'components.approvalBanner.elevation')."
+            }
+          }
+        }
+      }
+    },
+
+    "color": {
+      "type": "object",
+      "description": "Three-layer color system. Always define both light and dark. Every semantic pairing must pass WCAG AA before this file is considered valid -- see a11y.contrastReport.",
+      "required": ["harmonyModel", "primitive", "semantic", "dark"],
+      "properties": {
+        "harmonyModel": {
+          "enum": ["monochromatic", "analogous", "complementary", "triadic", "split-complementary"],
+          "description": "See references/color-theory.md for which models suit which style families."
+        },
+        "distributionRatio": {
+          "type": "object",
+          "description": "60/30/10 dominant/secondary/accent sanity check, expressed as approximate area percentage. Applies even in maximalist palettes -- 'more colors' is not exempt from 'one thing dominates'.",
+          "properties": {
+            "dominant": { "type": "number" },
+            "secondary": { "type": "number" },
+            "accent": { "type": "number" }
+          }
+        },
+        "primitive": {
+          "type": "object",
+          "description": "Raw color scales, unassigned to purpose. Each scale is a 50-900 ramp.",
+          "properties": {
+            "neutral": { "type": "object" },
+            "primary": { "type": "object" },
+            "secondary": { "type": "object" },
+            "accent": { "type": "object" }
+          }
+        },
+        "semantic": {
+          "type": "object",
+          "description": "Purpose-mapped tokens, each a reference to a primitive scale step (e.g. 'primitive.primary.600'), not a raw hex.",
+          "properties": {
+            "background": { "type": "object", "properties": { "canvas": {"type":"string"}, "surface": {"type":"string"}, "surfaceRaised": {"type":"string"}, "overlay": {"type":"string"} } },
+            "text": { "type": "object", "properties": { "primary": {"type":"string"}, "secondary": {"type":"string"}, "muted": {"type":"string"}, "inverse": {"type":"string"} } },
+            "border": { "type": "object", "properties": { "default": {"type":"string"}, "subtle": {"type":"string"}, "focus": {"type":"string"} } },
+            "success": {"type":"string"},
+            "warning": {"type":"string"},
+            "danger": {"type":"string"},
+            "info": {"type":"string"},
+            "agentBubble": {"type":"string", "description": "Background of agent-authored message bubbles."},
+            "userBubble": {"type":"string", "description": "Background of user-authored message bubbles."},
+            "approvalRequired": {"type":"string", "description": "Reserved color that must not be reused elsewhere in the system -- see agent-states.md on why the approval banner needs an uncontested color."}
+          }
+        },
+        "dark": {
+          "type": "object",
+          "description": "Full parallel semantic map for dark mode. Not a filter over light values -- generated and contrast-checked independently."
+        }
+      }
+    },
+
+    "typography": {
+      "type": "object",
+      "required": ["scaleRatio", "families", "scale"],
+      "properties": {
+        "scaleRatio": {
+          "type": "number",
+          "enum": [1.25, 1.333],
+          "description": "Type scale ratio. Max 4-5 distinct sizes system-wide, all derived from this ratio off a base size -- no off-scale one-offs."
+        },
+        "families": {
+          "type": "object",
+          "properties": {
+            "ui": { "type": "string", "description": "Chrome: header, buttons, labels, timestamps." },
+            "messageBody": { "type": "string", "description": "Can differ from ui for a real typographic pairing -- avoid defaulting both to the same grotesque." },
+            "monospace": { "type": "string", "description": "Code blocks and fallback for structured/tabular agent output." }
+          }
+        },
+        "weights": { "type": "array", "items": { "type": "integer" }, "maxItems": 3, "description": "Cap at 2-3 weights system-wide." },
+        "scale": {
+          "type": "array",
+          "maxItems": 5,
+          "description": "Ordered size steps, each traceable to base * scaleRatio^n.",
+          "items": { "type": "object", "properties": { "token": {"type":"string"}, "px": {"type":"number"}, "lineHeight": {"type":"number"} } }
+        }
+      }
+    },
+
+    "spacing": {
+      "type": "object",
+      "required": ["baseUnit", "scale"],
+      "properties": {
+        "baseUnit": { "enum": [4, 8] },
+        "scale": { "type": "array", "items": { "type": "number" }, "description": "All spacing in the system must be a multiple drawn from this array -- no arbitrary values." }
+      }
+    },
+
+    "motion": {
+      "type": "object",
+      "required": ["iconTier", "duration", "easing", "reducedMotion"],
+      "properties": {
+        "iconTier": {
+          "enum": ["static", "micro-interaction", "lottie", "gif", "video-loop"],
+          "description": "See references/motion-icon-tiers.md. 'gif' requires explicit opt-in and a documented warning; 'video-loop' should almost never be chosen for a widget."
+        },
+        "duration": { "type": "object", "properties": { "instant": {"type":"number"}, "fast": {"type":"number"}, "base": {"type":"number"}, "slow": {"type":"number"} } },
+        "easing": { "type": "object", "properties": { "standard": {"type":"string"}, "enter": {"type":"string"}, "exit": {"type":"string"} } },
+        "reducedMotion": {
+          "type": "object",
+          "description": "Non-optional fallback per animated element -- required even for gif/video tiers, where it typically means 'freeze on first frame'.",
+          "properties": { "strategy": {"type":"string"}, "appliesTo": {"type":"array","items":{"type":"string"}} }
+        }
+      }
+    },
+
+    "iconography": {
+      "type": "object",
+      "properties": {
+        "styleDescriptor": { "type": "string", "description": "e.g. 'rounded, 1.5px stroke, no fill' -- a written spec so any icon added later stays consistent." },
+        "strokeWidth": { "type": "number" },
+        "cornerStyle": { "enum": ["sharp", "rounded", "mixed"] },
+        "setReference": { "type": "string", "description": "Name of an icon set consistent with styleDescriptor (e.g. 'Phosphor Regular', 'Lucide'), not bundled assets." }
+      }
+    },
+
+    "avatar": {
+      "type": "object",
+      "description": "The agent's persona mark, modeled as a state machine -- never a single static image.",
+      "required": ["tier", "states"],
+      "properties": {
+        "tier": { "enum": ["static", "micro-interaction", "lottie", "gif", "video-loop"] },
+        "states": {
+          "type": "object",
+          "required": ["idle", "listening", "thinking", "needsApproval", "error", "success"],
+          "properties": {
+            "idle": { "$ref": "#/$defs/avatarState" },
+            "listening": { "$ref": "#/$defs/avatarState" },
+            "thinking": { "$ref": "#/$defs/avatarState" },
+            "needsApproval": { "$ref": "#/$defs/avatarState" },
+            "error": { "$ref": "#/$defs/avatarState" },
+            "success": { "$ref": "#/$defs/avatarState" }
+          }
+        }
+      }
+    },
+
+    "components": {
+      "type": "object",
+      "description": "Component-layer tokens: each field is a reference into semantic/primitive tokens plus layout constants, never a new raw value.",
+      "properties": {
+        "bubbleCollapsed": { "type": "object" },
+        "bubbleOpen": { "type": "object" },
+        "header": { "type": "object" },
+        "thread": { "type": "object" },
+        "messageBubbleAgent": { "type": "object" },
+        "messageBubbleUser": { "type": "object" },
+        "input": { "type": "object" },
+        "footer": { "type": "object" },
+        "emptyState": { "type": "object" },
+        "presenceIndicator": {
+          "type": "object",
+          "description": "online / working-in-background / asleep. Distinct from thinkingVsDoing.",
+          "properties": { "online": {"type":"object"}, "workingInBackground": {"type":"object"}, "asleep": {"type":"object"} }
+        },
+        "thinkingVsDoing": {
+          "type": "object",
+          "description": "Visual distinction between 'model is reasoning' and 'agent is taking an action' (tool call, API request). Must read as two different things at a glance."
+        },
+        "approvalBanner": {
+          "type": "object",
+          "description": "Must out-rank every other element on screen when present -- highest elevation token, reserved color, motion used once on entry only (not looping).",
+          "properties": { "elevation": {"type":"string"}, "color": {"type":"string"}, "entryMotion": {"type":"string"} }
+        },
+        "backgroundTaskNotification": { "type": "object" },
+        "activityLog": { "type": "object", "description": "Optional transparency log of agent actions." },
+        "errorState": { "type": "object", "description": "Must read as trustworthy, not alarming -- see agent-states.md." },
+        "memoryIndicator": { "type": "object" },
+        "elevationScale": {
+          "type": "array",
+          "description": "Ordered z-axis/shadow steps, reused everywhere rather than invented per component. bubble < input bar < approvalBanner.",
+          "items": { "type": "object", "properties": { "token": {"type":"string"}, "shadow": {"type":"string"}, "zIndex": {"type":"integer"} } }
+        }
+      }
+    },
+
+    "a11y": {
+      "type": "object",
+      "required": ["contrastMode", "reducedMotionDefault", "focusRing"],
+      "properties": {
+        "contrastMode": { "enum": ["AA"], "description": "AA is the floor, not a toggle. Generation that fails AA is rejected and regenerated, never shipped with a caveat." },
+        "contrastReport": {
+          "type": "array",
+          "description": "Every text/background pairing checked, with pass/fail. Produced by the QA pass -- see references/qa-checklist.md.",
+          "items": { "type": "object", "properties": { "pairing": {"type":"string"}, "ratio": {"type":"number"}, "pass": {"type":"boolean"} } }
+        },
+        "reducedMotionDefault": { "type": "boolean" },
+        "focusRing": { "type": "object", "properties": { "color": {"type":"string"}, "width": {"type":"number"}, "offset": {"type":"number"} } },
+        "readingOrder": { "type": "string", "description": "Note on DOM/ARIA order vs visual order, for RTL and screen readers." }
+      }
+    }
+  },
+
+  "$defs": {
+    "avatarState": {
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "colorToken": { "type": "string" },
+        "motion": { "type": "string" },
+        "reducedMotionFallback": { "type": "string" }
+      }
+    }
+  }
+}

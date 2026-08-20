@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Amara — Brutalism</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-canvas:#F4F2ED; --bg-surface:#FFFFFF;
+    --ink:#0F0E0A; --text-secondary:#4A4536; --text-muted:#B0A990; --text-inverse:#FFFFFF;
+    --primary:#1E3AF2; --secondary:#FF3B7F;
+    --success:#0F8A3C; --danger:#E01E1E; --approval:#F5FF3D;
+    --font-ui:'Archivo Black',sans-serif; --font-body:'Work Sans',sans-serif; --font-mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg-canvas);font-family:var(--font-body);color:var(--ink);padding:48px 24px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .intro{max-width:660px;margin-bottom:40px;}
+  .kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:10px;background:var(--approval);display:inline-block;padding:3px 8px;border:2px solid var(--ink);}
+  h1{font-family:var(--font-ui);font-size:34px;line-height:1.05;margin:14px 0 14px;text-transform:uppercase;}
+  .principle{font-size:17px;line-height:26px;color:var(--text-secondary);font-weight:600;margin:0;border-left:4px solid var(--ink);padding-left:14px;}
+  .stage{display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;}
+  .col-label{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);font-weight:700;margin:0 0 12px;}
+
+  .bubble-stage{width:220px;height:220px;background:var(--bg-surface);border:3px solid var(--ink);position:relative;flex-shrink:0;}
+  .bubble{position:absolute;right:18px;bottom:18px;width:60px;height:60px;background:var(--primary);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);display:flex;align-items:center;justify-content:center;}
+  .bubble svg{width:26px;height:26px;stroke:#fff;}
+  .bubble .dot{position:absolute;top:-6px;right:-6px;width:16px;height:16px;background:var(--success);border:2px solid var(--ink);}
+
+  .panel{width:380px;background:var(--bg-surface);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);}
+  .panel-header{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:3px solid var(--ink);background:var(--approval);}
+  .avatar{width:36px;height:36px;background:var(--ink);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
+  .avatar svg{width:16px;height:16px;stroke:var(--approval);}
+  .avatar .presence{position:absolute;bottom:-4px;right:-4px;width:11px;height:11px;background:var(--success);border:2px solid var(--ink);}
+  .header-text{flex:1;min-width:0;}
+  .header-name{font-family:var(--font-ui);font-size:15px;text-transform:uppercase;line-height:18px;}
+  .header-status{font-family:var(--font-mono);font-size:11px;color:var(--ink);line-height:15px;font-weight:700;}
+  .header-close{width:24px;height:24px;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;color:var(--ink);}
+
+  .thread{padding:16px;display:flex;flex-direction:column;gap:14px;max-height:460px;overflow-y:auto;}
+  .msg{max-width:88%;font-size:16px;line-height:22px;font-weight:600;}
+  .msg.agent{align-self:flex-start;background:var(--bg-surface);border:2px solid var(--ink);padding:10px 14px;}
+  .msg.user{align-self:flex-end;background:var(--primary);color:#fff;border:2px solid var(--ink);padding:10px 14px;}
+  .msg-meta{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);margin-top:2px;text-transform:uppercase;}
+
+  .doing-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--approval);font-family:var(--font-mono);font-size:12px;font-weight:700;padding:7px 12px;text-transform:uppercase;}
+  .doing-chip .spinner{width:8px;height:8px;background:var(--approval);}
+
+  .approval{align-self:stretch;background:var(--approval);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:14px 16px;}
+  .approval-head{display:flex;align-items:center;gap:8px;font-family:var(--font-ui);font-size:13px;color:var(--ink);text-transform:uppercase;margin-bottom:8px;}
+  .approval-head .sq{width:14px;height:14px;background:var(--ink);}
+  .approval-body{font-size:16px;line-height:22px;font-weight:700;color:var(--ink);margin-bottom:12px;}
+  .approval-actions{display:flex;gap:10px;}
+  .btn{font-family:var(--font-ui);font-size:12px;padding:10px 16px;border:2px solid var(--ink);cursor:pointer;text-transform:uppercase;}
+  .btn-primary{background:var(--ink);color:var(--approval);}
+  .btn-secondary{background:transparent;color:var(--ink);}
+
+  .code{font-family:var(--font-mono);font-size:12.5px;line-height:20px;background:var(--ink);color:var(--approval);border:2px solid var(--ink);padding:10px 12px;overflow-x:auto;margin-top:8px;}
+  .code .kw{color:#7A8CFF}
+  .code .cm{color:#8C8672}
+
+  .input-bar{display:flex;align-items:center;gap:0;border-top:3px solid var(--ink);}
+  .input-field{flex:1;background:var(--bg-surface);padding:14px 16px;font-size:14px;color:var(--text-muted);font-weight:600;border-right:2px solid var(--ink);}
+  .send-btn{width:52px;background:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .send-btn svg{width:18px;height:18px;stroke:#fff;}
+
+  .tokens{margin-top:56px;border-top:3px solid var(--ink);padding-top:32px;}
+  .tokens h2{font-family:var(--font-ui);font-size:14px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink);margin:0 0 20px;}
+  .swatches{display:flex;gap:2px;flex-wrap:wrap;margin-bottom:28px;}
+  .swatch{width:78px;}
+  .swatch .chip{height:52px;border:2px solid var(--ink);}
+  .swatch .lbl{font-family:var(--font-mono);font-size:11px;color:var(--ink);margin-top:6px;font-weight:700;}
+  .type-scale{display:flex;flex-direction:column;gap:10px;}
+  .type-scale div span{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);margin-left:10px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <div class="kicker">Amara — Brutalism</div>
+    <h1>Support agent, unhidden.</h1>
+    <p class="principle">"Honesty over polish. Show the mechanism instead of disguising it — structure, borders, and raw state changes are the decoration. Nothing hides behind a gradient or a blur."</p>
+  </div>
+
+  <div class="stage">
+    <div>
+      <p class="col-label">Collapsed</p>
+      <div class="bubble-stage">
+        <div class="bubble">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="col-label">Open — thread with checkpoint</p>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+            <div class="presence"></div>
+          </div>
+          <div class="header-text">
+            <div class="header-name">UNIT</div>
+            <div class="header-status">ONLINE</div>
+          </div>
+          <div class="header-close">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+
+        <div class="thread">
+          <div class="msg agent">DEPLOY FAILED. STAGING IS MISSING ONE ENV VAR. NOT A CODE ISSUE.</div>
+          <div class="msg user">Can you fix it?</div>
+          <div class="doing-chip"><span class="spinner"></span>CHECKING STAGING CONFIG</div>
+
+          <div class="approval">
+            <div class="approval-head"><span class="sq"></span>APPROVAL NEEDED</div>
+            <div class="approval-body">SET STRIPE_WEBHOOK_SECRET ON STAGING AND REDEPLOY?</div>
+            <div class="approval-actions">
+              <button class="btn btn-primary">APPROVE</button>
+              <button class="btn btn-secondary">DENY</button>
+            </div>
+          </div>
+
+          <div class="msg agent">
+            DIFF THAT BROKE IT:
+            <div class="code"><span class="cm">// webhook.ts</span><br><span class="kw">const</span> secret = env.STRIPE_WEBHOOK_SECRET;</div>
+          </div>
+          <div class="msg-meta">UNIT · 2M AGO</div>
+        </div>
+
+        <div class="input-bar">
+          <div class="input-field">MESSAGE UNIT…</div>
+          <div class="send-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tokens">
+    <h2>Color</h2>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#1E3AF2"></div><div class="lbl">primary.500</div></div>
+      <div class="swatch"><div class="chip" style="background:#FF3B7F"></div><div class="lbl">secondary.500</div></div>
+      <div class="swatch"><div class="chip" style="background:#F5FF3D"></div><div class="lbl">approval</div></div>
+      <div class="swatch"><div class="chip" style="background:#0F0E0A"></div><div class="lbl">neutral.900</div></div>
+      <div class="swatch"><div class="chip" style="background:#0F8A3C"></div><div class="lbl">success</div></div>
+      <div class="swatch"><div class="chip" style="background:#E01E1E"></div><div class="lbl">danger</div></div>
+    </div>
+    <h2>Type scale — Archivo Black / Work Sans, ratio 1.333</h2>
+    <div class="type-scale">
+      <div style="font-family:var(--font-ui);font-size:28px;text-transform:uppercase;">READS AT A GLANCE <span>xl / 28px</span></div>
+      <div style="font-family:var(--font-ui);font-size:21px;text-transform:uppercase;">READS AT A GLANCE <span>lg / 21px</span></div>
+      <div style="font-size:16px;font-weight:700;">Reads at a glance <span>base / 16px</span></div>
+      <div style="font-size:16px;color:var(--text-secondary);font-weight:600;">Reads at a glance <span>sm / 16px</span></div>
+      <div style="font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);">READS AT A GLANCE <span>xs / 12px</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

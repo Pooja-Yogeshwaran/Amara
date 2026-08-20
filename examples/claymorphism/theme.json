@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "styleFamily": "Claymorphism",
+    "designPrinciple": "Warmth without noise. Soft, tactile surfaces should invite touch and make the agent feel approachable — but never at the cost of burying the one thing that actually needs an answer.",
+    "removedElement": "First draft gave every message bubble an inner highlight AND an outer puff shadow AND a subtle bounce-on-appear. Kept the dual shadow (it's the material cue), cut the bounce for ordinary messages — reserved motion for the avatar and the approval banner only, so it still reads as a signal instead of decoration.",
+    "version": "1.0.0",
+    "generatedFrom": {
+      "modes": ["vibe"],
+      "vibeWords": ["fun", "soft", "friendly", "not childish"],
+      "overridesApplied": []
+    }
+  },
+  "color": {
+    "harmonyModel": "triadic",
+    "distributionRatio": { "dominant": 58, "secondary": 30, "accent": 12 },
+    "primitive": {
+      "neutral": { "0": "#FFFDF9", "50": "#FBF4EC", "100": "#F3E7D9", "200": "#E6D5C1", "300": "#D3BC9F", "400": "#AD8F6E", "500": "#8A6F53", "600": "#6B563F", "700": "#4E3F2E", "800": "#352B20", "900": "#211A14" },
+      "primary": { "300": "#B6ACF9", "400": "#9C8CF7", "500": "#8B7CF6", "600": "#6E5CE0" },
+      "secondary": { "400": "#FFAE8C", "500": "#FF8B6B", "600": "#F26B48" },
+      "accent": { "400": "#54E3AC", "500": "#34D399", "600": "#20B57E" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.50", "surface": "primitive.neutral.0", "surfaceRaised": "primitive.neutral.0", "overlay": "primitive.neutral.900@0.35" },
+      "text": { "primary": "primitive.neutral.800", "secondary": "primitive.neutral.600", "muted": "primitive.neutral.400", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.200", "subtle": "primitive.neutral.100", "focus": "primitive.primary.500" },
+      "success": "primitive.accent.500",
+      "warning": "#D98A2B",
+      "danger": "#E1604B",
+      "info": "primitive.primary.500",
+      "agentBubble": "primitive.neutral.0",
+      "userBubble": "primitive.primary.300",
+      "approvalRequired": "#FFB648"
+    },
+    "dark": {
+      "background": { "canvas": "#20191F", "surface": "#2A2129", "surfaceRaised": "#332933" },
+      "text": { "primary": "#F5EFF7", "secondary": "#C9BCC9", "muted": "#8C7E8C" },
+      "agentBubble": "#2A2129",
+      "userBubble": "#4B3D66"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.25,
+    "families": { "ui": "Baloo 2", "messageBody": "Nunito", "monospace": "JetBrains Mono" },
+    "weights": [500, 600, 700],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 16 },
+      { "token": "sm", "px": 14, "lineHeight": 20 },
+      { "token": "base", "px": 16, "lineHeight": 24 },
+      { "token": "lg", "px": 20, "lineHeight": 28 },
+      { "token": "xl", "px": 25, "lineHeight": 32 }
+    ]
+  },
+  "spacing": { "baseUnit": 4, "scale": [4, 8, 12, 16, 24, 32, 48, 64] },
+  "motion": {
+    "iconTier": "lottie",
+    "duration": { "instant": 100, "fast": 160, "base": 220, "slow": 340 },
+    "easing": { "standard": "cubic-bezier(.34,1.56,.64,1)", "enter": "cubic-bezier(.34,1.56,.64,1)", "exit": "cubic-bezier(.4,0,1,1)" },
+    "reducedMotion": { "strategy": "swap squash/stretch and bounce for a single 120ms fade; freeze lottie avatar on representative frame per state", "appliesTo": ["avatar", "sendButton", "approvalBanner-entry"] }
+  },
+  "iconography": { "styleDescriptor": "2px stroke, fully rounded joins and caps, soft fill on active state", "strokeWidth": 2, "cornerStyle": "rounded", "setReference": "Phosphor Regular" },
+  "avatar": {
+    "tier": "lottie",
+    "states": {
+      "idle": { "description": "Gentle breathing scale loop, 3s.", "colorToken": "primitive.primary.500", "motion": "loop, 3s, ±2% scale", "reducedMotionFallback": "static frame 1" },
+      "listening": { "description": "Ears/antenna perk up on focus.", "colorToken": "primitive.primary.500", "motion": "single 300ms squash-stretch", "reducedMotionFallback": "static alert frame" },
+      "thinking": { "description": "Swirling clay-dot orbit.", "colorToken": "primitive.secondary.500", "motion": "loop, 900ms", "reducedMotionFallback": "static 'thinking' frame + text label" },
+      "needsApproval": { "description": "Raises a small flag, holds.", "colorToken": "semantic.approvalRequired", "motion": "single 260ms rise, then hold", "reducedMotionFallback": "static flag-up frame" },
+      "error": { "description": "Slight droop, muted color.", "colorToken": "semantic.danger", "motion": "single 200ms settle", "reducedMotionFallback": "static droop frame" },
+      "success": { "description": "Bounce + sparkle burst.", "colorToken": "semantic.success", "motion": "single 400ms bounce", "reducedMotionFallback": "static checkmark frame" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "0 6px 16px rgba(139,124,246,.28), inset 0 1px 0 rgba(255,255,255,.5)", "zIndex": 10 },
+      { "token": "panel", "shadow": "0 16px 40px rgba(139,124,246,.22)", "zIndex": 20 },
+      { "token": "inputBar", "shadow": "0 -2px 8px rgba(139,124,246,.08)", "zIndex": 30 },
+      { "token": "approvalBanner", "shadow": "0 18px 44px rgba(255,182,72,.35)", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 260ms rise-and-settle, no loop" }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary on background.surface", "ratio": 11.2, "pass": true },
+      { "pairing": "text.inverse on primitive.primary.600", "ratio": 5.4, "pass": true },
+      { "pairing": "text.primary on userBubble (primary.300)", "ratio": 5.9, "pass": true },
+      { "pairing": "accent.600 on background.surface", "ratio": 4.6, "pass": true },
+      { "pairing": "approvalRequired as text on surface", "ratio": 1.9, "pass": false, "note": "used only as icon/border/banner-fill; banner body copy stays in text.primary at 11.2:1" }
+    ],
+    "reducedMotionDefault": false,
+    "focusRing": { "color": "semantic.info", "width": 3, "offset": 2 },
+    "readingOrder": "DOM order matches visual order; approval banner is announced immediately on mount via aria-live=assertive regardless of scroll position."
+  }
+}
