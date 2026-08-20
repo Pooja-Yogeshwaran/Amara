@@ -63,14 +63,27 @@ Use any `theme.json` as-is — no personal branding to strip out first — or po
 
 **Adding a preview video:** record a short screen capture of a `preview.html` above (`prefers-reduced-motion` off so real motion shows), export as GIF (autoplays inline on GitHub, no click needed) at a reasonable file size, save it to `docs/previews/<style-name>.gif`, and add it to that row's Video column: `![preview](docs/previews/<style-name>.gif)`.
 
-## Beyond chat
+## Demo
+All generated with just a single prompt
 
-Same method, applied where `theme.schema.json` doesn't reach — no chat UI, so not "themes":
 
-| Piece | File |
-|---|---|
-| Water bottle landing page | [index.html](showcase/waterbottle-landing/index.html) |
-| Portfolio / dossier template | [index.html](showcase/portfolio-dossier/index.html) |
+
+
+https://github.com/user-attachments/assets/c88b6195-075a-499c-8d7b-9331bc2622c9
+
+
+
+
+
+https://github.com/user-attachments/assets/e9427e5c-f752-4026-bc23-6120e9d9ae52
+
+
+
+
+
+
+
+
 
 ## Repo structure
 
