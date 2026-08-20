@@ -46,11 +46,20 @@ Use this file as raw material *before* Step 3 of `SKILL.md` names a family, not 
 
 ## Motion & feel, beyond the five icon tiers
 
-`motion-icon-tiers.md` covers *how expressive an asset is allowed to be* (static → video-loop) — a separate question from *what kind of motion feeling* a system wants:
-- **Snappy/mechanical** — short durations, linear or slightly-overshot easing, reads as efficient and technical.
+`motion-icon-tiers.md` covers *how expressive an asset is allowed to be* (static → video-loop) — a separate question from *what kind of motion feeling* a system wants. Note the distinction that's easy to blur: **"restrained" and "static" are not the same thing.** A brief that calls for something snappy, technical, out-of-the-way is calling for *short, precise* motion — a fast, real state transition — not for zero motion by default. Reaching for `static` as the safe/minimal-seeming choice whenever a brief sounds serious or technical is its own quiet default, the same category of error as reaching for blue whenever a brief sounds trustworthy — genuinely audit whether the brief asked for *no* motion or for *fast, unshowy* motion before picking the tier down to static.
+- **Snappy/mechanical** — short durations (think 80-150ms, not 0ms), linear or slightly-overshot easing, reads as efficient and technical. This is still motion.
 - **Languid/floaty** — long durations, soft easing, reads as calm or luxurious.
 - **Elastic/playful** — spring-based overshoot (see `motion.signatureInteraction`), reads as tactile and alive.
-- **Deliberately abrupt/no-easing** — hard cuts, no transition at all (used already for Brutalism) — a legitimate feel, not a missing feature.
+- **Deliberately abrupt/no-easing** — hard cuts, no transition at all (used already for Brutalism) — a legitimate feel, and the one case where genuinely near-zero motion is the actual answer, not a fallback.
+
+## Dimensionality — 2D vs. real 3D
+
+Every example in this repo so far, including the one signature-interaction proof, has been flat — 2D transforms and CSS. That's a real, previously-unconsidered gap: a genuinely 3D element (something with real depth, draggable/rotatable in three dimensions, not just position/scale) is a legitimate and currently-unused tool.
+
+- **CSS 3D transforms** (`perspective`, `rotateX`/`rotateY`/`rotateZ`, `transform-style: preserve-3d`) — genuinely three-dimensional, hardware-accelerated, no library or WebGL required. A draggable object you can spin and see a different face of — the *characteristic* behind Berd's project cube (berd.xyz), extracted per the same reference-mode rule as any other source: real 3D you can grab and rotate is the technique; the specific cube geometry and branding are Berd's own, not to be reproduced. Achievable with vanilla CSS + pointer events for a single hero object, at a similar cost tier to `motion.signatureInteraction`.
+- **WebGL / Three.js** — for actual rendered 3D geometry, materials, and lighting. A real engineering decision, not a default — same tier of commitment as full physics, state plainly when a request doesn't warrant it rather than reaching for it because it sounds impressive.
+- **2.5D / layered parallax** — flat layers moved at different rates on pointer or scroll; a cheap illusion of depth without true 3D, appropriate when the brief wants *some* dimensionality without the cost of the two options above.
+- **When it's warranted, not by default**: an avatar/mascot that benefits from being physically "held" and turned (ties to the physical-object-metaphor layout paradigm above), a launcher that wants to feel like an actual object rather than an icon. Like every other row in this file, this is raw material to genuinely consider in Step 1's three concepts — not a box to check on every generation, and not a box to silently never check either.
 
 ## How to actually use this file
 

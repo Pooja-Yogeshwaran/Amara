@@ -161,6 +161,15 @@
             "behavior": { "type": "string", "description": "Plain description of the interaction, e.g. 'drag the avatar, release, it springs back with real momentum and one overshoot bounce.'" },
             "trigger": { "type": "string" }
           }
+        },
+        "dimensionality": {
+          "type": "object",
+          "description": "Optional. Whether one element in the system is genuinely three-dimensional rather than a flat 2D transform -- see visual-vocabulary.md's 'Dimensionality' section. Live option to weigh in Step 1 of SKILL.md, not a default for every generation and not something to silently never consider either.",
+          "properties": {
+            "element": { "type": "string" },
+            "technique": { "enum": ["css-3d-transform", "webgl", "layered-parallax-2.5d"] },
+            "behavior": { "type": "string", "description": "Plain description, e.g. 'the avatar is a real 3D object -- drag horizontally to rotate it and see a different face.'" }
+          }
         }
       }
     },
