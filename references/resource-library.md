@@ -41,19 +41,19 @@ Maps to `typography.families`. Never substitute a font whose license restricts c
 Maps to `iconography.setReference`. Pick one set system-wide — mixing icon sets is the single most common consistency-audit failure in `qa-checklist.md` #4.
 
 ### Icon fonts
-Prefer inline SVG (via one of the sets above) over icon fonts — SVG themes per-token via `currentColor`/CSS variables, works with screen readers without extra `aria-hidden` bookkeeping, and doesn't suffer the FOIT/tofu-square flash icon fonts are prone to. If a host project already depends on an icon font, [Font Awesome Free](https://fontawesome.com) (OSI/CC-BY, free subset) is the most broadly compatible option — note that Font Awesome's *Pro* tier is not open source, only the Free subset is.
+Prefer inline SVG (via one of the sets above) over icon fonts — SVG themes per-token via `currentColor`/CSS variables, works with screen readers without extra `aria-hidden` bookkeeping, and doesn't suffer the FOIT/tofu-square flash icon fonts are prone to. If a host project already depends on an icon font, [Font Awesome Free](https://fontawesome.com) is the most broadly compatible option — but it's a genuine mixed-license package, verified against its own LICENSE.txt: icons are **CC BY 4.0** (attribution required — not a no-strings-attached license like CC0), fonts are SIL OFL 1.1, code is MIT. Font Awesome's brand icons (Slack, GitHub, etc.) additionally remain each company's trademark regardless of the CC BY grant. The *Pro* tier is separately not open source at all.
 
 ### Logos & favicons
 These are almost always custom, not sourced — a generic agent needs its own persona mark (see `agent-states.md`'s avatar-as-state-machine). Tooling, not assets:
 | Pick | License | Notes |
 |---|---|---|
 | [RealFaviconGenerator](https://realfavicongenerator.net) | Free tool | Generates the full favicon/touch-icon/manifest set from one source mark — use once the avatar's `idle` state is finalized. |
-| [Simple Icons](https://simpleicons.org) | OSI (CC0/MIT dual) | Third-party brand marks (e.g. a "connected to Slack" indicator) — never for the agent's own identity, only for referencing an external product/integration by its actual logo. |
+| [Simple Icons](https://simpleicons.org) | CC0 (verified via the repo's own license info — not OSI, since CC0 is a public-domain content dedication, not a software license) | Third-party brand marks (e.g. a "connected to Slack" indicator) — never for the agent's own identity, only for referencing an external product/integration by its actual logo. Each mark is still that company's trademark regardless of CC0 covering the icon file itself. |
 
 ### Illustration, stock photography, mockups (onboarding/empty states)
 | Pick | License | Notes |
 |---|---|---|
-| [unDraw](https://undraw.co) | OSI-adjacent (MIT-style, fully open, recolorable) | Best default — flat-illustration style, recolor to match any palette, matches the "no literal brand assets" rule cleanly since it was built to be themed. |
+| [unDraw](https://undraw.co) | Free (custom license, verified — not MIT/OSI: no-attribution and free for commercial use, but explicitly forbids repackaging its assets into a competing asset service or using them for AI/ML training) | Best default — flat-illustration style, recolor to match any palette, matches the "no literal brand assets" rule cleanly since it was built to be themed. Use the illustrations in a generated product; don't bundle the library itself. |
 | [Open Peeps](https://www.openpeeps.com) | CC0 | Hand-drawn people illustrations — good fit for Claymorphism/Playful empty states. |
 | [Pexels](https://www.pexels.com) / [Unsplash](https://unsplash.com) | Free (own license, not OSI — broad usage rights, no attribution required, but not redistributable as a competing stock library) | Stock photography for onboarding hero imagery, if the style calls for photographic (not illustrated) treatment. |
 | [Streamline / Ouch (Icons8)](https://icons8.com/illustrations) | Freemium (free tier has attribution or usage caps) | Wider illustration variety — check the specific pack's terms before use, several require attribution on the free tier. |
