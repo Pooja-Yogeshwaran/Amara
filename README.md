@@ -65,7 +65,7 @@ It is **not** a replacement for a designer's final judgment on a shipped product
 Amara is a single skill directory. Drop it wherever your tool looks for skills:
 
 ```bash
-git clone https://github.com/<your-org>/amara.git
+git clone https://github.com/Pooja-Yogeshwaran/Amara.git
 ```
 
 - **Claude Code / Claude.ai:** copy or symlink the `amara/` folder into your project's or user-level skills directory, so `SKILL.md` is discoverable.
