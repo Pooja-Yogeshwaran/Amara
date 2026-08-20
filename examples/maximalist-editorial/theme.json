@@ -84,7 +84,7 @@
     "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL", "note": "Fraunces (variable, optical-size axis) + Karla, both self-hostable." },
     "illustrationSource": { "name": "Pexels", "url": "https://www.pexels.com", "license": "Free", "note": "Photographic, not illustrated -- matches the editorial-press reference better than flat illustration would. Not OSI; check redistribution terms before bundling." },
     "chartLibrary": { "name": "visx", "url": "https://airbnb.io/visx/", "license": "OSI", "note": "Low-level enough to match Fraunces/Karla typography inside a chart rather than a generic chart-library default look." },
-    "uiKit": { "react": { "name": "shadcn/ui", "url": "https://ui.shadcn.com", "license": "OSI", "note": "Copy-in components leave room to swap the default sans for Karla without fighting a packaged theme." } }
+    "uiKit": { "react": { "name": "assistant-ui", "url": "https://github.com/assistant-ui/assistant-ui", "license": "OSI", "note": "Copy-in chat primitives leave room to swap the default sans for Karla without fighting a packaged theme; built on the same shadcn/ui foundation as the plainer HTML adapter." } }
   },
   "a11y": {
     "contrastMode": "AA",

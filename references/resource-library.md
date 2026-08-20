@@ -103,6 +103,18 @@ GSAP is deliberately not listed as a default here: as of its 2024 relicensing it
 | [ECharts](https://echarts.apache.org) | OSI (Apache-2.0) | Heavier, but strong default when the agent needs to render dense/large datasets in-thread. |
 
 ### UI component kits, per framework
+
+**Purpose-built for AI chat specifically — prefer these over a generic kit when the target is React:**
+
+| Pick | License | Notes |
+|---|---|---|
+| [assistant-ui](https://github.com/assistant-ui/assistant-ui) | OSI (MIT) | The best-fit default for a React target. Radix-style primitives named for exactly this domain (`Thread`, `Message`, `Composer`, `ThreadList`, `ActionBar`) with streaming, auto-scroll, retries, attachments, markdown, code highlighting, voice dictation, and accessibility already handled — theme it off `theme.json`'s tokens rather than rebuilding message-list plumbing from scratch. |
+| [Vercel AI Elements](https://github.com/vercel/ai-elements) | OSI (MIT) | Built on shadcn/ui. Ships a `Reasoning`/`ReasoningTrigger` component pair that's the direct reference implementation for `components.reasoningPanel` (see `agent-states.md`), plus message/response/tool-call primitives. |
+| [Crayon](https://github.com/thesysdev/openui) (Thesys) | OSI (MIT) | Built specifically for **generative UI** — an agent selecting from a catalogue of components and rendering them inline (see the Generative UI edge case in `content-and-arc.md`). Reach for this specifically when the target agent renders real interactive components, not just text/markdown. |
+| [CopilotKit](https://github.com/CopilotKit/CopilotKit) | OSI (MIT) | Adds agent orchestration, shared state, and human-in-the-loop approval flows on top of the presentation layer the three above cover — the right pick when the request needs actual approval/checkpoint *logic*, not just the approval banner's visual treatment. React and Angular. |
+
+**Generic foundations — fine for any framework, or when a chat-specific kit isn't available for the target:**
+
 | Framework | Pick | License |
 |---|---|---|
 | React | [shadcn/ui](https://ui.shadcn.com) | OSI (MIT) — copy-in components, not a runtime dependency, which fits Amara's token-file-as-source-of-truth model well |
@@ -124,6 +136,9 @@ None of these are style-family-specific — they're unstyled or lightly-styled f
 
 ### Design systems & style guides (inspiration input for reference-mode, never literal reproduction)
 [Material Design 3](https://m3.material.io), [Carbon Design System](https://carbondesignsystem.com) (IBM, OSI-licensed source), [Atlassian Design System](https://atlassian.design), [Polaris](https://polaris.shopify.com) (Shopify) — all genuinely open-source-published systems worth reading for how they document agent-adjacent states (loading, empty, error), even though none are chat-agent-specific. Extract *approach*, not literal components, per the reference-mode rule in `input-modes.md`.
+
+### AI-interaction research (not visual style — the behavioral rules `agent-states.md` is built on)
+[Microsoft HAX Toolkit](https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/) (free, publicly published — 18 guidelines for human-AI interaction, plus a Design Patterns library and a Playbook for testing likely failure scenarios) and [Google PAIR's People + AI Guidebook](https://pair.withgoogle.com/guidebook-v2/) (free, publicly published — 23 patterns covering Mental Models, Explainability + Trust, Feedback + Control, Errors + Graceful Failure) are the two most-cited frameworks for exactly the problem `agent-states.md` addresses: presence, trust, graceful failure, and behavior that changes appropriately over the life of a relationship with an agent. Read these before inventing a new agent-state pattern from scratch — there's a reasonable chance one of the 41 combined guidelines already covers it.
 
 ### Online design tools
 [Penpot](https://penpot.app) — fully open source (OSI, MPL-2.0), the only genuinely open-source option in this row and worth defaulting to when a user wants to hand-tune the generated system visually. [Figma](https://figma.com) has a usable free tier but is proprietary/closed-source.

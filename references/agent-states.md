@@ -2,6 +2,8 @@
 
 This is the differentiated core of Amara — the reason a generic UI-design skill isn't sufficient for an always-on agent. A chat widget has messages; an agent has *state the user needs to trust*. Design every one of these explicitly, don't let them fall out as an afterthought of the message-bubble design.
 
+**Grounded in, not invented from scratch:** the state vocabulary below maps onto two established research frameworks rather than one skill's private opinion — Microsoft's [HAX Toolkit / Guidelines for Human-AI Interaction](https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/) (18 guidelines spanning initial interaction, during interaction, when-things-go-wrong, and change-over-time — the last of these is exactly what `content-and-arc.md`'s personality-taper arc is doing) and Google's [People + AI Guidebook](https://pair.withgoogle.com/guidebook-v2/) (23 patterns covering Mental Models, Explainability + Trust, Feedback + Control, and Errors + Graceful Failure). Where a rule below has a real-world grounding beyond "this looked right," it's cited inline.
+
 ## Presence indicator: online / working-in-background / asleep
 
 Three distinct states, three distinct visual treatments — not one dot that changes color:
@@ -15,18 +17,32 @@ These must read as two different things at a glance, not two copies of the same 
 - **Thinking** = the model is reasoning/generating, no external effect yet. Treatment: motion on the avatar or a text-adjacent indicator (e.g. animated ellipsis), contained to the message-composition area.
 - **Doing** = the agent is taking an action with a real effect (tool call, API request, file write). Treatment: a distinct indicator — commonly a labeled chip naming the action ("Searching docs…", "Updating ticket…") rather than a generic spinner, because the user's trust calculus for "doing" is different from "thinking." Doing states are also where an activity/transparency log (optional component) earns its place.
 
-## Approval / checkpoint UI
+**Reasoning panel (optional, for models/agents that expose intermediate reasoning):** when there's real chain-of-thought or planning content worth showing — not just a "thinking…" label — give it its own collapsible surface rather than dumping it into the main thread at full weight. This is a shipping pattern, not a hypothetical one: [Vercel's AI Elements](https://github.com/vercel/ai-elements) library (MIT, built on shadcn/ui) ships exactly this as a `Reasoning`/`ReasoningTrigger` component pair — collapsed by default, expandable on demand, visually subordinate to the actual answer. Maps to the schema's optional `components.reasoningPanel`; defaults to `collapsed: true` regardless of style family, since reasoning content competing with the answer for attention is its own no-competing-focal-points failure.
 
-The single highest-priority element in the entire system when present. Design rules, non-negotiable regardless of style family:
+## Approval isn't one pattern
+
+Treating every consequential action as the same modal "approve / deny" checkpoint is itself a design mistake — 2026 human-in-the-loop practice (and, for regulated contexts, the EU AI Act's Article 14 human-oversight requirement) distinguishes at least three shapes, chosen by reversibility and stakes, not by habit:
+
+- **Pre-action gate** — the pattern detailed below. Use for irreversible or high-risk actions (deleting data, spending money, anything that can't be quietly undone). Blocks until resolved.
+- **Post-action review window** — for reversible or bounded actions: let the agent act, surface what it did for a defined window, and offer a one-tap **compensating action** (rollback/undo) if the user objects within that window. Lower-friction than a gate, and the honest choice whenever undo is actually possible — gating everything "for safety" when a clean rollback exists just trains users to rubber-stamp gates, which defeats the point of having them.
+- **Bounded / scoped grant** — for a gate that *is* warranted, state the actual boundary being authorized, not just a bare yes/no: what action, on what target, for how long, with what excluded ("approve restarting `checkout-api` for the next 10 minutes; no config changes included"). A scoped grant is auditable and re-askable; an unqualified "approve" invites scope creep the user never actually consented to.
+
+Pick the shape per action, not per system — a single agent can reasonably use a pre-action gate for "delete the production database" and a post-action window for "reformat this doc," in the same session.
+
+### Pre-action gate — design rules
+
+The single highest-priority element in the entire system when it's on screen. Design rules, non-negotiable regardless of style family:
 - **Elevation:** the top of `components.elevationScale` — above the input bar, above any notification.
 - **Color:** `semantic.approvalRequired`, reserved and used nowhere else (see color-theory.md).
 - **Motion:** enters once (a single deliberate transition), never loops or pulses indefinitely — a checkpoint that nags reads as untrustworthy, not urgent.
 - **Position:** anchored where the user's eye already is (top of viewport or inline at point of relevance), never requiring a scroll to discover.
-- **Content contract:** state what the agent wants to do, in plain language, before it does it. No jargon, no buried consequences.
+- **Content contract:** state what the agent wants to do, in plain language, before it does it, including the grant's actual scope if it's a bounded/scoped one. No jargon, no buried consequences.
 
 ## Background-task notification
 
-Distinct from the checkpoint: this reports something *already done*, not something awaiting permission. Lower visual weight than the approval banner, but still needs to interrupt gracefully — a toast/badge pattern that persists until acknowledged (not an auto-dismissing toast, since the user may have been away when it fired) works across most style families.
+Distinct from the pre-action gate: this reports something *already done*, not something awaiting permission. Lower visual weight than the approval banner, but still needs to interrupt gracefully — a toast/badge pattern that persists until acknowledged (not an auto-dismissing toast, since the user may have been away when it fired) works across most style families.
+
+When the task it's reporting was a **post-action review window** (see above), this component carries the compensating action too — the notification isn't just "done," it's "done, here's what changed, undo within N minutes if that's wrong." Once the window closes, drop the undo affordance rather than leaving a dead button around.
 
 ## Activity / transparency log (optional)
 

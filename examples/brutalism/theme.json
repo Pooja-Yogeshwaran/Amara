@@ -81,7 +81,7 @@
     "iconSet": { "name": "Iconoir", "url": "https://iconoir.com", "license": "OSI", "note": "Geometric/technical cut reads raw enough for the hard-edged, offset-shadow language; overridden strokeWidth to 2.5px." },
     "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL", "note": "Archivo Black + Work Sans + Space Mono, all self-hostable." },
     "cssFramework": { "name": "Open Props", "url": "https://open-props.dev", "license": "OSI", "note": "Used bare -- brutalism's hard shadows/borders are simple enough not to need a utility layer on top." },
-    "uiKit": { "react": { "name": "Radix UI", "url": "https://www.radix-ui.com", "license": "OSI", "note": "Unstyled primitives so the thick borders/offset shadows aren't fighting a pre-styled component skin." } }
+    "uiKit": { "react": { "name": "Radix UI", "url": "https://www.radix-ui.com", "license": "OSI", "note": "Deliberately the bare primitives, not assistant-ui's fuller kit -- brutalism's thick borders/offset shadows are easiest to guarantee with nothing pre-styled to fight." } }
   },
   "a11y": {
     "contrastMode": "AA",

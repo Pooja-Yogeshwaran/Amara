@@ -208,6 +208,11 @@
           "type": "object",
           "description": "Visual distinction between 'model is reasoning' and 'agent is taking an action' (tool call, API request). Must read as two different things at a glance."
         },
+        "reasoningPanel": {
+          "type": "object",
+          "description": "Optional. A collapsible surface for real chain-of-thought/planning content, distinct from the lightweight 'thinking' indicator in thinkingVsDoing. Modeled on the shipping Reasoning/ReasoningTrigger pattern in Vercel's AI Elements (github.com/vercel/ai-elements). Only relevant for models/agents that actually expose intermediate reasoning -- omit otherwise.",
+          "properties": { "collapsedByDefault": { "type": "boolean", "default": true }, "elevation": {"type":"string"} }
+        },
         "approvalBanner": {
           "type": "object",
           "description": "Must out-rank every other element on screen when present -- highest elevation token, reserved color, motion used once on entry only (not looping).",

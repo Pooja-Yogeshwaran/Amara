@@ -18,6 +18,10 @@ Amara is scoped specifically to **conversational AI interfaces** — chat widget
 
 See it applied across four style tiers in [`/examples`](examples/) before installing.
 
+## Prior art
+
+Amara's agent-state design (`references/agent-states.md`) is grounded in two published research frameworks rather than invented from scratch: Microsoft's [HAX Toolkit](https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/) and Google's [People + AI Guidebook](https://pair.withgoogle.com/guidebook-v2/). Its resource picks draw on real shipping open-source projects in the same space — [assistant-ui](https://github.com/assistant-ui/assistant-ui), [Vercel AI Elements](https://github.com/vercel/ai-elements), [Crayon](https://github.com/thesysdev/openui), and [CopilotKit](https://github.com/CopilotKit/CopilotKit) — cited by name in `references/resource-library.md` rather than silently reinvented. Amara's job is the systematic token layer and the QA discipline around it, not claiming to be first to any of these ideas.
+
 ## Open-source resource library
 
 Every dimension of a generated system — icon set, font source, illustration/stock source, CSS framework, chart library, per-framework UI kit (React/Vue/Angular/Svelte/React Native) — is a **customizable pick**, not a hardcoded default. [`references/resource-library.md`](references/resource-library.md) curates real options across all of them (plus process resources: design tools, image compression, browser extensions for design QA, and more), each tagged with its actual license — genuinely open-source (MIT/Apache/OFL/CC0) is preferred and defaulted-to wherever one exists; merely "free" or freemium tools are labeled as such rather than implied to be open source.

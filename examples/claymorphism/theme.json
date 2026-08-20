@@ -83,7 +83,7 @@
     "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL", "note": "Baloo 2 + Nunito, both self-hostable." },
     "illustrationSource": { "name": "Open Peeps", "url": "https://www.openpeeps.com", "license": "CC0", "note": "Hand-drawn figures pair well with clay's warmth; recolor line work to primitive.primary." },
     "animationLibrary": { "name": "lottie-web", "url": "https://airbnb.io/lottie/", "license": "OSI", "note": "Runtime player for the avatar.tier=lottie state machine; author the .json separately and check that file's own license." },
-    "uiKit": { "react": { "name": "Radix UI", "url": "https://www.radix-ui.com", "license": "OSI", "note": "Unstyled primitives -- clay's heavy custom shadow/radius language is easier to layer on unstyled than pre-themed components." } }
+    "uiKit": { "react": { "name": "assistant-ui", "url": "https://github.com/assistant-ui/assistant-ui", "license": "OSI", "note": "Unstyled-enough chat primitives that clay's heavy custom shadow/radius language layers on cleanly; falls back to raw Radix UI if a specific primitive isn't exposed." } }
   },
   "a11y": {
     "contrastMode": "AA",
