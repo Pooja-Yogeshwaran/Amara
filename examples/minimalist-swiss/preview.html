@@ -99,6 +99,19 @@
   .swatch .lbl{font-size:11px;color:var(--text-muted);margin-top:6px;font-family:var(--font-mono);}
   .type-scale{display:flex;flex-direction:column;gap:10px;}
   .type-scale div span{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-left:10px;}
+
+  /* Mobile: per platform-and-output.md, the open state goes full-screen rather than
+     staying a fixed-width floating panel -- there's no room for a floating panel on a
+     phone viewport. Found by actually rendering at 375px width: the panel's fixed
+     380px width overflowed and clipped off-screen before this rule existed -- and an
+     earlier attempt at this same fix silently lost the cascade because it was placed
+     before the non-media .panel{width:380px} rule in source order. Kept last on purpose. */
+  @media (max-width:480px){
+    body{padding:24px 16px;}
+    .stage{flex-direction:column;gap:24px;}
+    .stage > div{width:100%;min-width:0;}
+    .panel{width:100%;}
+  }
 </style>
 </head>
 <body>
