@@ -41,7 +41,7 @@ Use this file as raw material *before* Step 3 of `SKILL.md` names a family, not 
 - **Editorial/magazine grid** — asymmetric columns, pull-quotes, captioned figures (used once already in this repo for `maximalist-editorial` — the point isn't to avoid it again, it's to recognize it as *one* paradigm among many, applied because a specific brief warranted it, not because "maximalist" defaults to it).
 - **Dashboard/data-dense grid** — many small modules at once, information density as the point, not something to apologize for.
 - **Single-focus/one-thing-at-a-time** — the opposite of dashboard: one element fills the frame, everything else recedes or is hidden until needed.
-- **Physical-object metaphor** — the interface presents as a specific real object (a ticket, a receipt, a compact mirror, a terminal, a Rolodex card) rather than a generic panel; used once already for the glam/boss-bitch test (a compact mirror, a VIP card, a ribbon) — again, one paradigm among many, not "the Amara move for confident requests" going forward.
+- **Physical-object metaphor** — the interface presents as a specific real object (a ticket, a receipt, a compact mirror, a terminal, a Rolodex card) rather than a generic panel — one paradigm among many, not the default move for any particular register of request (e.g. reaching for a compact mirror or VIP card every time a brief reads as confident/glam). Pick the specific object because this brief warrants it, not because it worked for a similar-sounding one before.
 - **Scroll/canvas-driven** — content arranged in space rather than a fixed panel, relevant mainly for full-app/dashboard platform modes per `platform-and-output.md`.
 
 ## Motion & feel, beyond the five icon tiers
@@ -54,7 +54,7 @@ Use this file as raw material *before* Step 3 of `SKILL.md` names a family, not 
 
 ## Dimensionality — 2D vs. real 3D
 
-Every example in this repo so far, including the one signature-interaction proof, has been flat — 2D transforms and CSS. That's a real, previously-unconsidered gap: a genuinely 3D element (something with real depth, draggable/rotatable in three dimensions, not just position/scale) is a legitimate and currently-unused tool.
+Most examples in this repo are flat — 2D transforms and CSS. A genuinely 3D element (something with real depth, draggable/rotatable in three dimensions, not just position/scale) is a legitimate tool, demonstrated in `examples/futuristic-white-glass` (a real CSS `rotateY` object, not a flat icon with a fake shadow) — but that's one demonstration of the technique, not a reason to reach for it by default on every generation from here on.
 
 - **CSS 3D transforms** (`perspective`, `rotateX`/`rotateY`/`rotateZ`, `transform-style: preserve-3d`) — genuinely three-dimensional, hardware-accelerated, no library or WebGL required. A draggable object you can spin and see a different face of — the *characteristic* behind Berd's project cube (berd.xyz), extracted per the same reference-mode rule as any other source: real 3D you can grab and rotate is the technique; the specific cube geometry and branding are Berd's own, not to be reproduced. Achievable with vanilla CSS + pointer events for a single hero object, at a similar cost tier to `motion.signatureInteraction`.
 - **WebGL / Three.js** — for actual rendered 3D geometry, materials, and lighting. A real engineering decision, not a default — same tier of commitment as full physics, state plainly when a request doesn't warrant it rather than reaching for it because it sounds impressive.

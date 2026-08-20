@@ -28,7 +28,7 @@ Amara is a portable Skill (`SKILL.md`) that generates cohesive, accessible UI sy
 
 **Real, license-tagged resources** — fonts, icons, illustrations, charts, UI kits — baked into the output. See [Resource library](#resource-library).
 
-Amara's deepest, most differentiated work is chat-specific (the agent-state components above — see [Scope](#scope)). The underlying *method* — divergent concepts before narrowing, verified tokens, an honest self-critique pass — isn't, and [`/showcase`](showcase/) applies it outside chat.
+Amara's deepest, most differentiated work is chat-specific — the agent-state components above. The underlying *method* — divergent concepts before narrowing, verified tokens, an honest self-critique pass — isn't, and [`/showcase`](showcase/) applies it outside chat.
 
 ## Install
 
@@ -71,7 +71,6 @@ Same method, applied where `theme.schema.json` doesn't reach — no chat UI, so 
 |---|---|
 | Water bottle landing page | [index.html](showcase/waterbottle-landing/index.html) |
 | Portfolio / dossier template | [index.html](showcase/portfolio-dossier/index.html) |
-
 
 ## Repo structure
 
