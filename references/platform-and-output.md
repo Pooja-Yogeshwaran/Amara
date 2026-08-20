@@ -8,6 +8,14 @@ Same token file, different layout rules — never a second token system per plat
 
 Layout rules live outside the token file (they're structural/responsive logic, not design tokens); the token file stays the single source of truth for color, type, spacing, motion, and component treatments across all three.
 
+## Frame / window chrome
+Separate question from platform mode above: what contains the widget, and does the brief actually specify it, or is a shape being assumed by default? Don't reach for "rounded floating panel, no title bar" reflexively — that's one point on a real spectrum:
+- **Borderless overlay** — no visible frame at all, the panel just sits on top of the host page (the default this repo's `/examples` mostly use). Right for most embedded-widget cases.
+- **Windowed, with chrome** — a title bar (drag handle, minimize/close controls), resizable edges, maybe a native-feeling shadow/border — appropriate when the brief implies a desktop-app register, a multi-window workflow, or explicit user control over size/position rather than a fixed footprint.
+- **Iframe-embedded** — the host page owns the outer frame entirely; the generated system only controls what's inside it, and must assume it cannot rely on `100vh`/viewport-relative units behaving like the top-level page. Note this constraint explicitly rather than silently generating CSS that only works standalone.
+- **Native app shell** (Electron/Tauri-style, or a platform-native window) — can assume real OS-level window controls exist elsewhere; don't duplicate a close/minimize affordance the OS chrome already provides.
+Whichever shape applies, it's a structural decision like layout paradigm or platform mode — call it out in `meta.designPrinciple` or a components note when it's a system-shaping factor, the same way platform mode already is, rather than leaving it implicit in whichever adapter happens to get built first.
+
 ## Output generation — from tokens to deployable code
 
 `theme.json` (validated against `schema/theme.schema.json`) is the only source of truth. Generators are adapters that read it and emit one of:

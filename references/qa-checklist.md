@@ -2,6 +2,8 @@
 
 Required after every generation, before presenting output. This is not a single-pass generator — run this checklist against the produced `theme.json` and its rendered examples, fix or regenerate anything that fails, and only then present the result. State briefly to the user which checks ran and what (if anything) got fixed or removed; don't just silently pass.
 
+**This full list is the required floor, and it's fast** — two script runs (each well under a second) plus five inspection-based judgment calls made once against the draft, not a re-verification loop. Spinning up a browser to screenshot the result or probe computed styles with injected JS is real extra diligence worth doing when building a permanent `/examples` entry, but it is not part of what every generation needs — don't treat it as a default step, or routine requests pay for gallery-grade verification they didn't ask for.
+
 Run in this order:
 
 ## 1. Spacing/alignment on-grid
