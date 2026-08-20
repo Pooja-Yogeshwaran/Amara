@@ -151,6 +151,16 @@
           "type": "object",
           "description": "Non-optional fallback per animated element -- required even for gif/video tiers, where it typically means 'freeze on first frame'.",
           "properties": { "strategy": {"type":"string"}, "appliesTo": {"type":"array","items":{"type":"string"}} }
+        },
+        "signatureInteraction": {
+          "type": "object",
+          "description": "Optional. ONE (at most two) deliberate, real spring-physics tactile interaction -- driven by an actual physics/motion library, not a CSS @keyframes loop approximating one. This is the craft layer separating a genuinely tactile product moment (drag-and-release with real momentum and overshoot, a squash-and-settle on release) from a themed static mockup -- see motion-icon-tiers.md's 'Signature interaction' section. Reserve it for a single high-impact element (the avatar/launcher is the strongest default candidate) -- applying it everywhere defeats the point and re-triggers qa-checklist.md's density-ceiling and no-competing-focal-points checks.",
+          "properties": {
+            "element": { "type": "string", "description": "Which component gets it, e.g. 'avatar' or 'bubbleCollapsed'." },
+            "library": { "type": "string", "description": "A real open-source physics/spring library (e.g. 'Motion', motion.dev, MIT) -- not a hand-rolled CSS transition described as if it were physics." },
+            "behavior": { "type": "string", "description": "Plain description of the interaction, e.g. 'drag the avatar, release, it springs back with real momentum and one overshoot bounce.'" },
+            "trigger": { "type": "string" }
+          }
         }
       }
     },
@@ -196,6 +206,22 @@
             "error": { "$ref": "#/$defs/avatarState" },
             "success": { "$ref": "#/$defs/avatarState" }
           }
+        }
+      }
+    },
+
+    "personas": {
+      "type": "array",
+      "description": "Optional. A roster of distinct NAMED agent personas within one product -- e.g. Berd's shipped roster (Berdy, Pushback, Choosey, Copycat, Tinker, Wildcard), each with its own name, role, and voice. This is NOT multi-agent handoff/orchestration UI (delegation, a roster-management dashboard, per-agent workflow routing), which stays explicitly out of scope for v1 -- see agent-states.md. A persona roster is a voice/identity design problem: several specific characters a user picks between or invokes, sharing one avatar state-machine tier and one token system, differentiated by name, microcopy voice, and a single accent variation -- not by separate design systems.",
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "vibe"],
+        "properties": {
+          "name": { "type": "string", "description": "A real name, not a role label -- 'Pushback', not 'Editor Agent'." },
+          "role": { "type": "string", "description": "One line: what this persona is for." },
+          "goodFor": { "type": "string", "description": "One line, concrete: when a user should reach for this persona specifically." },
+          "vibe": { "type": "string", "description": "2-4 word voice/personality descriptor, e.g. 'blunt, precise, no sugarcoating' -- drives this persona's microcopy tone specifically, distinct from the other personas in the roster. If every persona's vibe line could be swapped with another's, the roster hasn't actually been designed yet." },
+          "avatarAccent": { "type": "string", "description": "Dot-path to the color/accent variation that visually distinguishes this persona's avatar from the others -- a variation on the shared avatar.states tier, not a separate avatar system per persona." }
         }
       }
     },
