@@ -68,6 +68,7 @@ amara/
 ├── schema/
 │   └── theme.schema.json        the token schema: primitive → semantic → component → resources layers
 ├── references/                  detail SKILL.md links out to, loaded as needed
+│   ├── visual-vocabulary.md     gradients/textures/patterns/layout paradigms — raw material read BEFORE the taxonomy, so it names rather than generates
 │   ├── style-taxonomy.md        the 11 style families, as one continuous spectrum
 │   ├── color-theory.md          harmony models, 60/30/10, contrast-first generation
 │   ├── agent-states.md          presence, thinking-vs-doing, approval checkpoints, error states

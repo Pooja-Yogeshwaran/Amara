@@ -56,8 +56,8 @@
       "required": ["harmonyModel", "primitive", "semantic", "dark"],
       "properties": {
         "harmonyModel": {
-          "enum": ["monochromatic", "analogous", "complementary", "triadic", "split-complementary"],
-          "description": "See references/color-theory.md for which models suit which style families."
+          "enum": ["monochromatic", "analogous", "complementary", "triadic", "split-complementary", "desaturated-ink", "one-shock-color", "material-derived", "deliberately-clashing", "brand-arbitrary"],
+          "description": "The first five are the classic hue-wheel models -- see references/color-theory.md. The remaining five are non-hue-wheel techniques from references/visual-vocabulary.md's color section, added because a closed list of five hue-wheel models was itself becoming a source of convergent, samey output -- not every considered palette is built by selecting hues off a wheel."
         },
         "distributionRatio": {
           "type": "object",
