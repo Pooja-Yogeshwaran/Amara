@@ -239,6 +239,30 @@
         "focusRing": { "type": "object", "properties": { "color": {"type":"string"}, "width": {"type":"number"}, "offset": {"type":"number"} } },
         "readingOrder": { "type": "string", "description": "Note on DOM/ARIA order vs visual order, for RTL and screen readers." }
       }
+    },
+
+    "resources": {
+      "type": "object",
+      "description": "Optional. Pointers to the actual open-source/free assets that realize this system's tokens -- see references/resource-library.md. Each field is independently swappable via the targeted-override syntax (input-modes.md #4): changing resources.iconSet does not require regenerating anything else. Omitting this block entirely is valid -- an adapter should fall back to the resource-library.md defaults for the chosen style family rather than treat it as an error.",
+      "properties": {
+        "iconSet": { "$ref": "#/$defs/resourceRef" },
+        "fontSource": { "$ref": "#/$defs/resourceRef" },
+        "illustrationSource": { "$ref": "#/$defs/resourceRef" },
+        "chartLibrary": { "$ref": "#/$defs/resourceRef" },
+        "cssFramework": { "$ref": "#/$defs/resourceRef" },
+        "animationLibrary": { "$ref": "#/$defs/resourceRef" },
+        "uiKit": {
+          "type": "object",
+          "description": "Per-framework component-kit pick for whichever output adapter is in use -- only populate the target(s) actually requested.",
+          "properties": {
+            "react": { "$ref": "#/$defs/resourceRef" },
+            "vue": { "$ref": "#/$defs/resourceRef" },
+            "angular": { "$ref": "#/$defs/resourceRef" },
+            "svelte": { "$ref": "#/$defs/resourceRef" },
+            "reactNative": { "$ref": "#/$defs/resourceRef" }
+          }
+        }
+      }
     }
   },
 
@@ -250,6 +274,17 @@
         "colorToken": { "type": "string" },
         "motion": { "type": "string" },
         "reducedMotionFallback": { "type": "string" }
+      }
+    },
+    "resourceRef": {
+      "type": "object",
+      "description": "One resource-library pick. license uses the same key as resource-library.md: OSI (real open-source license), OFL (SIL Open Font License), CC0 (public domain), Free (no-cost but not open-source -- check redistribution terms), or Freemium (free tier of a proprietary tool, workflow-only).",
+      "required": ["name", "license"],
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": "string" },
+        "license": { "enum": ["OSI", "OFL", "CC0", "Free", "Freemium"] },
+        "note": { "type": "string", "description": "Why this pick, or what to check before swapping it out." }
       }
     }
   }

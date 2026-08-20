@@ -77,6 +77,13 @@
     ],
     "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 160ms slide-down, no loop" }
   },
+  "resources": {
+    "iconSet": { "name": "Lucide", "url": "https://lucide.dev", "license": "OSI", "note": "1.5px stroke matches iconography.strokeWidth exactly; swap to Tabler if a needed glyph is missing." },
+    "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL", "note": "Archivo + Newsreader, both self-hostable." },
+    "illustrationSource": { "name": "unDraw", "url": "https://undraw.co", "license": "OSI", "note": "Recolor to primitive.neutral/accent for the empty-state illustration." },
+    "cssFramework": { "name": "Open Props", "url": "https://open-props.dev", "license": "OSI", "note": "Used for the plain HTML/CSS/JS adapter's custom-property base." },
+    "uiKit": { "react": { "name": "shadcn/ui", "url": "https://ui.shadcn.com", "license": "OSI", "note": "Copy-in components theme cleanly off this file's semantic tokens." } }
+  },
   "a11y": {
     "contrastMode": "AA",
     "contrastReport": [

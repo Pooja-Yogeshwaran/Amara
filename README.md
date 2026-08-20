@@ -1,6 +1,8 @@
 # Amara
 
-**Amara** generates professionally-designed, cohesive UI systems for always-on AI chatbots and agents — from the collapsed widget bubble through the full open-thread state. It's a portable Skill (`SKILL.md` format) that works with Claude Code, Claude.ai, Cursor, Windsurf, and GitHub Copilot.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+**Amara** generates professionally-designed, cohesive UI systems for always-on AI chatbots and agents — from the collapsed widget bubble through the full open-thread state. It's a portable Skill (`SKILL.md` format) that works with Claude Code, Claude.ai, Cursor, Windsurf, and GitHub Copilot. Amara itself is MIT-licensed, and it defaults to recommending genuinely open-source assets (fonts, icons, UI kits, and more) rather than proprietary ones — see [Open-source resource library](#open-source-resource-library) below.
 
 ### Why "Amara"
 
@@ -15,6 +17,12 @@ Amara is scoped specifically to **conversational AI interfaces** — chat widget
 - A **self-critique QA pass** run automatically before anything is presented: contrast checks, spacing/type-scale discipline, a consistency audit, and confirmation that at least one thing was deliberately cut from the first draft.
 
 See it applied across four style tiers in [`/examples`](examples/) before installing.
+
+## Open-source resource library
+
+Every dimension of a generated system — icon set, font source, illustration/stock source, CSS framework, chart library, per-framework UI kit (React/Vue/Angular/Svelte/React Native) — is a **customizable pick**, not a hardcoded default. [`references/resource-library.md`](references/resource-library.md) curates real options across all of them (plus process resources: design tools, image compression, browser extensions for design QA, and more), each tagged with its actual license — genuinely open-source (MIT/Apache/OFL/CC0) is preferred and defaulted-to wherever one exists; merely "free" or freemium tools are labeled as such rather than implied to be open source.
+
+Every pick lands in `theme.json`'s optional `resources` block (`iconSet`, `fontSource`, `illustrationSource`, `chartLibrary`, `cssFramework`, `animationLibrary`, `uiKit.{react,vue,angular,svelte,reactNative}`) — see any of the four `/examples` themes for a populated one. Swap any single pick with the same targeted-override syntax used for any other token ("use Tabler instead of Phosphor for icons," "swap the illustration source to Storyset") without touching the rest of the system.
 
 ## What it's honestly good for — and not
 
@@ -42,9 +50,10 @@ No build step, no dependencies — `SKILL.md` plus the linked reference files un
 
 ```
 amara/
+├── LICENSE                      MIT
 ├── SKILL.md                     entry point — the elicitation flow and generation steps
 ├── schema/
-│   └── theme.schema.json        the token schema: primitive → semantic → component layers
+│   └── theme.schema.json        the token schema: primitive → semantic → component → resources layers
 ├── references/                  detail SKILL.md links out to, loaded as needed
 │   ├── style-taxonomy.md        the 11 style families, as one continuous spectrum
 │   ├── color-theory.md          harmony models, 60/30/10, contrast-first generation
@@ -54,7 +63,8 @@ amara/
 │   ├── system-defaults.md       trust signals, session chrome, perf budgets — inferred, overridable
 │   ├── content-and-arc.md       tables/code/streaming edge cases + the onboarding→routine-use arc
 │   ├── qa-checklist.md          the required self-critique pass, run before every output
-│   └── platform-and-output.md   widget/app/mobile layout rules + the three output adapters
+│   ├── platform-and-output.md   widget/app/mobile layout rules + the three output adapters
+│   └── resource-library.md      open-source/free picks per dimension, license-tagged, swappable
 ├── styles/
 │   ├── _template.md             copy this to add a new style family
 │   └── README.md
@@ -80,3 +90,7 @@ No change to `SKILL.md` or `schema/theme.schema.json` required.
 - **Multi-agent / sub-agent handoff UI.** A real and adjacent problem — a roster view, delegation transitions, per-agent presence — but not one this version solves. If asked, the skill says so rather than improvising an unvalidated pattern.
 - **General website/app generation.** Amara reasons about conversational-agent surfaces specifically. For arbitrary frontend work, use a general UI-design skill instead.
 - **Literal reproduction of any named brand's actual assets.** Reference-mode input extracts and re-expresses *style characteristics* (weight, proportion, rhythm, palette feel) — never a brand's logo, trademarked marks, or literal identity. See `references/input-modes.md`.
+
+## License
+
+[MIT](LICENSE) — Amara itself, plus everything it generates for you, is free to use, modify, and ship commercially. That covers this repo's own code and docs; it does not relicense any third-party asset you pull in from `references/resource-library.md` — each of those carries its own license, noted per entry.
