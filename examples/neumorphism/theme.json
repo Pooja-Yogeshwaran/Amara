@@ -74,13 +74,13 @@
     "contrastMode": "AA",
     "contrastReport": [
       { "pairing": "text.primary #26303D on canvas #E4E9F0", "ratio": 10.95, "pass": true },
-      { "pairing": "text.secondary #4E5A68-equivalent (neutral.700) on canvas", "ratio": 5.76, "pass": true },
-      { "pairing": "accent #4C6FFF as plain text/icon on canvas -- borderline", "ratio": 3.43, "pass": false, "note": "Clears the 3:1 non-text/large-UI floor (icon use only) but fails 4.5:1 for body text -- accent.500 is restricted to the embossed send-button fill and icon strokes, never inline text." },
-      { "pairing": "white text on accent.500 #4C6FFF (send button, first attempt) -- REJECTED", "ratio": 4.18, "pass": false, "note": "Regenerated: button fill darkened to accent.600 #2C4FD9 (6.51:1, passes)." },
-      { "pairing": "white text on accent.600 #2C4FD9 (send button, corrected)", "ratio": 6.51, "pass": true },
-      { "pairing": "approval amber #8A5115 on canvas -- first attempt #C97A2E REJECTED at 2.73:1", "ratio": 5.27, "pass": true, "note": "First attempt #C97A2E failed badly at 2.73:1. Regenerated to #8A5115." },
-      { "pairing": "success #1B5E3B on canvas -- first attempt #227A4E REJECTED at 4.34:1", "ratio": 6.35, "pass": true, "note": "First attempt failed narrowly at 4.34:1 (just under 4.5). Regenerated darker." },
-      { "pairing": "danger #A63C3C on canvas", "ratio": 5.16, "pass": true }
+      { "pairing": "text.secondary (neutral.700) #3D4653 on canvas #E4E9F0", "ratio": 7.83, "pass": true, "note": "Corrected via scripts/check-contrast.js: the hex previously labeled here (#4E5A68) did not match this theme's actual neutral.700 value -- a fabricated placeholder that happened to produce a plausible-looking ratio (5.76) rather than the real one. The real primitive (#3D4653) passes even more comfortably (7.83:1); no live accessibility issue, but the documented value was simply wrong." },
+      { "pairing": "accent #4C6FFF as plain text/icon on canvas #E4E9F0 -- borderline", "ratio": 3.43, "pass": false, "note": "Clears the 3:1 non-text/large-UI floor (icon use only) but fails 4.5:1 for body text -- accent.500 is restricted to the embossed send-button fill and icon strokes, never inline text." },
+      { "pairing": "white #EEF1F5 text on accent.500 #4C6FFF (send button, first attempt) -- REJECTED", "ratio": 3.69, "pass": false, "note": "Ratio corrected from an originally-claimed 4.18 to the recomputed 3.69 -- both fail, conclusion unchanged. Regenerated: button fill darkened to accent.600 #2C4FD9 (5.74:1, passes)." },
+      { "pairing": "white #EEF1F5 text on accent.600 #2C4FD9 (send button, corrected)", "ratio": 5.74, "pass": true },
+      { "pairing": "approval amber #8A5115 on canvas #E4E9F0 -- first attempt #C97A2E REJECTED at 2.73:1", "ratio": 5.27, "pass": true, "note": "First attempt #C97A2E failed badly at 2.73:1. Regenerated to #8A5115." },
+      { "pairing": "success #1B5E3B on canvas #E4E9F0 -- first attempt #227A4E REJECTED at 4.34:1", "ratio": 6.35, "pass": true, "note": "First attempt failed narrowly at 4.34:1 (just under 4.5). Regenerated darker." },
+      { "pairing": "danger #A63C3C on canvas #E4E9F0", "ratio": 5.16, "pass": true }
     ],
     "reducedMotionDefault": false,
     "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },

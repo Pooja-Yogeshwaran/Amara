@@ -74,13 +74,13 @@
     "contrastMode": "AA",
     "contrastReport": [
       { "pairing": "text.primary #1B2028 on surface #FFFFFF", "ratio": 16.36, "pass": true },
-      { "pairing": "text.secondary #3D4653 on surface", "ratio": 9.55, "pass": true },
-      { "pairing": "primary.500 navy #1F4287 as text", "ratio": 9.60, "pass": true },
-      { "pairing": "secondary.500 orange #E08A2E as text -- REJECTED", "ratio": 2.68, "pass": false, "note": "Failed badly. Regenerated as secondary.700 #A8621A for any text/icon use (4.74:1, passes); secondary.500 kept for fills only." },
-      { "pairing": "secondary.700 #A8621A on surface (corrected)", "ratio": 4.74, "pass": true },
-      { "pairing": "approval #6B4FA8 on surface", "ratio": 6.35, "pass": true },
-      { "pairing": "danger #B23A3A on surface", "ratio": 5.90, "pass": true },
-      { "pairing": "success #227A4E on surface", "ratio": 5.30, "pass": true }
+      { "pairing": "text.secondary #3D4653 on surface #FFFFFF", "ratio": 9.55, "pass": true },
+      { "pairing": "primary.500 navy #1F4287 as text on #FFFFFF", "ratio": 9.60, "pass": true },
+      { "pairing": "secondary.500 orange #E08A2E as text on #FFFFFF -- REJECTED", "ratio": 2.68, "pass": false, "note": "Failed badly. Regenerated as secondary.700 #A8621A for any text/icon use (4.74:1, passes); secondary.500 kept for fills only." },
+      { "pairing": "secondary.700 #A8621A on surface #FFFFFF (corrected)", "ratio": 4.74, "pass": true },
+      { "pairing": "approval #6B4FA8 on surface #FFFFFF", "ratio": 6.35, "pass": true },
+      { "pairing": "danger #B23A3A on surface #FFFFFF", "ratio": 5.90, "pass": true },
+      { "pairing": "success #227A4E on surface #FFFFFF", "ratio": 5.30, "pass": true }
     ],
     "reducedMotionDefault": true,
     "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },

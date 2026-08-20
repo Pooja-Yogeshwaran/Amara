@@ -86,11 +86,11 @@
   "a11y": {
     "contrastMode": "AA",
     "contrastReport": [
-      { "pairing": "text.primary on background.surface", "ratio": 19.6, "pass": true },
-      { "pairing": "text.inverse on primitive.primary.500", "ratio": 5.7, "pass": true },
-      { "pairing": "text.inverse on userBubble (primary.500)", "ratio": 5.7, "pass": true },
-      { "pairing": "approvalRequired fill with text.primary text", "ratio": 14.9, "pass": true, "note": "F5FF3D is bright enough that dark text on it clears AA comfortably, unlike most approval-accent colors" },
-      { "pairing": "secondary.500 on background.surface", "ratio": 4.6, "pass": true }
+      { "pairing": "text.primary #0F0E0A on background.surface #FFFFFF", "ratio": 19.31, "pass": true },
+      { "pairing": "text.inverse #FFFFFF on primitive.primary.500 #1E3AF2", "ratio": 7.14, "pass": true },
+      { "pairing": "text.inverse #FFFFFF on userBubble (primary.500 #1E3AF2)", "ratio": 7.14, "pass": true },
+      { "pairing": "approvalRequired fill #F5FF3D with text.primary #0F0E0A text", "ratio": 17.70, "pass": true, "note": "F5FF3D is bright enough that dark text on it clears AA comfortably, unlike most approval-accent colors" },
+      { "pairing": "secondary.500 #FF3B7F on background.surface #FFFFFF -- REJECTED as text", "ratio": 3.40, "pass": false, "note": "Corrected via scripts/check-contrast.js: originally claimed 4.6:1/pass, actually 3.40:1/fail. Not a live bug -- secondary.500 is never used as text anywhere in preview.html, only as a non-text swatch fill; actual secondary text uses a separate --text-secondary variable (#4A4536, which does pass). Documented fill/icon-only to match real usage." }
     ],
     "reducedMotionDefault": true,
     "focusRing": { "color": "semantic.info", "width": 3, "offset": 0 },

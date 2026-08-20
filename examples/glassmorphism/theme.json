@@ -72,11 +72,11 @@
   "a11y": {
     "contrastMode": "AA",
     "contrastReport": [
-      { "pairing": "text.primary #2A2438 on worst-case opaque white behind blur", "ratio": 14.92, "pass": true },
-      { "pairing": "primary.600 #4E5FC7 as text", "ratio": 5.55, "pass": true },
-      { "pairing": "secondary.500 pink #E0A0C4 as text -- REJECTED", "ratio": 3.64, "pass": false, "note": "Regenerated as secondary.700 #8F4468 for text/icon use (6.57:1, passes); secondary.500 kept for fills only." },
-      { "pairing": "secondary.700 #8F4468 on surface (corrected)", "ratio": 6.57, "pass": true },
-      { "pairing": "approval coral #C24E30 on surface", "ratio": 4.74, "pass": true, "note": "Validated against the worst-case (busiest, lightest) background it could sit over, per color-theory.md's glassmorphism contrast rule -- not just the calm demo backdrop." }
+      { "pairing": "text.primary #2A2438 on worst-case opaque white #FFFFFF behind blur", "ratio": 14.92, "pass": true },
+      { "pairing": "primary.600 #4E5FC7 as text on #FFFFFF", "ratio": 5.55, "pass": true },
+      { "pairing": "secondary.500 pink #E0A0C4 as text on #FFFFFF -- REJECTED", "ratio": 2.10, "pass": false, "note": "Ratio corrected via scripts/check-contrast.js from an originally-claimed 3.64 to the recomputed 2.10 -- both fail, conclusion unchanged. Regenerated as secondary.700 #8F4468 for text/icon use (6.57:1, passes); secondary.500 kept for fills only." },
+      { "pairing": "secondary.700 #8F4468 on surface #FFFFFF (corrected)", "ratio": 6.57, "pass": true },
+      { "pairing": "approval coral #C24E30 on surface #FFFFFF", "ratio": 4.74, "pass": true, "note": "Validated against the worst-case (busiest, lightest) background it could sit over, per color-theory.md's glassmorphism contrast rule -- not just the calm demo backdrop." }
     ],
     "reducedMotionDefault": false,
     "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },

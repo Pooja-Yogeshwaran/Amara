@@ -68,8 +68,10 @@ Before the QA pass: does the actual layout — component structure, message trea
 
 Read and run every check in `references/qa-checklist.md` against the draft before presenting anything. The checklist catches mechanical failures (contrast, scale discipline, consistency, structural sameness) — it does not certify the design is good, only that it isn't broken. Before presenting, separately ask the question Step 0 set up: would this be recognizable as an answer to *this* brief, or could the words in the request be swapped for a different brief and the output would barely need to change? If the honest answer is the latter, that's a failure this checklist's individual items can all pass and still miss — go back to Step 0, not to a token.
 
-1. Spacing/alignment on-grid
-2. WCAG AA contrast on every text/background pairing (including maximalist/funky/dark-native modes) — fail = regenerate the primitive step, not ship-with-caveat
+Items 1 and 2 are not eyeballed — run the actual scripts (`scripts/check-tokens.js`, `scripts/check-contrast.js`) as commands against the theme.json and rendered preview before claiming either passes. A described-but-unrun check is not a check; see `qa-checklist.md` for exact invocations. If the environment can't execute Node for some reason, say so explicitly rather than silently presenting an unverified pass.
+
+1. Spacing/alignment on-grid — `node scripts/check-tokens.js`
+2. WCAG AA contrast on every text/background pairing (including maximalist/funky/dark-native modes) — `node scripts/check-contrast.js`, every pairing recorded with its literal hex values so the ratio is independently recomputable, not just token names. Fail = regenerate the primitive step, not ship-with-caveat.
 3. Type scale discipline (≤5 sizes, all traceable to the ratio)
 4. Consistency audit (icon stroke, corner radius, elevation reused not invented)
 5. Whitespace/density ceiling, even at the maximalist end

@@ -75,12 +75,12 @@
   "a11y": {
     "contrastMode": "AA",
     "contrastReport": [
-      { "pairing": "text.primary #2E2140 on surface #FFFFFF", "ratio": 13.35, "pass": true },
-      { "pairing": "primary.500 coral #E0503D as text -- REJECTED", "ratio": 3.49, "pass": false, "note": "Regenerated as primary.700 #B8341F for text/icon use (5.29:1, passes); primary.500 kept for fills only." },
-      { "pairing": "primary.700 #B8341F on surface (corrected)", "ratio": 5.29, "pass": true },
-      { "pairing": "accent.700 grape #5F3AAE as text", "ratio": 6.07, "pass": true },
-      { "pairing": "dark text.primary on secondary.500 yellow fill #FFD23D", "ratio": 10.33, "pass": true, "note": "Yellow confined to fill use, same pattern as the maximalist test theme -- never used as text color." },
-      { "pairing": "approval teal -- first attempt #16856E REJECTED at 4.07:1", "ratio": 6.88, "pass": true, "note": "Regenerated to #0E5E4E." }
+      { "pairing": "text.primary #2E2140 on surface #FFFFFF", "ratio": 14.92, "pass": true },
+      { "pairing": "primary.500 coral #E0503D as text on #FFFFFF -- REJECTED", "ratio": 3.90, "pass": false, "note": "Ratio corrected via scripts/check-contrast.js from an originally-claimed 3.49 to the recomputed 3.90 -- both fail, conclusion unchanged. Regenerated as primary.700 #B8341F for text/icon use (5.92:1, passes); primary.500 kept for fills only." },
+      { "pairing": "primary.700 #B8341F on surface #FFFFFF (corrected)", "ratio": 5.92, "pass": true },
+      { "pairing": "accent.700 grape #5F3AAE as text on #FFFFFF", "ratio": 7.77, "pass": true },
+      { "pairing": "dark text.primary #2E2140 on secondary.500 yellow fill #FFD23D", "ratio": 10.33, "pass": true, "note": "Yellow confined to fill use, same pattern as the maximalist test theme -- never used as text color." },
+      { "pairing": "approval teal #0E5E4E on #FFFFFF -- first attempt #16856E REJECTED at 4.07:1", "ratio": 7.69, "pass": true, "note": "Ratio corrected from an originally-claimed 6.88 to the recomputed 7.69. Regenerated to #0E5E4E." }
     ],
     "reducedMotionDefault": false,
     "focusRing": { "color": "semantic.info", "width": 3, "offset": 2 },

@@ -105,11 +105,11 @@
   "a11y": {
     "contrastMode": "AA",
     "contrastReport": [
-      { "pairing": "text.primary on background.surface", "ratio": 15.8, "pass": true },
-      { "pairing": "text.secondary on background.surface", "ratio": 6.1, "pass": true },
-      { "pairing": "text.inverse on primitive.primary.500", "ratio": 12.4, "pass": true },
-      { "pairing": "accent.500 on background.surface", "ratio": 4.9, "pass": true },
-      { "pairing": "approvalRequired text on background.surface", "ratio": 2.1, "pass": false, "note": "used as border/icon accent only, never as text color — resolved by keeping banner body copy in text.primary" }
+      { "pairing": "text.primary #161613 on background.surface #FFFFFF", "ratio": 18.13, "pass": true },
+      { "pairing": "text.secondary #57574F on background.surface #FFFFFF", "ratio": 7.29, "pass": true },
+      { "pairing": "text.inverse #FFFFFF on primitive.primary.500 #2B2E24", "ratio": 13.82, "pass": true },
+      { "pairing": "accent.500 #3F52E8 on background.surface #FFFFFF", "ratio": 5.86, "pass": true },
+      { "pairing": "approvalRequired #F5A623 on background.surface #FFFFFF", "ratio": 2.03, "pass": false, "note": "used as border/icon accent only, never as text color — resolved by keeping banner body copy in text.primary. Ratios in this report corrected via scripts/check-contrast.js -- the originals (15.8/6.1/12.4/4.9/2.1) were rough estimates from before this repo had a real contrast-checking script, not computed values; recomputed ones are 18.13/7.29/13.82/5.86/2.03. No pass/fail conclusion changed, but the numbers themselves were wrong." }
     ],
     "reducedMotionDefault": false,
     "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },

@@ -14,9 +14,9 @@ Amara is scoped specifically to **conversational AI interfaces** — chat widget
 
 - A framework-agnostic **design-token JSON** (`theme.json`) — color, typography, spacing, motion, iconography, and a full **agent-state component set**: presence indicators, thinking-vs-doing distinction, an approval/checkpoint UI that outranks everything else on screen, background-task notifications, error states designed to read as trustworthy rather than alarming.
 - Optional adapters emitting that token file as **React/Tailwind**, **plain HTML/CSS/JS**, or a **theme-config object** for existing chat-widget SDKs — the point at which "AI-generated design" becomes something you can actually ship.
-- A **self-critique QA pass** run automatically before anything is presented: contrast checks, spacing/type-scale discipline, a consistency audit, and confirmation that at least one thing was deliberately cut from the first draft.
+- A **self-critique QA pass** run automatically before anything is presented: contrast checks, spacing/type-scale discipline, a consistency audit, and confirmation that at least one thing was deliberately cut from the first draft. The contrast and spacing/type-scale checks aren't just described in prose — `scripts/check-contrast.js` and `scripts/check-tokens.js` mechanically recompute them from the actual token values and rendered CSS, so a passing QA claim is independently verifiable rather than self-reported. See [Verification tooling](#verification-tooling) below.
 
-See it applied across four style tiers in [`/examples`](examples/) before installing.
+See it applied across nine style tiers in [`/examples`](examples/) before installing.
 
 ## Prior art, and why the MIT license here is safe
 
@@ -30,6 +30,15 @@ That influence stays at the *idea* level, on purpose, and the same rule governs 
 - **The MIT `LICENSE` at this repo's root covers Amara's own original content only** — the prose in `SKILL.md` and `references/`, the JSON in `schema/` and `examples/`, the HTML in `examples/`. It says nothing about, and doesn't need to say anything about, the separate licenses of tools you choose to install from the resource library — each of those remains governed by its own project's license, same as any dependency in any software project.
 
 If you ever spot something in this repo that reads as more than an idea-level citation — a suspiciously specific class name, a copied color value that traces to a real product rather than one of Amara's own generated palettes — flag it; that would be a bug in how this repo was built, not an accepted tradeoff.
+
+## Verification tooling
+
+Two of the QA checklist's items (`references/qa-checklist.md` #1 and #2) are backed by scripts under `scripts/`, run as real commands during Step 6 of `SKILL.md`, not eyeballed:
+
+- **`node scripts/check-tokens.js <theme.json> <preview.html>`** — parses the rendered CSS, extracts every padding/margin/gap and font-size value actually used, and fails if any value isn't traceable to `spacing.scale` or `typography.scale`. Support an `--exclude=selector,...` flag for skipping documentation-page chrome (intro text, token-strip demos) that isn't part of the generated system itself.
+- **`node scripts/check-contrast.js <theme.json>`** — reads `a11y.contrastReport`, independently recomputes each pairing's contrast ratio from its literal hex values using the real WCAG relative-luminance formula, and fails if the recomputed ratio doesn't match the claimed one (or if a pairing can't be checked because it's recorded as token names only, with no hex values to verify against).
+
+Both exit non-zero on failure, so they're CI-friendly. They exist because "the checklist says contrast was checked" and "contrast was actually, verifiably checked" are different claims — the first is easy to assert and easy to get wrong quietly; the second only holds if something recomputes it. Every `theme.json` under `/examples` passes both.
 
 ## Open-source resource library
 
@@ -79,14 +88,22 @@ amara/
 │   ├── qa-checklist.md          the required self-critique pass, run before every output
 │   ├── platform-and-output.md   widget/app/mobile layout rules + the three output adapters
 │   └── resource-library.md      open-source/free picks per dimension, license-tagged, swappable
+├── scripts/                      QA checks that run as real commands, not prose
+│   ├── check-tokens.js           spacing/type-scale on-grid check against rendered CSS
+│   └── check-contrast.js         WCAG contrast independently recomputed from a11y.contrastReport
 ├── styles/
 │   ├── _template.md             copy this to add a new style family
 │   └── README.md
-└── examples/                    the same sample chatbot, four style tiers, each with theme.json + preview.html
+└── examples/                    the same sample chatbot across nine style tiers, each with a theme.json
     ├── minimalist-swiss/
     ├── claymorphism/
     ├── brutalism/
-    └── maximalist-editorial/
+    ├── maximalist-editorial/
+    ├── neumorphism/
+    ├── glassmorphism/
+    ├── corporate-enterprise/
+    ├── playful-funky/
+    └── retro-skeuomorphic/
 ```
 
 ## Adding a new style family

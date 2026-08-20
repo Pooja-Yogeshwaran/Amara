@@ -88,11 +88,11 @@
   "a11y": {
     "contrastMode": "AA",
     "contrastReport": [
-      { "pairing": "text.primary on background.surface", "ratio": 11.2, "pass": true },
-      { "pairing": "text.inverse on primitive.primary.600", "ratio": 5.4, "pass": true },
-      { "pairing": "text.primary on userBubble (primary.300)", "ratio": 5.9, "pass": true },
-      { "pairing": "accent.600 on background.surface", "ratio": 4.6, "pass": true },
-      { "pairing": "approvalRequired as text on surface", "ratio": 1.9, "pass": false, "note": "used only as icon/border/banner-fill; banner body copy stays in text.primary at 11.2:1" }
+      { "pairing": "text.primary #352B20 on background.surface #FFFDF9", "ratio": 13.62, "pass": true },
+      { "pairing": "text.inverse #FFFDF9 on primitive.primary.600 #6E5CE0", "ratio": 4.84, "pass": true },
+      { "pairing": "text.primary #352B20 on userBubble (primary.300 #B6ACF9)", "ratio": 6.76, "pass": true },
+      { "pairing": "accent.600 #20B57E on background.surface #FFFDF9 -- REJECTED as text", "ratio": 2.59, "pass": false, "note": "Corrected via scripts/check-contrast.js: originally claimed 4.6:1/pass, actually 2.59:1/fail -- a real error that sat undetected until this repo had a real checker. Not a live bug: accent.600 was never actually used as text anywhere in preview.html (only accent.500 appears, as a non-text swatch fill), so nothing was visibly broken, but the claim itself was wrong. accent.600 is now documented fill/icon-only, matching how it's actually used." },
+      { "pairing": "approvalRequired #FFB648 on surface #FFFDF9", "ratio": 1.72, "pass": false, "note": "used only as icon/border/banner-fill; banner body copy stays in text.primary at 13.62:1. Ratio corrected from an originally-claimed 1.9 to the recomputed 1.72 -- pass/fail unchanged." }
     ],
     "reducedMotionDefault": false,
     "focusRing": { "color": "semantic.info", "width": 3, "offset": 2 },

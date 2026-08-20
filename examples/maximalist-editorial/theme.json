@@ -89,11 +89,11 @@
   "a11y": {
     "contrastMode": "AA",
     "contrastReport": [
-      { "pairing": "text.primary on background.surface", "ratio": 14.9, "pass": true },
-      { "pairing": "text.inverse on primitive.primary.600", "ratio": 8.1, "pass": true },
-      { "pairing": "primitive.accent.600 on background.surface", "ratio": 5.2, "pass": true },
-      { "pairing": "primitive.secondary.600 on background.surface", "ratio": 4.7, "pass": true },
-      { "pairing": "approvalRequired as banner-fill icon vs text.primary body copy", "ratio": 3.4, "pass": false, "note": "used as 2px rule/icon only at 3:1 non-text floor, which it clears; body copy inside the banner stays in text.primary at 14.9:1" }
+      { "pairing": "text.primary #1A140D on background.surface #FFFDF8", "ratio": 17.97, "pass": true },
+      { "pairing": "text.inverse #FFFDF8 on primitive.primary.600 #5E212B", "ratio": 11.95, "pass": true },
+      { "pairing": "primitive.accent.600 #17554C on background.surface #FFFDF8", "ratio": 8.47, "pass": true },
+      { "pairing": "primitive.secondary.600 #A66E1F on background.surface #FFFDF8 -- REJECTED as text", "ratio": 4.24, "pass": false, "note": "Corrected via scripts/check-contrast.js: originally claimed 4.7:1/pass, actually 4.24:1/fail (just under the 4.5 floor). Not a live bug -- secondary.600 is never used as text in preview.html, only secondary.500 appears, and only as a decorative non-text rule/swatch fill. Documented fill/icon-only." },
+      { "pairing": "approvalRequired #C23B6B as banner rule/icon on approval-weak #FBE7EF (the banner's actual background, not the main surface)", "ratio": 4.30, "pass": false, "note": "Corrected via scripts/check-contrast.js against the color it's actually rendered on -- the original entry didn't specify which background, and 3.4 could not be reproduced against either candidate. Clears the 3:1 non-text/icon floor comfortably; body copy inside the banner stays in text.primary at 17.97:1, never in the approval color itself." }
     ],
     "reducedMotionDefault": false,
     "focusRing": { "color": "semantic.info", "width": 2, "offset": 3 },

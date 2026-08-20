@@ -5,10 +5,22 @@ Required after every generation, before presenting output. This is not a single-
 Run in this order:
 
 ## 1. Spacing/alignment on-grid
-Every spacing value used anywhere in the system (component padding, margins, gaps) must appear in `spacing.scale`. Grep the rendered CSS/JSON for pixel values not present in that array — any hit is a fail, snap it to the nearest scale step.
+Every spacing value used anywhere in the system (component padding, margins, gaps) must appear in `spacing.scale`. Run it, don't eyeball it:
+
+```
+node scripts/check-tokens.js path/to/theme.json path/to/preview.html
+```
+
+Any reported off-scale value is a fail — snap it to the nearest scale step and re-run until clean.
 
 ## 2. WCAG AA contrast, every pairing, every mode
-Every entry that will render text, an icon, or a state indicator against a background must be checked — not just the primary text/background pair. This explicitly includes maximalist/funky palettes and dark-mode-native/cyberpunk accent-on-dark text, both flagged in `color-theory.md` as common failure points. Populate `a11y.contrastReport` with every pairing and its ratio. Any `pass: false` blocks completion — adjust the lightness step of the offending primitive and re-check, don't ship with a caveat.
+Every entry that will render text, an icon, or a state indicator against a background must be checked — not just the primary text/background pair. This explicitly includes maximalist/funky palettes and dark-mode-native/cyberpunk accent-on-dark text, both flagged in `color-theory.md` as common failure points. Populate `a11y.contrastReport` with every pairing, its ratio, and — critically — the literal two hex values behind it (not just token names), so the ratio is independently recomputable rather than a claim you're trusting yourself on. Then run it, don't eyeball it:
+
+```
+node scripts/check-contrast.js path/to/theme.json
+```
+
+This recomputes every pairing from its hex values via the real WCAG relative-luminance formula and diffs against the ratio you claimed. A mismatch is a fail regardless of which number was "close enough" — fix the theme.json entry, not the tolerance. Any `pass: false` also blocks completion — adjust the lightness step of the offending primitive and re-check, don't ship with a caveat. An entry the script can't extract two hex values from (token names only) is not a pass either; it means the check was never actually run.
 
 ## 3. Type scale discipline
 Count distinct font sizes used across the whole system. Must be ≤5, and every one must equal `base * scaleRatio^n` for the chosen `scaleRatio`. A size that doesn't trace back to the ratio is a fail.

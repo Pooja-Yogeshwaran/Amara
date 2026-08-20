@@ -73,12 +73,12 @@
   "a11y": {
     "contrastMode": "AA",
     "contrastReport": [
-      { "pairing": "text.primary #2A241B on surface #FBF8F0", "ratio": 13.15, "pass": true },
-      { "pairing": "primary.500 teal #0E9C94 as text -- REJECTED", "ratio": 2.90, "pass": false, "note": "Regenerated as primary.700 #06615C for text/icon use (6.26:1, passes); primary.500 kept for the CRT-glow fill only." },
-      { "pairing": "primary.700 #06615C on surface (corrected)", "ratio": 6.26, "pass": true },
-      { "pairing": "secondary.500 magenta #D6389E as text -- REJECTED", "ratio": 3.65, "pass": false, "note": "Regenerated as secondary.700 #9E1D6E (6.30:1, passes)." },
-      { "pairing": "secondary.700 #9E1D6E on surface (corrected)", "ratio": 6.30, "pass": true },
-      { "pairing": "approval amber -- first attempt #A8791E REJECTED at 3.32:1", "ratio": 5.62, "pass": true, "note": "Regenerated to #7A5711." }
+      { "pairing": "text.primary #2A241B on surface #FBF8F0", "ratio": 14.48, "pass": true },
+      { "pairing": "primary.500 teal #0E9C94 as text on #FBF8F0 -- REJECTED", "ratio": 3.19, "pass": false, "note": "Ratio corrected via scripts/check-contrast.js from an originally-claimed 2.90 to the recomputed 3.19 -- both fail, conclusion unchanged. Regenerated as primary.700 #06615C for text/icon use (6.89:1, passes); primary.500 kept for the CRT-glow fill only." },
+      { "pairing": "primary.700 #06615C on surface #FBF8F0 (corrected)", "ratio": 6.89, "pass": true },
+      { "pairing": "secondary.500 magenta #D6389E as text on #FBF8F0 -- REJECTED", "ratio": 4.02, "pass": false, "note": "Ratio corrected from an originally-claimed 3.65 to the recomputed 4.02 -- both fail, conclusion unchanged. Regenerated as secondary.700 #9E1D6E (6.93:1, passes)." },
+      { "pairing": "secondary.700 #9E1D6E on surface #FBF8F0 (corrected)", "ratio": 6.93, "pass": true },
+      { "pairing": "approval amber #7A5711 on #FBF8F0 -- first attempt #A8791E REJECTED at 3.32:1", "ratio": 6.19, "pass": true, "note": "Ratio corrected from an originally-claimed 5.62 to the recomputed 6.19. Regenerated to #7A5711." }
     ],
     "reducedMotionDefault": false,
     "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },
