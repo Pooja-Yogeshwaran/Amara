@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "styleFamily": "Playful/Funky",
+    "designPrinciple": "Delighted, not distracting. The fun lives in the avatar and the header, so the actual conversation stays as easy to read as any calmer system underneath it.",
+    "removedElement": "First draft used a tinted, high-chroma background behind every message bubble (agent bubbles pink-tinted, user bubbles yellow-tinted) on top of the already-tinted canvas. Three simultaneous saturated surfaces made body text fight its background for attention. Cut the bubble tinting -- bubbles are near-white/neutral now, and the tinted canvas alone carries the playful register.",
+    "version": "1.0.0",
+    "generatedFrom": { "modes": ["vibe"], "vibeWords": ["fun", "friendly", "not for kids"], "overridesApplied": [] }
+  },
+  "color": {
+    "harmonyModel": "triadic",
+    "distributionRatio": { "dominant": 60, "secondary": 28, "accent": 12 },
+    "primitive": {
+      "neutral": { "0": "#FFFFFF", "50": "#F5F0FF", "100": "#EAE0FA", "300": "#C7B8E8", "500": "#8B7BAD", "700": "#4A3D66", "900": "#2E2140" },
+      "primary": { "500": "#E0503D", "700": "#B8341F" },
+      "secondary": { "500": "#FFD23D", "700": "#B8930A" },
+      "accent": { "500": "#8B5FE0", "700": "#5F3AAE" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.50", "surface": "primitive.neutral.0", "surfaceRaised": "primitive.neutral.0", "overlay": "primitive.neutral.900@0.45" },
+      "text": { "primary": "primitive.neutral.900", "secondary": "primitive.neutral.700", "muted": "primitive.neutral.500", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.300", "subtle": "primitive.neutral.100", "focus": "primitive.accent.700" },
+      "success": "#1E7A44", "warning": "primitive.secondary.700", "danger": "#B8341F", "info": "primitive.accent.700",
+      "agentBubble": "primitive.neutral.0", "userBubble": "primitive.neutral.100",
+      "approvalRequired": "#0E5E4E"
+    },
+    "dark": {
+      "background": { "canvas": "#1E1830", "surface": "#251E3A", "surfaceRaised": "#2E2547" },
+      "text": { "primary": "#F5F0FF", "secondary": "#C7B8E8", "muted": "#8B7BAD" },
+      "agentBubble": "#251E3A", "userBubble": "#332A4D"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.25,
+    "families": { "ui": "Baloo 2", "messageBody": "Mulish", "monospace": "JetBrains Mono" },
+    "weights": [500, 600, 700],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 16 }, { "token": "sm", "px": 14, "lineHeight": 20 },
+      { "token": "base", "px": 16, "lineHeight": 24 }, { "token": "lg", "px": 20, "lineHeight": 28 }, { "token": "xl", "px": 25, "lineHeight": 32 }
+    ]
+  },
+  "spacing": { "baseUnit": 4, "scale": [4, 8, 12, 16, 24, 32, 48] },
+  "motion": {
+    "iconTier": "lottie",
+    "duration": { "instant": 100, "fast": 160, "base": 220, "slow": 340 },
+    "easing": { "standard": "cubic-bezier(.34,1.4,.5,1)", "enter": "cubic-bezier(.34,1.4,.5,1)", "exit": "ease-in" },
+    "reducedMotion": { "strategy": "avatar's bounce/wiggle collapses to a single 120ms fade; freeze lottie on representative frame per state", "appliesTo": ["avatar", "sendButton"] }
+  },
+  "iconography": { "styleDescriptor": "2px stroke, fully rounded, playful proportions", "strokeWidth": 2, "cornerStyle": "rounded", "setReference": "Phosphor Icons (Fill weight for active states)" },
+  "avatar": {
+    "tier": "lottie",
+    "states": {
+      "idle": { "description": "Gentle bounce loop.", "colorToken": "primitive.primary.500", "motion": "loop, 3s", "reducedMotionFallback": "static frame" },
+      "listening": { "description": "Ears perk, single bounce.", "colorToken": "primitive.primary.700", "motion": "single 260ms", "reducedMotionFallback": "static alert frame" },
+      "thinking": { "description": "Sparkle-dot cycle.", "colorToken": "primitive.accent.500", "motion": "loop, 800ms", "reducedMotionFallback": "static frame + label" },
+      "needsApproval": { "description": "Raises a small flag, holds.", "colorToken": "semantic.approvalRequired", "motion": "single 260ms, then static", "reducedMotionFallback": "static flag-up frame" },
+      "error": { "description": "Slight droop.", "colorToken": "semantic.danger", "motion": "single 200ms", "reducedMotionFallback": "static droop frame" },
+      "success": { "description": "Bounce + confetti burst, single-shot.", "colorToken": "semantic.success", "motion": "single 400ms", "reducedMotionFallback": "static checkmark" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "0 4px 12px rgba(46,33,64,.14)", "zIndex": 10 },
+      { "token": "panel", "shadow": "0 16px 40px rgba(46,33,64,.18)", "zIndex": 20 },
+      { "token": "approvalBanner", "shadow": "0 18px 44px rgba(14,94,78,.26)", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 260ms bounce-settle, no loop" }
+  },
+  "resources": {
+    "iconSet": { "name": "Phosphor Icons", "url": "https://phosphoricons.com", "license": "OSI" },
+    "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL" },
+    "illustrationSource": { "name": "Open Peeps", "url": "https://www.openpeeps.com", "license": "CC0" },
+    "animationLibrary": { "name": "lottie-web", "url": "https://airbnb.io/lottie/", "license": "OSI" },
+    "uiKit": { "react": { "name": "assistant-ui", "url": "https://github.com/assistant-ui/assistant-ui", "license": "OSI" } }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary #2E2140 on surface #FFFFFF", "ratio": 13.35, "pass": true },
+      { "pairing": "primary.500 coral #E0503D as text -- REJECTED", "ratio": 3.49, "pass": false, "note": "Regenerated as primary.700 #B8341F for text/icon use (5.29:1, passes); primary.500 kept for fills only." },
+      { "pairing": "primary.700 #B8341F on surface (corrected)", "ratio": 5.29, "pass": true },
+      { "pairing": "accent.700 grape #5F3AAE as text", "ratio": 6.07, "pass": true },
+      { "pairing": "dark text.primary on secondary.500 yellow fill #FFD23D", "ratio": 10.33, "pass": true, "note": "Yellow confined to fill use, same pattern as the maximalist test theme -- never used as text color." },
+      { "pairing": "approval teal -- first attempt #16856E REJECTED at 4.07:1", "ratio": 6.88, "pass": true, "note": "Regenerated to #0E5E4E." }
+    ],
+    "reducedMotionDefault": false,
+    "focusRing": { "color": "semantic.info", "width": 3, "offset": 2 },
+    "readingOrder": "DOM order matches visual order."
+  }
+}

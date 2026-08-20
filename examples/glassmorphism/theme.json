@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "styleFamily": "Glassmorphism",
+    "designPrinciple": "Depth through translucency, not through saturation. Every glass surface earns its blur by sitting above something worth glimpsing -- if there's nothing behind it worth seeing, it should just be a flat surface.",
+    "removedElement": "First draft applied the frosted-glass treatment to the message bubbles themselves, not just the panel chrome. It looked striking over the demo gradient but made body text contrast-check against whatever happened to be behind it -- unpredictable in real use. Kept blur strictly to the panel/header/approval-banner shells; message bubbles are flat, fully opaque, and contrast-stable regardless of what's behind the widget.",
+    "version": "1.0.0",
+    "generatedFrom": { "modes": ["vibe"], "vibeWords": ["soft", "airy", "premium"], "overridesApplied": [] }
+  },
+  "color": {
+    "harmonyModel": "analogous",
+    "distributionRatio": { "dominant": 58, "secondary": 30, "accent": 12 },
+    "primitive": {
+      "neutral": { "0": "#FFFFFF", "50": "#F6F5FC", "100": "#EBE8F8", "300": "#C9C3E8", "500": "#8B84B0", "700": "#4A4468", "900": "#2A2438" },
+      "primary": { "500": "#7B8FE0", "600": "#4E5FC7" },
+      "secondary": { "500": "#E0A0C4", "700": "#8F4468" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.50", "surface": "primitive.neutral.0@0.6-blur", "surfaceRaised": "primitive.neutral.0@0.75-blur", "overlay": "primitive.neutral.900@0.35" },
+      "text": { "primary": "primitive.neutral.900", "secondary": "primitive.neutral.700", "muted": "primitive.neutral.500", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.0@0.4", "subtle": "primitive.neutral.0@0.25", "focus": "primitive.primary.600" },
+      "success": "#227A57", "warning": "primitive.secondary.700", "danger": "#C24E30", "info": "primitive.primary.600",
+      "agentBubble": "primitive.neutral.0", "userBubble": "primitive.neutral.100",
+      "approvalRequired": "#C24E30"
+    },
+    "dark": {
+      "background": { "canvas": "#171426", "surface": "#211D34@0.6-blur", "surfaceRaised": "#291F3F@0.75-blur" },
+      "text": { "primary": "#F2F0FA", "secondary": "#C9C3E8", "muted": "#8B84B0" },
+      "agentBubble": "#211D34", "userBubble": "#2C2745"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.25,
+    "families": { "ui": "Sora", "messageBody": "Sora", "monospace": "JetBrains Mono" },
+    "weights": [400, 500, 600],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 16 }, { "token": "sm", "px": 14, "lineHeight": 20 },
+      { "token": "base", "px": 16, "lineHeight": 24 }, { "token": "lg", "px": 20, "lineHeight": 28 }, { "token": "xl", "px": 25, "lineHeight": 32 }
+    ]
+  },
+  "spacing": { "baseUnit": 4, "scale": [4, 8, 12, 16, 24, 32, 48, 64] },
+  "motion": {
+    "iconTier": "micro-interaction",
+    "duration": { "instant": 100, "fast": 160, "base": 220, "slow": 320 },
+    "easing": { "standard": "cubic-bezier(.25,.8,.25,1)", "enter": "cubic-bezier(.25,.8,.25,1)", "exit": "ease-in" },
+    "reducedMotion": { "strategy": "disable blur-intensity transitions and float animations, keep instant swaps", "appliesTo": ["avatar", "panel-entry"] }
+  },
+  "iconography": { "styleDescriptor": "1.5px stroke, no fill, soft rounded joins", "strokeWidth": 1.5, "cornerStyle": "rounded", "setReference": "Phosphor Icons" },
+  "avatar": {
+    "tier": "micro-interaction",
+    "states": {
+      "idle": { "description": "Soft glow, low amplitude.", "colorToken": "primitive.primary.500", "motion": "loop, 4s, subtle", "reducedMotionFallback": "static" },
+      "listening": { "description": "Glow brightens.", "colorToken": "primitive.primary.600", "motion": "single 200ms", "reducedMotionFallback": "static" },
+      "thinking": { "description": "Blur pulse.", "colorToken": "primitive.neutral.500", "motion": "loop, 900ms", "reducedMotionFallback": "static label" },
+      "needsApproval": { "description": "Glow snaps to approval-coral.", "colorToken": "semantic.approvalRequired", "motion": "single 200ms", "reducedMotionFallback": "static" },
+      "error": { "description": "Glow dims.", "colorToken": "semantic.danger", "motion": "single 160ms", "reducedMotionFallback": "static" },
+      "success": { "description": "Brief glow burst.", "colorToken": "semantic.success", "motion": "single 240ms", "reducedMotionFallback": "static" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "0 4px 16px rgba(42,36,56,.12)", "zIndex": 10 },
+      { "token": "panel", "shadow": "0 16px 40px rgba(42,36,56,.16), inset 0 1px 0 rgba(255,255,255,.5)", "zIndex": 20 },
+      { "token": "approvalBanner", "shadow": "0 18px 44px rgba(194,78,48,.24)", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 220ms rise, no loop; flat surface, not blurred, so it never inherits an unpredictable background" }
+  },
+  "resources": {
+    "iconSet": { "name": "Phosphor Icons", "url": "https://phosphoricons.com", "license": "OSI" },
+    "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL" },
+    "uiKit": { "react": { "name": "Radix UI", "url": "https://www.radix-ui.com", "license": "OSI", "note": "Unstyled -- blur/translucency treatment is easier to layer without fighting a pre-styled component's own background." } }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary #2A2438 on worst-case opaque white behind blur", "ratio": 14.92, "pass": true },
+      { "pairing": "primary.600 #4E5FC7 as text", "ratio": 5.55, "pass": true },
+      { "pairing": "secondary.500 pink #E0A0C4 as text -- REJECTED", "ratio": 3.64, "pass": false, "note": "Regenerated as secondary.700 #8F4468 for text/icon use (6.57:1, passes); secondary.500 kept for fills only." },
+      { "pairing": "secondary.700 #8F4468 on surface (corrected)", "ratio": 6.57, "pass": true },
+      { "pairing": "approval coral #C24E30 on surface", "ratio": 4.74, "pass": true, "note": "Validated against the worst-case (busiest, lightest) background it could sit over, per color-theory.md's glassmorphism contrast rule -- not just the calm demo backdrop." }
+    ],
+    "reducedMotionDefault": false,
+    "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },
+    "readingOrder": "DOM order matches visual order."
+  }
+}

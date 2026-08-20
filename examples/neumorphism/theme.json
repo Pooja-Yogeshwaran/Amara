@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "styleFamily": "Neumorphism",
+    "designPrinciple": "Tactile, but never at the cost of legibility. The soft-shadow language is reserved for exactly one control the user actually presses -- everything that carries meaning (text, icons, message content) uses full-contrast tokens regardless of how the rest of the surface looks.",
+    "removedElement": "First draft gave every message bubble the embossed dual-shadow treatment, matching the send button. Per the family's own accessibility flag (style-taxonomy.md), that's structurally in tension with legible text at that density -- a whole thread of soft-shadowed bubbles reads as a texture, not as distinguishable messages. Cut it down to exactly one embossed control (the send button); message bubbles are flat with a hairline border instead.",
+    "version": "1.0.0",
+    "generatedFrom": { "modes": ["vibe", "wizard"], "vibeWords": ["soft", "tactile"], "overridesApplied": [] }
+  },
+  "meta_a11y_flag": "ACCESSIBILITY RISK, surfaced per style-taxonomy.md: neumorphism's signature soft embossing relies on low-contrast surface-on-surface color relationships, structurally in tension with WCAG AA text contrast and with distinguishing interactive from static elements. This theme mitigates by restricting the embossed treatment to a single focal control (send button) and giving every text/icon token full contrast against the flat canvas -- not by pretending the tension doesn't exist.",
+  "color": {
+    "harmonyModel": "monochromatic",
+    "distributionRatio": { "dominant": 80, "secondary": 12, "accent": 8 },
+    "primitive": {
+      "neutral": { "0": "#EEF1F5", "50": "#E4E9F0", "100": "#DCE2EB", "300": "#B9C3D1", "500": "#6B7889", "700": "#3D4653", "900": "#26303D" },
+      "primary": { "500": "#4C6FFF", "600": "#2C4FD9" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.50", "surface": "primitive.neutral.50", "surfaceRaised": "primitive.neutral.0", "overlay": "primitive.neutral.900@0.4" },
+      "text": { "primary": "primitive.neutral.900", "secondary": "primitive.neutral.700", "muted": "primitive.neutral.500", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.300", "subtle": "primitive.neutral.100", "focus": "primitive.primary.600" },
+      "success": "#1B5E3B", "warning": "#8A5115", "danger": "#A63C3C", "info": "primitive.primary.600",
+      "agentBubble": "primitive.neutral.0", "userBubble": "primitive.neutral.100",
+      "approvalRequired": "#8A5115"
+    },
+    "dark": {
+      "background": { "canvas": "#23262C", "surface": "#23262C", "surfaceRaised": "#2A2E35" },
+      "text": { "primary": "#EEF1F5", "secondary": "#B9C3D1", "muted": "#6B7889" },
+      "agentBubble": "#2A2E35", "userBubble": "#2F333B"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.25,
+    "families": { "ui": "Nunito Sans", "messageBody": "Nunito Sans", "monospace": "IBM Plex Mono" },
+    "weights": [400, 600],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 16 }, { "token": "sm", "px": 14, "lineHeight": 20 },
+      { "token": "base", "px": 16, "lineHeight": 24 }, { "token": "lg", "px": 20, "lineHeight": 28 }, { "token": "xl", "px": 25, "lineHeight": 32 }
+    ]
+  },
+  "spacing": { "baseUnit": 4, "scale": [4, 8, 12, 16, 24, 32, 48] },
+  "motion": {
+    "iconTier": "micro-interaction",
+    "duration": { "instant": 90, "fast": 140, "base": 200, "slow": 280 },
+    "easing": { "standard": "ease-in-out", "enter": "ease-out", "exit": "ease-in" },
+    "reducedMotion": { "strategy": "disable the send button's press-depth transition, keep instant state swap", "appliesTo": ["sendButton", "avatar"] }
+  },
+  "iconography": { "styleDescriptor": "1.75px stroke, no fill, full-contrast regardless of surrounding emboss", "strokeWidth": 1.75, "cornerStyle": "rounded", "setReference": "Tabler Icons" },
+  "avatar": {
+    "tier": "micro-interaction",
+    "states": {
+      "idle": { "description": "Flat mark, full-contrast, no emboss.", "colorToken": "primitive.neutral.700", "motion": "none", "reducedMotionFallback": "static" },
+      "listening": { "description": "Ring color swap.", "colorToken": "primitive.primary.500", "motion": "single 160ms", "reducedMotionFallback": "static" },
+      "thinking": { "description": "Ellipsis cycle.", "colorToken": "primitive.neutral.500", "motion": "loop, 900ms", "reducedMotionFallback": "static label" },
+      "needsApproval": { "description": "Outlined in approval color.", "colorToken": "semantic.approvalRequired", "motion": "single 200ms", "reducedMotionFallback": "static" },
+      "error": { "description": "Danger corner mark.", "colorToken": "semantic.danger", "motion": "none", "reducedMotionFallback": "static" },
+      "success": { "description": "Checkmark fade.", "colorToken": "semantic.success", "motion": "single 200ms", "reducedMotionFallback": "static" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "none -- flat with 1px border, not embossed (see meta.removedElement)", "zIndex": 10 },
+      { "token": "panel", "shadow": "0 8px 24px rgba(38,48,61,.10)", "zIndex": 20 },
+      { "token": "sendButtonEmboss", "shadow": "6px 6px 12px rgba(38,48,61,.18), -6px -6px 12px rgba(255,255,255,.7)", "zIndex": 15, "note": "The one and only embossed surface in this system, per the family's accessibility mitigation." },
+      { "token": "approvalBanner", "shadow": "0 12px 32px rgba(138,81,21,.22)", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 200ms rise, no loop; flat, not embossed -- a checkpoint needs unambiguous edges" }
+  },
+  "resources": {
+    "iconSet": { "name": "Tabler Icons", "url": "https://tabler.io/icons", "license": "OSI" },
+    "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL" },
+    "uiKit": { "react": { "name": "Radix UI", "url": "https://www.radix-ui.com", "license": "OSI" } }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary #26303D on canvas #E4E9F0", "ratio": 10.95, "pass": true },
+      { "pairing": "text.secondary #4E5A68-equivalent (neutral.700) on canvas", "ratio": 5.76, "pass": true },
+      { "pairing": "accent #4C6FFF as plain text/icon on canvas -- borderline", "ratio": 3.43, "pass": false, "note": "Clears the 3:1 non-text/large-UI floor (icon use only) but fails 4.5:1 for body text -- accent.500 is restricted to the embossed send-button fill and icon strokes, never inline text." },
+      { "pairing": "white text on accent.500 #4C6FFF (send button, first attempt) -- REJECTED", "ratio": 4.18, "pass": false, "note": "Regenerated: button fill darkened to accent.600 #2C4FD9 (6.51:1, passes)." },
+      { "pairing": "white text on accent.600 #2C4FD9 (send button, corrected)", "ratio": 6.51, "pass": true },
+      { "pairing": "approval amber #8A5115 on canvas -- first attempt #C97A2E REJECTED at 2.73:1", "ratio": 5.27, "pass": true, "note": "First attempt #C97A2E failed badly at 2.73:1. Regenerated to #8A5115." },
+      { "pairing": "success #1B5E3B on canvas -- first attempt #227A4E REJECTED at 4.34:1", "ratio": 6.35, "pass": true, "note": "First attempt failed narrowly at 4.34:1 (just under 4.5). Regenerated darker." },
+      { "pairing": "danger #A63C3C on canvas", "ratio": 5.16, "pass": true }
+    ],
+    "reducedMotionDefault": false,
+    "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },
+    "readingOrder": "DOM order matches visual order; the embossed send button carries a visible focus ring since its emboss alone doesn't clearly signal interactivity to keyboard/low-vision users."
+  }
+}

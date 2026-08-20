@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "styleFamily": "Retro/Skeuomorphic",
+    "designPrinciple": "One decade, fully committed. Every material cue points at 1988, not at a vague nostalgia -- and it stays on the signature surfaces that earn it, not smeared across the whole system.",
+    "removedElement": "First draft put a beveled, chrome-textured border on every message bubble to sell the 'old tech' feel. It made a long thread look like a wall of buttons instead of a conversation. Cut the bevel from ordinary bubbles -- kept it only on the avatar frame and the send button, the two places skeuomorphism's texture cue is supposed to live per style-taxonomy.md.",
+    "version": "1.0.0",
+    "generatedFrom": { "modes": ["vibe"], "vibeWords": ["80s tech", "CRT glow", "one decade"], "overridesApplied": [] }
+  },
+  "color": {
+    "harmonyModel": "split-complementary",
+    "distributionRatio": { "dominant": 64, "secondary": 24, "accent": 12 },
+    "primitive": {
+      "neutral": { "0": "#FBF8F0", "50": "#F2EDE1", "100": "#E6DCC6", "300": "#C7B896", "500": "#8A7A5C", "700": "#4E4530", "900": "#2A241B" },
+      "primary": { "500": "#0E9C94", "700": "#06615C" },
+      "secondary": { "500": "#D6389E", "700": "#9E1D6E" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.50", "surface": "primitive.neutral.0", "surfaceRaised": "primitive.neutral.0", "overlay": "primitive.neutral.900@0.45" },
+      "text": { "primary": "primitive.neutral.900", "secondary": "primitive.neutral.700", "muted": "primitive.neutral.500", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.300", "subtle": "primitive.neutral.100", "focus": "primitive.primary.700" },
+      "success": "#2C6E3A", "warning": "primitive.secondary.700", "danger": "#A6402E", "info": "primitive.primary.700",
+      "agentBubble": "primitive.neutral.0", "userBubble": "primitive.neutral.100",
+      "approvalRequired": "#7A5711"
+    },
+    "dark": {
+      "background": { "canvas": "#1E1810", "surface": "#241D14", "surfaceRaised": "#2C2419" },
+      "text": { "primary": "#F2EDE1", "secondary": "#C7B896", "muted": "#8A7A5C" },
+      "agentBubble": "#241D14", "userBubble": "#332A1B"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.333,
+    "families": { "ui": "Chakra Petch", "messageBody": "Space Grotesk", "monospace": "Space Mono" },
+    "weights": [400, 500, 700],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 16 }, { "token": "sm", "px": 16, "lineHeight": 22 },
+      { "token": "base", "px": 16, "lineHeight": 24 }, { "token": "lg", "px": 21, "lineHeight": 27 }, { "token": "xl", "px": 28, "lineHeight": 32 }
+    ]
+  },
+  "spacing": { "baseUnit": 8, "scale": [8, 16, 24, 32, 48, 64] },
+  "motion": {
+    "iconTier": "gif",
+    "duration": { "instant": 100, "fast": 160, "base": 220, "slow": 320 },
+    "easing": { "standard": "steps(6, end)", "enter": "steps(6, end)", "exit": "linear" },
+    "reducedMotion": { "strategy": "GIF avatar swaps to a static exported frame -- authored separately, since GIF has no native reduced-motion pause state (see motion-icon-tiers.md's opt-in warning)", "appliesTo": ["avatar"] }
+  },
+  "iconography": { "styleDescriptor": "2px stroke, hard corners with one deliberate bevel highlight per icon", "strokeWidth": 2, "cornerStyle": "mixed", "setReference": "Custom -- generic sets don't carry the bevel cue; GIF/PNG sprite set recommended over a live icon font here" },
+  "avatar": {
+    "tier": "gif",
+    "states": {
+      "idle": { "description": "CRT-glow breathing loop.", "colorToken": "primitive.primary.500", "motion": "loop, GIF, ~2s", "reducedMotionFallback": "static exported frame -- authored separately, not auto-generated from the GIF" },
+      "listening": { "description": "Glow brightens a step.", "colorToken": "primitive.primary.700", "motion": "GIF frame swap", "reducedMotionFallback": "static frame" },
+      "thinking": { "description": "Scanline animation.", "colorToken": "primitive.neutral.500", "motion": "loop, GIF", "reducedMotionFallback": "static frame + label" },
+      "needsApproval": { "description": "Frame outlined in approval-amber.", "colorToken": "semantic.approvalRequired", "motion": "GIF frame swap, then holds", "reducedMotionFallback": "static frame" },
+      "error": { "description": "Glow dims, red tint.", "colorToken": "semantic.danger", "motion": "GIF frame swap", "reducedMotionFallback": "static frame" },
+      "success": { "description": "Brief flourish loop, non-repeating.", "colorToken": "semantic.success", "motion": "single GIF playthrough", "reducedMotionFallback": "static frame" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "0 1px 2px rgba(42,36,27,.12)", "zIndex": 10 },
+      { "token": "panel", "shadow": "0 10px 28px rgba(42,36,27,.18)", "zIndex": 20 },
+      { "token": "avatarBevel", "shadow": "inset -2px -2px 0 rgba(42,36,27,.25), inset 2px 2px 0 rgba(255,255,255,.5)", "zIndex": 15, "note": "One of exactly two bevel surfaces -- see meta.removedElement." },
+      { "token": "approvalBanner", "shadow": "0 14px 34px rgba(122,87,17,.24)", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single steps(4) entrance, no loop" }
+  },
+  "resources": {
+    "iconSet": { "name": "SVG Repo (filtered to MIT/CC0)", "url": "https://www.svgrepo.com", "license": "OSI", "note": "No mainstream open-source set carries an authentic period bevel cue -- expect to hand-finish 4-6 signature glyphs (avatar frame, send button) rather than sourcing the whole set." },
+    "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL" },
+    "animationLibrary": { "name": "n/a -- GIF tier", "license": "Free", "note": "GIF assets carry their own per-file license; author or source individually and verify, per motion-icon-tiers.md." }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary #2A241B on surface #FBF8F0", "ratio": 13.15, "pass": true },
+      { "pairing": "primary.500 teal #0E9C94 as text -- REJECTED", "ratio": 2.90, "pass": false, "note": "Regenerated as primary.700 #06615C for text/icon use (6.26:1, passes); primary.500 kept for the CRT-glow fill only." },
+      { "pairing": "primary.700 #06615C on surface (corrected)", "ratio": 6.26, "pass": true },
+      { "pairing": "secondary.500 magenta #D6389E as text -- REJECTED", "ratio": 3.65, "pass": false, "note": "Regenerated as secondary.700 #9E1D6E (6.30:1, passes)." },
+      { "pairing": "secondary.700 #9E1D6E on surface (corrected)", "ratio": 6.30, "pass": true },
+      { "pairing": "approval amber -- first attempt #A8791E REJECTED at 3.32:1", "ratio": 5.62, "pass": true, "note": "Regenerated to #7A5711." }
+    ],
+    "reducedMotionDefault": false,
+    "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },
+    "readingOrder": "DOM order matches visual order; bevel/texture accents are aria-hidden."
+  }
+}

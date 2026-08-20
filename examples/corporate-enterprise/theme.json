@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "styleFamily": "Corporate/Enterprise",
+    "designPrinciple": "Predictability over personality. In a tool people use eight hours a day, the highest compliment is that nothing ever surprises the person who's seen it once.",
+    "removedElement": "First draft added a subtle animated gradient sweep to the header on every agent response, meant to feel 'alive.' Cut it -- in an enterprise density context that reads as motion for its own sake, and it competed with the activity log for attention during multi-step tool runs.",
+    "version": "1.0.0",
+    "generatedFrom": { "modes": ["wizard"], "vibeWords": ["trustworthy", "dense", "no surprises"], "overridesApplied": [] }
+  },
+  "color": {
+    "harmonyModel": "complementary",
+    "distributionRatio": { "dominant": 70, "secondary": 22, "accent": 8 },
+    "primitive": {
+      "neutral": { "0": "#FFFFFF", "50": "#F5F7FA", "100": "#E7ECF2", "300": "#B9C4D1", "500": "#6E7A8A", "700": "#3D4653", "900": "#1B2028" },
+      "primary": { "500": "#1F4287", "600": "#163062" },
+      "secondary": { "500": "#E08A2E", "700": "#A8621A" }
+    },
+    "semantic": {
+      "background": { "canvas": "primitive.neutral.50", "surface": "primitive.neutral.0", "surfaceRaised": "primitive.neutral.0", "overlay": "primitive.neutral.900@0.4" },
+      "text": { "primary": "primitive.neutral.900", "secondary": "primitive.neutral.700", "muted": "primitive.neutral.500", "inverse": "primitive.neutral.0" },
+      "border": { "default": "primitive.neutral.300", "subtle": "primitive.neutral.100", "focus": "primitive.primary.500" },
+      "success": "#227A4E", "warning": "primitive.secondary.700", "danger": "#B23A3A", "info": "primitive.primary.500",
+      "agentBubble": "primitive.neutral.0", "userBubble": "primitive.neutral.100",
+      "approvalRequired": "#6B4FA8"
+    },
+    "dark": {
+      "background": { "canvas": "#12161C", "surface": "#181D25", "surfaceRaised": "#1F252E" },
+      "text": { "primary": "#EEF1F5", "secondary": "#AFB9C4", "muted": "#6E7A8A" },
+      "agentBubble": "#181D25", "userBubble": "#232A34"
+    }
+  },
+  "typography": {
+    "scaleRatio": 1.25,
+    "families": { "ui": "IBM Plex Sans", "messageBody": "IBM Plex Sans", "monospace": "IBM Plex Mono" },
+    "weights": [400, 600],
+    "scale": [
+      { "token": "xs", "px": 12, "lineHeight": 16 }, { "token": "sm", "px": 14, "lineHeight": 20 },
+      { "token": "base", "px": 16, "lineHeight": 22 }, { "token": "lg", "px": 20, "lineHeight": 26 }, { "token": "xl", "px": 25, "lineHeight": 30 }
+    ]
+  },
+  "spacing": { "baseUnit": 4, "scale": [4, 8, 12, 16, 24, 32, 48] },
+  "motion": {
+    "iconTier": "micro-interaction",
+    "duration": { "instant": 80, "fast": 120, "base": 150, "slow": 200 },
+    "easing": { "standard": "ease-out", "enter": "ease-out", "exit": "ease-in" },
+    "reducedMotion": { "strategy": "disable all transitions, instant state swap", "appliesTo": ["presenceIndicator", "approvalBanner-entry"] }
+  },
+  "iconography": { "styleDescriptor": "1.5px stroke, no fill, consistent 24px grid", "strokeWidth": 1.5, "cornerStyle": "sharp", "setReference": "Tabler Icons" },
+  "avatar": {
+    "tier": "static",
+    "states": {
+      "idle": { "description": "Static mark.", "colorToken": "primitive.neutral.700", "motion": "none", "reducedMotionFallback": "static" },
+      "listening": { "description": "Border color swap.", "colorToken": "primitive.primary.500", "motion": "instant", "reducedMotionFallback": "static" },
+      "thinking": { "description": "Static label, no animation.", "colorToken": "primitive.neutral.500", "motion": "none", "reducedMotionFallback": "static" },
+      "needsApproval": { "description": "Outlined in approval color.", "colorToken": "semantic.approvalRequired", "motion": "instant", "reducedMotionFallback": "static" },
+      "error": { "description": "Danger corner mark.", "colorToken": "semantic.danger", "motion": "none", "reducedMotionFallback": "static" },
+      "success": { "description": "Checkmark, no animation.", "colorToken": "semantic.success", "motion": "none", "reducedMotionFallback": "static" }
+    }
+  },
+  "components": {
+    "elevationScale": [
+      { "token": "bubble", "shadow": "0 1px 2px rgba(27,32,40,.10)", "zIndex": 10 },
+      { "token": "panel", "shadow": "0 6px 20px rgba(27,32,40,.12)", "zIndex": 20 },
+      { "token": "approvalBanner", "shadow": "0 10px 28px rgba(107,79,168,.20)", "zIndex": 50 }
+    ],
+    "approvalBanner": { "elevation": "approvalBanner", "color": "semantic.approvalRequired", "entryMotion": "single 150ms fade, no loop" },
+    "activityLog": { "default": "on", "note": "Corporate/Enterprise default per system-defaults.md -- audit trail visibility matters more than in consumer-facing families." }
+  },
+  "resources": {
+    "iconSet": { "name": "Tabler Icons", "url": "https://tabler.io/icons", "license": "OSI" },
+    "fontSource": { "name": "Google Fonts", "url": "https://fonts.google.com", "license": "OFL" },
+    "uiKit": { "react": { "name": "assistant-ui", "url": "https://github.com/assistant-ui/assistant-ui", "license": "OSI" } }
+  },
+  "a11y": {
+    "contrastMode": "AA",
+    "contrastReport": [
+      { "pairing": "text.primary #1B2028 on surface #FFFFFF", "ratio": 16.36, "pass": true },
+      { "pairing": "text.secondary #3D4653 on surface", "ratio": 9.55, "pass": true },
+      { "pairing": "primary.500 navy #1F4287 as text", "ratio": 9.60, "pass": true },
+      { "pairing": "secondary.500 orange #E08A2E as text -- REJECTED", "ratio": 2.68, "pass": false, "note": "Failed badly. Regenerated as secondary.700 #A8621A for any text/icon use (4.74:1, passes); secondary.500 kept for fills only." },
+      { "pairing": "secondary.700 #A8621A on surface (corrected)", "ratio": 4.74, "pass": true },
+      { "pairing": "approval #6B4FA8 on surface", "ratio": 6.35, "pass": true },
+      { "pairing": "danger #B23A3A on surface", "ratio": 5.90, "pass": true },
+      { "pairing": "success #227A4E on surface", "ratio": 5.30, "pass": true }
+    ],
+    "reducedMotionDefault": true,
+    "focusRing": { "color": "semantic.info", "width": 2, "offset": 2 },
+    "readingOrder": "DOM order matches visual order; activity log is a separate landmark region."
+  }
+}
