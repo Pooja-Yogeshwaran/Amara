@@ -2,160 +2,89 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Amara** generates professionally-designed, cohesive UI systems for always-on AI chatbots and agents — from the collapsed widget bubble through the full open-thread state. It's a portable Skill (`SKILL.md` format) that works with Claude Code, Claude.ai, Cursor, Windsurf, and GitHub Copilot. Amara itself is MIT-licensed, and it defaults to recommending genuinely open-source assets (fonts, icons, UI kits, and more) rather than proprietary ones — see [Open-source resource library](#open-source-resource-library) below.
+Amara is a portable Skill (`SKILL.md`) that generates cohesive, accessible UI systems for AI chatbots and agents — works with Claude Code, Claude.ai, Cursor, Windsurf, and GitHub Copilot.
 
-### Why "Amara"
+## What you get
 
-From the Greek *amarantos* — "unfading," the root of *amaranth*, the mythical flower that never withers. That's the goal for what this skill produces: a system built to hold up past the first demo, not one that reads as dated the moment the next design trend rolls through. Concretely, that means every generation is held to a stated design principle, actively simplified before it ships, and checked against accessibility and consistency rules that don't bend for a given style's aesthetic — the same discipline whether the output is Swiss-minimal or maximalist.
+- A **design-token JSON** (`theme.json`) — color, type, spacing, motion, iconography — plus a full **agent-state component set**: presence, thinking-vs-doing, approval checkpoints, background-task notices, error states.
+- Output as **React/Tailwind**, **plain HTML/CSS/JS**, or a **theme-config object** for existing chat-widget SDKs.
+- Every generation runs through an automated QA pass before it ships: contrast is independently recomputed (not self-reported), spacing/type-scale is checked against the declared grid, and at least one thing is deliberately cut from the first draft. Verification lives in `scripts/` — see [Verification tooling](#verification-tooling).
+- Real open-source resource picks (fonts, icons, UI kits) baked into the output, license-tagged — see [Resource library](#resource-library).
 
-## What it does
-
-Amara's *specialty* is **conversational AI interfaces** — chat widgets, agent dashboards, always-on assistant UIs — and that's where its deepest, most differentiated work lives (`references/agent-states.md`'s approval checkpoints, presence, thinking-vs-doing distinction; none of that has an equivalent in a general design tool). But the *method* underneath that specialty — divergent-concept generation before narrowing, a real verified token system, an honest self-critique pass — isn't chat-specific, and generalizes to any UI. See [`/showcase`](showcase/) for that method applied outside chat entirely. Point it at a reference, a vibe, or let it walk you through a short wizard, and it produces:
-
-- A framework-agnostic **design-token JSON** (`theme.json`) — color, typography, spacing, motion, iconography, and a full **agent-state component set**: presence indicators, thinking-vs-doing distinction, an approval/checkpoint UI that outranks everything else on screen, background-task notifications, error states designed to read as trustworthy rather than alarming.
-- Optional adapters emitting that token file as **React/Tailwind**, **plain HTML/CSS/JS**, or a **theme-config object** for existing chat-widget SDKs — the point at which "AI-generated design" becomes something you can actually ship.
-- A **self-critique QA pass** run automatically before anything is presented: contrast checks, spacing/type-scale discipline, a consistency audit, and confirmation that at least one thing was deliberately cut from the first draft. The contrast and spacing/type-scale checks aren't just described in prose — `scripts/check-contrast.js` and `scripts/check-tokens.js` mechanically recompute them from the actual token values and rendered CSS, so a passing QA claim is independently verifiable rather than self-reported. See [Verification tooling](#verification-tooling) below.
-
-See it applied across ten style tiers below before installing. No video previews yet — open a `preview.html` locally to see it live (see [Contributing a preview recording](#contributing-a-preview-recording) if you want to add one).
-
-## Examples
-
-Every row is the same sample chatbot (thread, approval checkpoint, input bar) rebuilt from scratch per style — same craft bar, deliberately different anatomy, never a reskin. `theme.json` is the token source; `preview.html` is a self-contained page that renders it, no build step, open the file directly.
-
-| Style | Files |
-|---|---|
-| Minimalist / Swiss | [theme.json](examples/minimalist-swiss/theme.json) · [preview.html](examples/minimalist-swiss/preview.html) |
-| Claymorphism | [theme.json](examples/claymorphism/theme.json) · [preview.html](examples/claymorphism/preview.html) |
-| Brutalism | [theme.json](examples/brutalism/theme.json) · [preview.html](examples/brutalism/preview.html) |
-| Maximalist / Editorial | [theme.json](examples/maximalist-editorial/theme.json) · [preview.html](examples/maximalist-editorial/preview.html) |
-| Neumorphism | [theme.json](examples/neumorphism/theme.json) · [preview.html](examples/neumorphism/preview.html) |
-| Glassmorphism | [theme.json](examples/glassmorphism/theme.json) · *(theme only)* |
-| Corporate / Enterprise | [theme.json](examples/corporate-enterprise/theme.json) · *(theme only)* |
-| Playful / Funky | [theme.json](examples/playful-funky/theme.json) · *(theme only)* |
-| Retro / Skeuomorphic | [theme.json](examples/retro-skeuomorphic/theme.json) · *(theme only)* |
-| **Futuristic white/glass** — a real 3D `rotateY` avatar you can drag, released with a hand-rolled damped-spring integrator (an actual numerical simulation, not an eased transition standing in for one) | [theme.json](examples/futuristic-white-glass/theme.json) · [preview.html](examples/futuristic-white-glass/preview.html) |
-
-## Beyond chat — `/showcase`
-
-Same method (divergent concepts, a verified token system, one deliberately-cut element), applied where Amara's chat-specific `theme.schema.json` doesn't reach — no avatar states or approval banners here, because there's no agent. See [What it does](#what-it-does) above for why the method generalizes even though the schema doesn't yet.
-
-| Piece | File | Notes |
-|---|---|---|
-| Water bottle landing page | [index.html](showcase/waterbottle-landing/index.html) | Real IntersectionObserver scroll-reveal, a pointer-driven product tilt, an animated liquid surface redrawn from an actual sine function every frame — not a looping GIF standing in for one. |
-| Portfolio / dossier template | [index.html](showcase/portfolio-dossier/index.html) | Case-file styled personal site — glass cards, a signal-teal/risk-violet duotone, a scan-sweep reveal on load, a drifting network canvas background. Generic placeholder content by design — swap in your own. |
-
-## Contributing a preview recording
-
-None of the examples have a video/GIF preview yet — if you record one (any screen recorder works, even the OS-built-in one), send it over and it'll get embedded next to the file links above and committed to the repo.
-
-## Prior art, and why the MIT license here is safe
-
-Amara's agent-state design (`references/agent-states.md`) is grounded in published research and real shipping open-source projects rather than invented from scratch: Microsoft's [HAX Toolkit](https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/), Google's [People + AI Guidebook](https://pair.withgoogle.com/guidebook-v2/), and open-source libraries like [assistant-ui](https://github.com/assistant-ui/assistant-ui), [Vercel AI Elements](https://github.com/vercel/ai-elements), [Crayon](https://github.com/thesysdev/openui), and [CopilotKit](https://github.com/CopilotKit/CopilotKit).
-
-That influence stays at the *idea* level, on purpose, and the same rule governs it that governs everything this skill generates for you (`references/input-modes.md`'s reference-mode rule): **extract characteristics, never reproduce.** Concretely, for this repository itself:
-
-- **No third-party source code is vendored.** Every mention of an external project above is a name, a link, and a one- or two-sentence description of the *pattern* it demonstrates (e.g. "a collapsible reasoning panel," "a nudge that silences itself if ignored") — never a copied code block, copied CSS, or copied component implementation. Where Amara names an external library as a recommended resource (`references/resource-library.md`), that's a pointer for *you* to separately install it under its own license — Amara doesn't bundle it.
-- **No proprietary visual designs are reproduced.** References to closed products (e.g. Intercom's Fin) are drawn only from their own public design writing about *patterns*, never from screenshotting or recreating their actual interface, copy, or branding.
-- **Every third-party resource is license-tagged, not assumed.** `resource-library.md` marks each pick `OSI` / `OFL` / `CC0` / `Free` / `Freemium` — checked per project, not inferred from "it's on GitHub." If a license couldn't be verified, it isn't asserted as open source.
-- **The MIT `LICENSE` at this repo's root covers Amara's own original content only** — the prose in `SKILL.md` and `references/`, the JSON in `schema/` and `examples/`, the HTML in `examples/`. It says nothing about, and doesn't need to say anything about, the separate licenses of tools you choose to install from the resource library — each of those remains governed by its own project's license, same as any dependency in any software project.
-
-If you ever spot something in this repo that reads as more than an idea-level citation — a suspiciously specific class name, a copied color value that traces to a real product rather than one of Amara's own generated palettes — flag it; that would be a bug in how this repo was built, not an accepted tradeoff.
-
-## Verification tooling
-
-Two of the QA checklist's items (`references/qa-checklist.md` #1 and #2) are backed by scripts under `scripts/`, run as real commands during Step 6 of `SKILL.md`, not eyeballed:
-
-- **`node scripts/check-tokens.js <theme.json> <preview.html>`** — parses the rendered CSS, extracts every padding/margin/gap and font-size value actually used, and fails if any value isn't traceable to `spacing.scale` or `typography.scale`. Support an `--exclude=selector,...` flag for skipping documentation-page chrome (intro text, token-strip demos) that isn't part of the generated system itself.
-- **`node scripts/check-contrast.js <theme.json>`** — reads `a11y.contrastReport`, independently recomputes each pairing's contrast ratio from its literal hex values using the real WCAG relative-luminance formula, and fails if the recomputed ratio doesn't match the claimed one (or if a pairing can't be checked because it's recorded as token names only, with no hex values to verify against).
-
-Both exit non-zero on failure, so they're CI-friendly. They exist because "the checklist says contrast was checked" and "contrast was actually, verifiably checked" are different claims — the first is easy to assert and easy to get wrong quietly; the second only holds if something recomputes it. Every `theme.json` under `/examples` passes both.
-
-## Open-source resource library
-
-Every dimension of a generated system — icon set, font source, illustration/stock source, CSS framework, chart library, per-framework UI kit (React/Vue/Angular/Svelte/React Native) — is a **customizable pick**, not a hardcoded default. [`references/resource-library.md`](references/resource-library.md) curates real options across all of them (plus process resources: design tools, image compression, browser extensions for design QA, and more), each tagged with its actual license — genuinely open-source (MIT/Apache/OFL/CC0) is preferred and defaulted-to wherever one exists; merely "free" or freemium tools are labeled as such rather than implied to be open source.
-
-Every pick lands in `theme.json`'s optional `resources` block (`iconSet`, `fontSource`, `illustrationSource`, `chartLibrary`, `cssFramework`, `animationLibrary`, `uiKit.{react,vue,angular,svelte,reactNative}`) — see any of the `/examples` themes for a populated one. Swap any single pick with the same targeted-override syntax used for any other token ("use Tabler instead of Phosphor for icons," "swap the illustration source to Storyset") without touching the rest of the system.
-
-## What it's honestly good for — and not
-
-Amara produces a strong, systematic, accessible **starting point** — dramatically better than the generic card-grid, purple-gradient output that "just build me a chatbot UI" tends to produce from an unguided prompt. It gets you a coherent token system, real typographic pairing, and agent-state design that most people forget to think about until an approval checkpoint gets buried under a chat bubble in production.
-
-It is **not** a replacement for a designer's final judgment on a shipped product. Treat its output as a serious first draft: verify it against your actual brand constraints, your actual users, and a real accessibility audit before it goes live — the same way you'd treat a strong draft from a skilled contractor rather than a finished, signed-off deliverable.
-
-**Known limitation:** the color-association and iconography defaults baked into the style taxonomy (see `references/color-theory.md`) are drawn from Western commercial design convention. Color and symbol meaning varies significantly by culture and region — Amara does not currently localize these defaults, and treats that as an open gap rather than a solved problem. If you're designing for an audience outside a Western-commercial context, use every "soft default" in this repo as a prompt to check, not an answer to trust.
+Amara's deepest, most differentiated work is chat-specific (approval checkpoints, presence, thinking-vs-doing — see [Scope](#scope)). The underlying *method* — divergent concepts before narrowing, verified tokens, an honest self-critique pass — isn't, and [`/showcase`](showcase/) applies it outside chat.
 
 ## Install
-
-Amara is a single skill directory. Drop it wherever your tool looks for skills:
 
 ```bash
 git clone https://github.com/Pooja-Yogeshwaran/Amara.git
 ```
 
-- **Claude Code / Claude.ai:** copy or symlink the `amara/` folder into your project's or user-level skills directory, so `SKILL.md` is discoverable.
-- **Cursor / Windsurf:** point your tool's custom-instructions or rules-file mechanism at `amara/SKILL.md`, per that tool's skill/rule-import convention.
+- **Claude Code / Claude.ai:** copy or symlink `amara/` into your skills directory so `SKILL.md` is discoverable.
+- **Cursor / Windsurf:** point your rules-file mechanism at `amara/SKILL.md`.
 - **GitHub Copilot:** reference `amara/SKILL.md` from your repo's Copilot instructions file.
 
-No build step, no dependencies — `SKILL.md` plus the linked reference files under `references/` are plain Markdown, and `schema/theme.schema.json` is plain JSON Schema.
+No build step, no dependencies.
+
+## Examples
+
+Same sample chatbot (thread, approval checkpoint, input bar), ten different style tiers — same craft bar, deliberately different anatomy each time, never a reskin.
+
+| Style | Files | Video |
+|---|---|---|
+| Minimalist / Swiss | [theme.json](examples/minimalist-swiss/theme.json) · [preview.html](examples/minimalist-swiss/preview.html) | |
+| Claymorphism | [theme.json](examples/claymorphism/theme.json) · [preview.html](examples/claymorphism/preview.html) | |
+| Brutalism | [theme.json](examples/brutalism/theme.json) · [preview.html](examples/brutalism/preview.html) | |
+| Maximalist / Editorial | [theme.json](examples/maximalist-editorial/theme.json) · [preview.html](examples/maximalist-editorial/preview.html) | |
+| Neumorphism | [theme.json](examples/neumorphism/theme.json) · [preview.html](examples/neumorphism/preview.html) | |
+| Glassmorphism | [theme.json](examples/glassmorphism/theme.json) | |
+| Corporate / Enterprise | [theme.json](examples/corporate-enterprise/theme.json) | |
+| Playful / Funky | [theme.json](examples/playful-funky/theme.json) | |
+| Retro / Skeuomorphic | [theme.json](examples/retro-skeuomorphic/theme.json) | |
+| Futuristic White/Glass | [theme.json](examples/futuristic-white-glass/theme.json) · [preview.html](examples/futuristic-white-glass/preview.html) | |
+| **Water bottle landing page** *(showcase, not a chat UI)* | [index.html](showcase/waterbottle-landing/index.html) | |
+| **Portfolio / dossier template** *(showcase, not a chat UI)* | [index.html](showcase/portfolio-dossier/index.html) | |
+
+Video column is empty — drop in a recording (any screen recorder works) and it'll get embedded and committed.
+
+## Scope
+
+**In scope:** conversational AI interfaces — chat widgets, agent dashboards, always-on assistant UIs. This is where `theme.schema.json` and the full component set (avatar states, approval banners, presence) apply.
+
+**Not in scope (v1):**
+- Multi-agent / sub-agent handoff UI (roster views, delegation transitions) — a real, adjacent problem this version doesn't solve.
+- `theme.schema.json` conformance for non-chat UI — the schema's required components are chat-agent-shaped and don't map onto a marketing site's hero/nav/product-grid needs. The method generalizes (`/showcase`); the schema doesn't yet.
+- Literal reproduction of any named brand's actual assets — reference-mode input extracts *style characteristics* only, never a logo or literal identity.
 
 ## Repo structure
 
 ```
 amara/
-├── LICENSE                      MIT
-├── SKILL.md                     entry point — the elicitation flow and generation steps
-├── schema/
-│   └── theme.schema.json        the token schema: primitive → semantic → component → resources layers
-├── references/                  detail SKILL.md links out to, loaded as needed
-│   ├── visual-vocabulary.md     gradients/textures/patterns/layout paradigms — raw material read BEFORE the taxonomy, so it names rather than generates
-│   ├── style-taxonomy.md        the 11 style families, as one continuous spectrum
-│   ├── color-theory.md          harmony models, 60/30/10, contrast-first generation
-│   ├── agent-states.md          presence, thinking-vs-doing, approval checkpoints, error states
-│   ├── motion-icon-tiers.md     static → micro-interaction → lottie → gif → video-loop
-│   ├── input-modes.md           reference / vibe / wizard / override — composable, not exclusive
-│   ├── system-defaults.md       trust signals, session chrome, perf budgets — inferred, overridable
-│   ├── content-and-arc.md       tables/code/streaming edge cases + the onboarding→routine-use arc
-│   ├── qa-checklist.md          the required self-critique pass, run before every output
-│   ├── platform-and-output.md   widget/app/mobile layout rules + the three output adapters
-│   └── resource-library.md      open-source/free picks per dimension, license-tagged, swappable
-├── scripts/                      QA checks that run as real commands, not prose
-│   ├── check-tokens.js           spacing/type-scale on-grid check against rendered CSS
-│   └── check-contrast.js         WCAG contrast independently recomputed from a11y.contrastReport
-├── styles/
-│   ├── _template.md             copy this to add a new style family
-│   └── README.md
-├── examples/                    the same sample chatbot across ten style tiers, each with a theme.json
-│   ├── minimalist-swiss/
-│   ├── claymorphism/
-│   ├── brutalism/
-│   ├── maximalist-editorial/
-│   ├── neumorphism/
-│   ├── glassmorphism/
-│   ├── corporate-enterprise/
-│   ├── playful-funky/
-│   ├── retro-skeuomorphic/
-│   └── futuristic-white-glass/
-└── showcase/                    Amara's underlying method applied outside the chat-specific schema
-    ├── waterbottle-landing/     a marketing page, not a theme.json output -- see its README section above
-    └── portfolio-dossier/       a generic personal-site template -- also not a theme.json output
+├── SKILL.md                     entry point — elicitation flow + generation steps
+├── schema/theme.schema.json     the token schema
+├── references/                  detail SKILL.md links out to
+├── scripts/                     check-tokens.js, check-contrast.js — real QA commands
+├── styles/_template.md          copy this to add a new style family
+├── examples/                    ten chatbot style tiers, each a theme.json (+ preview.html)
+└── showcase/                    the method applied outside chat (no theme.schema.json)
 ```
 
-## Adding a new style family
+## Verification tooling
 
-Style families are data, not code — `SKILL.md`'s generation steps reference `references/style-taxonomy.md` rather than hardcoding a family list, and the schema's `meta.styleFamily` field is a free-text string. To add one:
+- `node scripts/check-tokens.js <theme.json> <preview.html>` — every spacing/font-size value used must trace to the declared scale.
+- `node scripts/check-contrast.js <theme.json>` — every `a11y.contrastReport` entry is recomputed from its literal hex values via the real WCAG formula and compared against the claimed ratio.
 
-1. Copy `styles/_template.md` to `styles/<kebab-case-name>.md` and fill it in (color harmony, type pairing, shape/motion defaults, voice, any accessibility note).
-2. Add one line for it to the list in `references/style-taxonomy.md`.
-3. Optionally add a worked example under `/examples` in the same shape as the existing four.
+Both exit non-zero on failure. Every `theme.json` under `/examples` passes both.
 
-No change to `SKILL.md` or `schema/theme.schema.json` required.
+## Resource library
 
-## Explicitly out of scope for v1
+Every dimension (icon set, font source, illustrations, chart library, UI kit) is a swappable pick, not a hardcoded default — see [`references/resource-library.md`](references/resource-library.md), each entry license-tagged (OSI/OFL/CC0/Free/Freemium). Populated into `theme.json`'s `resources` block; swap any pick with the same override syntax as any other token.
 
-- **Multi-agent / sub-agent handoff UI.** A real and adjacent problem — a roster view, delegation transitions, per-agent presence — but not one this version solves. If asked, the skill says so rather than improvising an unvalidated pattern.
-- **`theme.schema.json` conformance for non-chat UI.** The schema's required components (avatar state machine, approval banners, presence indicators) are built for conversational agents and don't map onto a marketing site's actual components (hero, nav, product grid). The underlying *method* generalizes — see `/showcase` — but there's no schema, adapters, or component library yet for general frontend work the way there is for chat. Building that out is a real, larger undertaking than adding one showcase page, not something this version claims to already solve.
-- **Literal reproduction of any named brand's actual assets.** Reference-mode input extracts and re-expresses *style characteristics* (weight, proportion, rhythm, palette feel) — never a brand's logo, trademarked marks, or literal identity. See `references/input-modes.md`.
+## Honest limitations
+
+- Not a replacement for a designer's final sign-off — treat output as a strong first draft, verify against real brand/user/accessibility constraints before shipping.
+- Color and iconography defaults in `references/color-theory.md` are drawn from Western commercial convention and aren't localized — check them for non-Western-commercial audiences rather than trusting them.
+- No third-party source code or proprietary visual assets are vendored — external projects cited in `references/agent-states.md` are pattern references only. See [`references/input-modes.md`](references/input-modes.md) for the reference-mode rule this follows.
 
 ## License
 
-[MIT](LICENSE) — Amara itself, plus everything it generates for you, is free to use, modify, and ship commercially. That covers this repo's own code and docs; it does not relicense any third-party asset you pull in from `references/resource-library.md` — each of those carries its own license, noted per entry.
+[MIT](LICENSE) — Amara and everything it generates for you. Doesn't relicense third-party assets pulled from the resource library — each keeps its own license.
