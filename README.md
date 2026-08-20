@@ -18,9 +18,18 @@ Amara is scoped specifically to **conversational AI interfaces** — chat widget
 
 See it applied across four style tiers in [`/examples`](examples/) before installing.
 
-## Prior art
+## Prior art, and why the MIT license here is safe
 
-Amara's agent-state design (`references/agent-states.md`) is grounded in two published research frameworks rather than invented from scratch: Microsoft's [HAX Toolkit](https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/) and Google's [People + AI Guidebook](https://pair.withgoogle.com/guidebook-v2/). Its resource picks draw on real shipping open-source projects in the same space — [assistant-ui](https://github.com/assistant-ui/assistant-ui), [Vercel AI Elements](https://github.com/vercel/ai-elements), [Crayon](https://github.com/thesysdev/openui), and [CopilotKit](https://github.com/CopilotKit/CopilotKit) — cited by name in `references/resource-library.md` rather than silently reinvented. Amara's job is the systematic token layer and the QA discipline around it, not claiming to be first to any of these ideas.
+Amara's agent-state design (`references/agent-states.md`) is grounded in published research and real shipping open-source projects rather than invented from scratch: Microsoft's [HAX Toolkit](https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/), Google's [People + AI Guidebook](https://pair.withgoogle.com/guidebook-v2/), and open-source libraries like [assistant-ui](https://github.com/assistant-ui/assistant-ui), [Vercel AI Elements](https://github.com/vercel/ai-elements), [Crayon](https://github.com/thesysdev/openui), and [CopilotKit](https://github.com/CopilotKit/CopilotKit).
+
+That influence stays at the *idea* level, on purpose, and the same rule governs it that governs everything this skill generates for you (`references/input-modes.md`'s reference-mode rule): **extract characteristics, never reproduce.** Concretely, for this repository itself:
+
+- **No third-party source code is vendored.** Every mention of an external project above is a name, a link, and a one- or two-sentence description of the *pattern* it demonstrates (e.g. "a collapsible reasoning panel," "a nudge that silences itself if ignored") — never a copied code block, copied CSS, or copied component implementation. Where Amara names an external library as a recommended resource (`references/resource-library.md`), that's a pointer for *you* to separately install it under its own license — Amara doesn't bundle it.
+- **No proprietary visual designs are reproduced.** References to closed products (e.g. Intercom's Fin) are drawn only from their own public design writing about *patterns*, never from screenshotting or recreating their actual interface, copy, or branding.
+- **Every third-party resource is license-tagged, not assumed.** `resource-library.md` marks each pick `OSI` / `OFL` / `CC0` / `Free` / `Freemium` — checked per project, not inferred from "it's on GitHub." If a license couldn't be verified, it isn't asserted as open source.
+- **The MIT `LICENSE` at this repo's root covers Amara's own original content only** — the prose in `SKILL.md` and `references/`, the JSON in `schema/` and `examples/`, the HTML in `examples/`. It says nothing about, and doesn't need to say anything about, the separate licenses of tools you choose to install from the resource library — each of those remains governed by its own project's license, same as any dependency in any software project.
+
+If you ever spot something in this repo that reads as more than an idea-level citation — a suspiciously specific class name, a copied color value that traces to a real product rather than one of Amara's own generated palettes — flag it; that would be a bug in how this repo was built, not an accepted tradeoff.
 
 ## Open-source resource library
 

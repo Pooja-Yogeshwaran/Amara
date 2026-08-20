@@ -37,12 +37,15 @@ The single highest-priority element in the entire system when it's on screen. De
 - **Motion:** enters once (a single deliberate transition), never loops or pulses indefinitely — a checkpoint that nags reads as untrustworthy, not urgent.
 - **Position:** anchored where the user's eye already is (top of viewport or inline at point of relevance), never requiring a scroll to discover.
 - **Content contract:** state what the agent wants to do, in plain language, before it does it, including the grant's actual scope if it's a bounded/scoped one. No jargon, no buried consequences.
+- **Edit-before-approve, when the thing awaiting approval is a draft rather than a fixed action.** If the agent is asking permission to send/publish/execute something it generated (a reply, a post, a document), the gate needs a third affordance beyond approve/deny: edit, then approve. Support teams running AI copilots report this exact shape — the agent drafts, a human edits and approves, and the draft's origin/sources stay visible through the edit (this is a widely-documented pattern in AI-copilot support tooling, not a specific product's proprietary flow) — don't force a reject-and-retype cycle when a one-line edit was all that was needed. The claymorphism and brutalism examples in `/examples` show the simpler binary case (approve/deny only, since neither is gating a draft); an "Edit first" secondary action belongs on the banner specifically when what's pending is agent-authored content, not a fixed operation.
 
 ## Background-task notification
 
 Distinct from the pre-action gate: this reports something *already done*, not something awaiting permission. Lower visual weight than the approval banner, but still needs to interrupt gracefully — a toast/badge pattern that persists until acknowledged (not an auto-dismissing toast, since the user may have been away when it fired) works across most style families.
 
 When the task it's reporting was a **post-action review window** (see above), this component carries the compensating action too — the notification isn't just "done," it's "done, here's what changed, undo within N minutes if that's wrong." Once the window closes, drop the undo affordance rather than leaving a dead button around.
+
+**A nudge that's been ignored should silence itself, not repeat.** If the agent surfaces a proactive suggestion (not a required approval — an optional "next best action") and the user doesn't act on it, don't re-surface the same nudge on a timer or the next session open. This is a documented failure mode in analyses of agentic support tooling: a suggestion that keeps resurfacing after being ignored reads as nagging and trains users to dismiss the whole notification channel, including the ones that matter. Treat "ignored once" as a real signal, not noise to retry past.
 
 ## Activity / transparency log (optional)
 
