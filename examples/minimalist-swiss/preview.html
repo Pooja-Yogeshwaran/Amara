@@ -70,7 +70,11 @@
   .msg-meta{font-family:var(--font-ui);font-size:12px;color:var(--text-muted);margin-top:4px;}
 
   .doing-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;background:var(--accent-weak);color:var(--accent);font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;}
-  .doing-chip .spinner{width:8px;height:8px;border-radius:50%;background:var(--accent);}
+  .doing-chip .spinner{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:doing-pulse 900ms ease-in-out infinite;}
+  @keyframes doing-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.7);}}
+  @media (prefers-reduced-motion: reduce){
+    .doing-chip .spinner{animation:none;opacity:1;transform:none;}
+  }
 
   .approval{align-self:stretch;background:var(--approval-weak);border:1px solid var(--approval);border-radius:12px;padding:12px;box-shadow:var(--shadow-approval);}
   .approval-head{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--approval-head-text);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
