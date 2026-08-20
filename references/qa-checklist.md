@@ -27,6 +27,17 @@ Walk each of the five anatomy states (collapsed bubble, open state, approval che
 ## 7. Deliberate removal confirmed
 Every generation must remove at least one element from its own first draft before finalizing. Record what was cut in `meta.removedElement`. This applies at every point on the style spectrum, including maximalist — restraint at the maximalist end usually means simplifying *which* elements move or draw attention, not stripping color or personality down to Swiss-level starkness. An empty or missing `removedElement` field is itself a QA fail — it means the pass didn't actually happen.
 
+## 8. Structural variation, not just token variation — the actual AI-slop check
+The single most common failure mode this skill can produce, and the one the other seven checks will not catch: reskinning the *identical* DOM/component anatomy (a rounded panel, a circular-avatar header row, a column of chat bubbles, a pill input bar) with a different palette and font, and calling that a different style family. That's swapping paint, not designing a system — it's what makes AI-generated UI recognizable as AI-generated regardless of how clean the tokens are underneath.
+
+Concretely check, before presenting: **would this layout still be recognizable as this style family with the colors and fonts stripped out?** If a Swiss-minimal render and a Maximalist-editorial render have the exact same message-bubble shape, the same header composition, and the same information hierarchy — only different `border-radius` and `font-family` values — that's a fail, even if every token individually passes checks 1–7. Concretely:
+- A genuinely editorial/maximalist system's messages may not be speech bubbles at all — a lede-and-byline treatment, a pull-quote, an asymmetric margin note, are all more honest to the reference than a rounded rectangle in a different font.
+- A genuinely brutalist system's header shouldn't necessarily be "circular avatar, name, status dot" in a rounded card — that's a Swiss-app convention, not a brutalist one.
+- Two style families that share an anatomy on purpose (e.g. a deliberately restrained Corporate/Enterprise system, where predictability *is* the point) should say so explicitly in `meta.designPrinciple` rather than arrive there by not having considered an alternative.
+- This check applies to every rendered adapter output, not just the plain-HTML preview — a React/Tailwind component set that's just the same `<Panel><Header><Thread><Input>` tree for every style family has the identical problem one layer down.
+
+A failure here regenerates the component *structure*, not just its token values — this is the one check on this list where "snap the value to the nearest valid step" isn't the fix.
+
 ## Regeneration policy
 
 A failed check regenerates the smallest scope that fixes it — a single primitive color step, a single component's spacing, one avatar state's motion — never the whole system, unless multiple failures trace back to the same root choice (e.g. a harmony model that structurally can't hit AA at the desired saturation, which does warrant restarting color generation with a different harmony model).

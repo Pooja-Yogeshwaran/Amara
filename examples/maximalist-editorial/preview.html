@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg-canvas:#FBF4E9; --bg-surface:#FFFDF8;
@@ -16,7 +16,6 @@
     --secondary:#C98A2E;
     --accent:#1F6F63; --accent-600:#17554C;
     --success:#2F8F5B; --danger:#A63C3C; --approval:#C23B6B; --approval-weak:#FBE7EF;
-    --agent-bubble:#FFFDF8; --user-bubble:#F1E6D3;
     --font-ui:'Fraunces',serif; --font-body:'Karla',sans-serif; --font-mono:'Fira Code',monospace;
   }
   *{box-sizing:border-box}
@@ -28,49 +27,60 @@
   .principle{font-family:var(--font-ui);font-style:italic;font-size:20px;line-height:30px;color:var(--text-secondary);font-weight:400;margin:0;border-left:2px solid var(--accent);padding-left:20px;}
   .stage{display:flex;gap:44px;align-items:flex-start;flex-wrap:wrap;}
   .col-label{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin:0 0 14px;}
+  .anatomy-note{max-width:680px;font-size:14px;line-height:22px;color:var(--text-secondary);background:var(--bg-surface);border-left:3px solid var(--accent);padding:12px 16px;margin:0 0 32px;}
+  .anatomy-note b{color:var(--text-primary);}
 
-  .bubble-stage{width:220px;height:220px;background:linear-gradient(160deg,#F1E6D3,#E1D1B3);border-radius:4px;position:relative;flex-shrink:0;}
-  .bubble{position:absolute;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;background:var(--primary);box-shadow:0 6px 16px rgba(122,46,58,.35);display:flex;align-items:center;justify-content:center;}
-  .bubble svg{width:24px;height:24px;stroke:#fff;}
-  .bubble .dot{position:absolute;top:0;right:0;width:13px;height:13px;border-radius:50%;background:var(--success);border:2px solid #E1D1B3;}
+  /* Collapsed: a wordmark monogram, not a circular chat-bubble icon -- an editorial nameplate reads as a masthead, not an app affordance */
+  .bubble-stage{width:220px;height:220px;background:var(--primary);border-radius:4px;position:relative;flex-shrink:0;display:flex;align-items:flex-end;padding:24px;}
+  .bubble-stage .mark{font-family:var(--font-ui);font-size:30px;font-style:italic;color:#fff;line-height:1;}
+  .bubble-stage .dot{position:absolute;top:20px;right:20px;width:10px;height:10px;border-radius:50%;background:var(--success);border:2px solid var(--primary);}
 
-  .panel{width:400px;background:var(--bg-surface);border-radius:6px;box-shadow:0 20px 48px rgba(26,20,13,.16);overflow:hidden;}
-  .panel-header{padding:16px;background:var(--primary);position:relative;}
-  .panel-header::after{content:"";position:absolute;left:22px;right:22px;bottom:0;height:2px;background:var(--secondary);}
-  .header-row{display:flex;align-items:center;gap:8px;}
-  .avatar{width:36px;height:36px;border-radius:50%;background:var(--bg-surface);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
-  .avatar svg{width:16px;height:16px;stroke:var(--primary);}
-  .avatar .presence{position:absolute;bottom:-1px;right:-1px;width:10px;height:10px;border-radius:50%;background:var(--success);border:2px solid var(--primary);}
-  .header-text{flex:1;min-width:0;}
-  .header-name{font-family:var(--font-ui);font-size:17px;font-weight:500;line-height:23px;color:#fff;}
-  .header-status{font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.75);line-height:16px;margin-top:8px;}
-  .header-close{width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.8);}
+  .panel{width:420px;background:var(--bg-surface);overflow:hidden;box-shadow:0 20px 48px rgba(26,20,13,.16);}
 
-  .thread{padding:24px;display:flex;flex-direction:column;gap:16px;max-height:480px;overflow-y:auto;}
-  .msg{max-width:88%;font-size:17px;line-height:24px;}
-  .msg.agent{align-self:flex-start;background:var(--agent-bubble);border:1px solid var(--border-subtle);border-radius:2px 16px 16px 16px;padding:16px;}
-  .msg.user{align-self:flex-end;background:var(--user-bubble);border-radius:16px 2px 16px 16px;padding:16px;}
-  .msg-meta{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);margin-top:8px;}
+  /* Masthead header: full-bleed color band, large nameplate type, kicker above it -- not an avatar+name+status row in a rounded card */
+  .masthead{background:var(--primary);padding:24px;position:relative;}
+  .masthead-kicker{font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+  .masthead-status{display:flex;align-items:center;gap:8px;}
+  .masthead-status .dot{width:6px;height:6px;border-radius:50%;background:#8CFFC4;}
+  .masthead-name{font-family:var(--font-ui);font-size:30px;font-weight:500;color:#fff;line-height:1.1;}
+  .masthead::after{content:"";position:absolute;left:24px;right:24px;bottom:0;height:2px;background:var(--secondary);}
+  .masthead-close{position:absolute;top:24px;right:24px;color:rgba(255,255,255,.7);font-family:var(--font-mono);font-size:12px;cursor:pointer;}
 
-  .doing-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--accent);color:var(--accent-600);font-family:var(--font-mono);font-size:12px;padding:8px 16px;border-radius:20px;}
-  .doing-chip .spinner{width:7px;height:7px;border-radius:50%;background:var(--accent);}
+  .thread{padding:24px;display:flex;flex-direction:column;gap:24px;max-height:520px;overflow-y:auto;}
 
-  .approval{align-self:stretch;background:var(--approval-weak);border-radius:4px;border-left:3px solid var(--approval);padding:16px;box-shadow:0 22px 52px rgba(194,59,107,.22);}
-  .approval-head{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;font-weight:500;color:#93275A;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
-  .approval-body{font-family:var(--font-ui);font-size:17px;line-height:25px;color:var(--text-primary);margin-bottom:16px;font-weight:400;}
-  .approval-actions{display:flex;gap:8px;}
-  .btn{font-family:var(--font-body);font-size:12px;font-weight:600;padding:8px 16px;border-radius:3px;border:none;cursor:pointer;}
-  .btn-primary{background:var(--primary);color:#fff;}
-  .btn-secondary{background:transparent;color:var(--text-secondary);border:1px solid var(--border-default);}
+  /* Agent message: a lede, not a bubble -- byline kicker, large italic opening line, article-style rhythm */
+  .lede{max-width:100%;}
+  .lede-byline{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);margin-bottom:8px;}
+  .lede-text{font-family:var(--font-ui);font-size:23px;line-height:30px;color:var(--text-primary);font-style:italic;}
+  .lede-text.followup{font-style:normal;font-size:17px;line-height:25px;}
 
-  .code{font-family:var(--font-mono);font-size:12px;line-height:20px;background:#241C13;color:#F1E6D3;border-radius:4px;padding:8px 16px;overflow-x:auto;margin-top:8px;}
-  .code .kw{color:#D9A24C}
-  .code .cm{color:#8A7B5C}
+  /* User message: marginalia -- a right-aligned annotation with a thin rule, not a mirrored bubble */
+  .margin-note{align-self:flex-end;max-width:70%;text-align:right;border-right:2px solid var(--border-default);padding-right:16px;}
+  .margin-note-label{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .margin-note-text{font-size:15px;line-height:22px;color:var(--text-secondary);}
 
-  .input-bar{display:flex;align-items:center;gap:8px;padding:16px;border-top:1px solid var(--border-subtle);}
-  .input-field{flex:1;font-family:var(--font-ui);font-style:italic;background:transparent;border-bottom:1px solid var(--border-default);padding:8px 0;font-size:17px;color:var(--text-muted);}
-  .send-btn{width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .send-btn svg{width:15px;height:15px;stroke:#fff;}
+  .doing-chip{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--accent);color:var(--accent-600);font-family:var(--font-mono);font-size:12px;padding:8px 16px;}
+  .doing-chip .spinner{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+  /* Approval: "stop the presses" full-bleed hard-edged band with a headline, not a rounded pill card */
+  .stop-press{align-self:stretch;background:var(--approval);margin:0 -24px;padding:24px;box-shadow:0 22px 52px rgba(194,59,107,.28);}
+  .stop-press-kicker{font-family:var(--font-mono);font-size:12px;font-weight:500;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+  .stop-press-headline{font-family:var(--font-ui);font-size:23px;line-height:29px;color:#fff;margin-bottom:16px;font-weight:500;}
+  .stop-press-actions{display:flex;gap:16px;align-items:center;}
+  .btn{font-family:var(--font-body);font-size:12px;font-weight:600;padding:0;border:none;cursor:pointer;background:none;}
+  .btn-primary{color:#fff;text-decoration:underline;text-underline-offset:4px;}
+  .btn-secondary{color:rgba(255,255,255,.75);}
+
+  /* Code presented as a captioned figure/sidebar, not a floating rounded block inside the message */
+  .figure{border-top:1px solid var(--border-default);border-bottom:1px solid var(--border-default);padding:16px 0;}
+  .figure-caption{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .figure-code{font-family:var(--font-mono);font-size:12px;line-height:20px;color:var(--text-primary);}
+  .figure-code .kw{color:var(--primary-600);font-weight:600;}
+
+  /* Input: a signature line, not a rounded pill + circular send button */
+  .signature-line{padding:24px;border-top:1px solid var(--border-default);}
+  .signature-field{font-family:var(--font-ui);font-style:italic;font-size:17px;color:var(--text-muted);border-bottom:1px solid var(--text-primary);padding-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;}
+  .signature-send{font-family:var(--font-mono);font-size:12px;color:var(--primary);text-transform:uppercase;letter-spacing:.05em;cursor:pointer;}
 
   .tokens{margin-top:60px;border-top:1px solid var(--border-default);padding-top:36px;}
   .tokens h2{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin:0 0 22px;font-weight:500;}
@@ -90,61 +100,66 @@
     <p class="principle">"Editorial confidence, not decoration for its own sake. Typography and whitespace carry the expression, so every additional color or flourish has to earn a specific job — and loses that job the moment two of them compete for it."</p>
   </div>
 
+  <p class="anatomy-note"><b>Anatomy note:</b> this system does not reuse the rounded-panel-with-circular-avatar-and-chat-bubbles structure — that's a Swiss/app convention, not an editorial one. Messages read as a lede and marginalia, the header is a masthead, the approval state is a "stop the presses" band, and code renders as a captioned figure. Same tokens as every other example in this repo; a different anatomy built for this specific reference, per <code>qa-checklist.md</code> #8.</p>
+
   <div class="stage">
     <div>
       <p class="col-label">Collapsed</p>
       <div class="bubble-stage">
-        <div class="bubble">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
-          <div class="dot"></div>
-        </div>
+        <div class="mark">M.</div>
+        <div class="dot"></div>
       </div>
     </div>
 
     <div>
       <p class="col-label">Open — thread with checkpoint</p>
       <div class="panel">
-        <div class="panel-header">
-          <div class="header-row">
-            <div class="avatar">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
-              <div class="presence"></div>
-            </div>
-            <div class="header-text">
-              <div class="header-name">Marlow</div>
-              <div class="header-status">ONLINE</div>
-            </div>
-            <div class="header-close">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 6l12 12M18 6L6 18"/></svg>
-            </div>
+        <div class="masthead">
+          <div class="masthead-kicker">
+            <span>In conversation</span>
+            <span class="masthead-status"><span class="dot"></span>Online</span>
           </div>
+          <div class="masthead-name">Marlow</div>
+          <div class="masthead-close">✕</div>
         </div>
 
         <div class="thread">
-          <div class="msg agent">I found it — the deploy failed because staging is missing one setting. Not your code, just a gap in configuration.</div>
-          <div class="msg user">Can you fix it?</div>
+          <div class="lede">
+            <div class="lede-byline">Marlow — just now</div>
+            <div class="lede-text">I found it — the deploy failed because staging is missing one setting.</div>
+            <div class="lede-text followup">Not your code, just a gap in configuration.</div>
+          </div>
+
+          <div class="margin-note">
+            <div class="margin-note-label">You</div>
+            <div class="margin-note-text">Can you fix it?</div>
+          </div>
+
           <div class="doing-chip"><span class="spinner"></span>Checking staging config</div>
 
-          <div class="approval">
-            <div class="approval-head">Approval needed</div>
-            <div class="approval-body">Set the missing webhook secret on staging, then redeploy?</div>
-            <div class="approval-actions">
+          <div class="stop-press">
+            <div class="stop-press-kicker">Stop — approval needed</div>
+            <div class="stop-press-headline">Set the missing webhook secret on staging, then redeploy?</div>
+            <div class="stop-press-actions">
               <button class="btn btn-primary">Approve</button>
               <button class="btn btn-secondary">Not now</button>
             </div>
           </div>
 
-          <div class="msg agent">
-            Here's the line that changed:
-            <div class="code"><span class="cm">// webhook.ts</span><br><span class="kw">const</span> secret = env.STRIPE_WEBHOOK_SECRET;</div>
+          <div class="lede">
+            <div class="lede-byline">Marlow — 2 minutes ago</div>
+            <div class="lede-text followup">Here's the line that changed:</div>
           </div>
-          <div class="msg-meta">Marlow · 2 minutes ago</div>
+          <div class="figure">
+            <div class="figure-caption">Fig. 1 — webhook.ts</div>
+            <div class="figure-code"><span class="kw">const</span> secret = env.STRIPE_WEBHOOK_SECRET;</div>
+          </div>
         </div>
 
-        <div class="input-bar">
-          <div class="input-field">Message Marlow…</div>
-          <div class="send-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <div class="signature-line">
+          <div class="signature-field">
+            <span>Message Marlow…</span>
+            <span class="signature-send">Send</span>
           </div>
         </div>
       </div>

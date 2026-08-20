@@ -50,6 +50,7 @@ Read and run every check in `references/qa-checklist.md` against the draft befor
 5. Whitespace/density ceiling, even at the maximalist end
 6. No competing simultaneous focal points (the classic fail: animated avatar + pulsing badge + bright CTA all firing together — mute or sequence)
 7. **Confirm at least one thing was deliberately removed** from the first draft, and record it in `meta.removedElement`. Restraint is a designed feature at every point on the spectrum, including maximalist — don't skip this because the style is "supposed to be a lot."
+8. **Structural variation, not just token variation.** The most common failure this skill can produce: reskinning the identical component anatomy (rounded panel, circular-avatar header, chat-bubble column, pill input bar) with different colors/fonts per style family — that's what makes output read as generic AI slop regardless of how clean the tokens are. Ask: would this layout still be recognizable as this style family with the colors and fonts stripped out? If not, the fix is regenerating the *structure*, not adjusting a token.
 
 Tell the user briefly what the QA pass checked and what it fixed or cut — don't just silently pass.
 
