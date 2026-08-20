@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jordan Voss — Product & Trust</title>
+<meta name="description" content="Product manager working in trust, risk, and applied AI. Case-file styled personal site template.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --porcelain: #F5F7FA;
+    --porcelain-2: #EEF2F6;
+    --ink: #0C1420;
+    --ink-soft: #45505E;
+    --line: #D8DEE6;
+    --glass: rgba(255,255,255,0.55);
+    --glass-strong: rgba(255,255,255,0.72);
+    --glass-border: rgba(255,255,255,0.75);
+    --signal: #0AA3BD;
+    --signal-dim: #0AA3BD22;
+    --risk: #6E5BD9;
+    --risk-dim: #6E5BD922;
+    --shadow: 0 20px 60px -25px rgba(12,20,32,0.25);
+    --radius: 22px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Public Sans', sans-serif;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, #E4EEF3 0%, transparent 60%),
+      radial-gradient(1000px 700px at 100% 10%, #ECE8FA 0%, transparent 55%),
+      var(--porcelain);
+    color:var(--ink);
+    line-height:1.5;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+
+  #netbg{ position:fixed; inset:0; z-index:0; opacity:0.5; pointer-events:none; }
+
+  .ledger-texture{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image: repeating-linear-gradient(0deg, rgba(12,20,32,0.028) 0px, rgba(12,20,32,0.028) 1px, transparent 1px, transparent 34px);
+    mask-image: linear-gradient(180deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  .wrap{ position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 32px; }
+
+  ::selection{ background: var(--signal-dim); color:var(--ink); }
+  :focus-visible{ outline:2px solid var(--signal); outline-offset:3px; border-radius:6px; }
+
+  h1,h2,h3, .display{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em; }
+  .serif-quote{ font-family:'Fraunces', serif; font-optical-sizing:auto; }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--signal); display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:""; width:6px; height:6px; background:var(--signal); border-radius:50%; box-shadow:0 0 0 4px var(--signal-dim); }
+
+  .glass{
+    background:var(--glass); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border:1px solid var(--glass-border); border-radius:var(--radius); box-shadow:var(--shadow);
+  }
+
+  header{ position:fixed; top:20px; left:0; right:0; z-index:50; display:flex; justify-content:center; }
+  .nav-inner{ width:calc(100% - 64px); max-width:1180px; display:flex; align-items:center; justify-content:space-between; padding:12px 14px 12px 20px; }
+  .mark{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:15px; display:flex; align-items:center; gap:10px; }
+  .mark-badge{ width:30px; height:30px; border-radius:9px; background:linear-gradient(155deg, #0C1420, #29394A); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; letter-spacing:0.02em; }
+
+  nav ul{ list-style:none; display:flex; gap:28px; }
+  nav a{ text-decoration:none; font-size:13.5px; color:var(--ink-soft); font-weight:500; position:relative; padding-bottom:3px; }
+  nav a:hover{ color:var(--ink); }
+  nav a::after{ content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px; background:var(--signal); transform:scaleX(0); transform-origin:left; transition:transform .25s ease; }
+  nav a:hover::after{ transform:scaleX(1); }
+
+  .nav-cta{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; background:var(--ink); color:#fff; padding:9px 16px; border-radius:100px; text-decoration:none; letter-spacing:0.04em; }
+  .nav-links{ display:flex; }
+  .nav-toggle{ display:none; }
+
+  .hero{ padding:170px 0 90px; display:grid; grid-template-columns:1.25fr 0.9fr; gap:40px; align-items:start; }
+  .hero-glass{ padding:52px 48px 46px; position:relative; overflow:hidden; }
+
+  .scan-sweep{
+    position:absolute; top:0; left:0; right:0; height:100%;
+    background:linear-gradient(180deg, transparent 0%, var(--signal-dim) 45%, rgba(10,163,189,0.35) 50%, var(--signal-dim) 55%, transparent 100%);
+    transform:translateY(-110%); animation:sweepOnce 1.9s cubic-bezier(.22,.61,.36,1) 0.35s forwards; pointer-events:none;
+  }
+  @keyframes sweepOnce{ to{ transform:translateY(110%); } }
+
+  .hero h1{ font-size:clamp(42px, 6vw, 72px); font-weight:600; line-height:1.02; margin:18px 0 8px; }
+  .hero .surname{ color:var(--ink-soft); font-weight:500; }
+
+  .verified-tick{
+    display:inline-flex; align-items:center; gap:6px; margin-left:12px; vertical-align:middle;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--signal);
+    border:1px solid var(--signal); border-radius:100px; padding:4px 11px 4px 8px;
+    opacity:0; animation:tickIn .5s ease 1.9s forwards;
+  }
+  @keyframes tickIn{ to{ opacity:1; } }
+
+  .hero-role{ font-size:16.5px; color:var(--ink-soft); margin-bottom:22px; max-width:44ch; }
+  .hero-thesis{ font-family:'Fraunces', serif; font-style:italic; font-size:21px; line-height:1.45; max-width:38ch; color:var(--ink); margin-bottom:32px; }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  .btn{ display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-size:13.5px; font-weight:600; padding:13px 22px; border-radius:100px; transition:transform .2s ease, box-shadow .2s ease; }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--ink); color:#fff; }
+  .btn-primary:hover{ box-shadow:0 10px 24px -10px rgba(12,20,32,0.5); }
+  .btn-ghost{ background:transparent; color:var(--ink); border:1px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--ink); }
+
+  .stat-stack{ display:flex; flex-direction:column; gap:16px; margin-top:6px; }
+  .stat-chip{ padding:18px 22px; display:flex; flex-direction:column; gap:6px; }
+  .stat-chip:nth-child(2){ margin-left:34px; }
+  .stat-chip:nth-child(3){ margin-left:14px; }
+  .stat-num{ font-family:'Space Grotesk', sans-serif; font-size:27px; font-weight:600; }
+  .stat-label{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); letter-spacing:0.03em; }
+
+  section{ padding:70px 0; position:relative; }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:20px; margin-bottom:38px; flex-wrap:wrap; }
+  .section-title{ font-size:clamp(26px, 3.4vw, 36px); font-weight:600; }
+  .section-note{ font-size:13.5px; color:var(--ink-soft); max-width:34ch; }
+
+  .case{ padding:0; margin-bottom:20px; overflow:hidden; position:relative; }
+  .case-inner{ display:grid; grid-template-columns:200px 1fr 220px; gap:0; }
+  .case-meta{ padding:26px 24px; border-right:1px solid var(--line); display:flex; flex-direction:column; gap:10px; justify-content:space-between; }
+  .case-ref{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); }
+
+  .status{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.06em; display:inline-flex; align-items:center; gap:6px; width:fit-content; padding:5px 10px; border-radius:100px; }
+  .status.shipped{ background:var(--signal-dim); color:#087B90; }
+  .status.progress{ background:var(--risk-dim); color:#4C3FA8; }
+  .status::before{ content:""; width:6px; height:6px; border-radius:50%; background:currentColor; }
+  .status.progress::before{ animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+
+  .case-body{ padding:26px 30px; border-right:1px solid var(--line); }
+  .case-title{ font-family:'Space Grotesk', sans-serif; font-size:20px; font-weight:600; margin-bottom:8px; }
+  .case-desc{ font-size:14.5px; color:var(--ink-soft); max-width:56ch; margin-bottom:14px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--ink-soft); border:1px solid var(--line); padding:4px 9px; border-radius:6px; }
+
+  .case-side{ padding:26px 24px; display:flex; flex-direction:column; justify-content:space-between; }
+  .metric-row{ display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); padding:4px 0; border-bottom:1px dashed var(--line); }
+  .metric-row span:last-child{ color:var(--ink); font-weight:500;}
+
+  .case-links{ display:flex; gap:10px; margin-top:14px; }
+  .case-links a{ font-family:'IBM Plex Mono', monospace; font-size:11px; text-decoration:none; color:var(--signal); border-bottom:1px solid transparent; }
+  .case-links a:hover{ border-bottom-color:var(--signal); }
+
+  .case-sweep{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 0%, rgba(10,163,189,0.10) 45%, rgba(10,163,189,0.22) 50%, rgba(10,163,189,0.10) 55%, transparent 100%);
+    transform:translateY(-115%); transition:transform .9s cubic-bezier(.22,.61,.36,1); pointer-events:none;
+  }
+  .case:hover .case-sweep, .case:focus-within .case-sweep{ transform:translateY(115%); }
+
+  .log-list{ display:flex; flex-direction:column; }
+  .log-item{ display:grid; grid-template-columns:110px 1fr 90px; gap:20px; align-items:baseline; padding:18px 6px; border-bottom:1px solid var(--line); text-decoration:none; color:inherit; transition:padding-left .2s ease, background .2s ease; }
+  .log-item:hover{ padding-left:14px; background:rgba(255,255,255,0.4); border-radius:12px;}
+  .log-date{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft); }
+  .log-title{ font-size:15.5px; font-weight:500; }
+  .log-arrow{ text-align:right; color:var(--signal); font-family:'IBM Plex Mono', monospace; font-size:12px;}
+
+  .speak-card{ padding:36px 40px; display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center; }
+  .brics-row{ display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;}
+  .brics-chip{ display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--glass-strong); border:1px solid var(--glass-border); border-radius:12px; font-size:12.5px; }
+  .brics-letter{ font-family:'Space Grotesk', sans-serif; font-weight:700; color:var(--signal); width:20px; }
+
+  .about-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start; }
+  .about-quote{ font-family:'Fraunces', serif; font-style:italic; font-size:24px; line-height:1.5; color:var(--ink); border-left:2px solid var(--signal); padding-left:22px; margin-bottom:26px; }
+  .about-body p{ font-size:14.5px; color:var(--ink-soft); margin-bottom:14px; max-width:56ch; }
+  .about-facts{ padding:26px; display:flex; flex-direction:column; gap:18px; }
+  .fact{ display:flex; flex-direction:column; gap:4px; }
+  .fact-label{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.06em; }
+  .fact-value{ font-size:14.5px; font-weight:500; }
+  .domain-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+
+  footer{ padding:80px 0 46px; }
+  .footer-glass{ padding:44px 46px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:26px; }
+  .footer-title{ font-family:'Space Grotesk', sans-serif; font-size:30px; font-weight:600; max-width:14ch; line-height:1.15; }
+  .footer-links{ display:flex; flex-direction:column; gap:10px; }
+  .footer-links a{ text-decoration:none; font-size:14px; display:flex; align-items:center; gap:8px; }
+  .footer-links a:hover{ color:var(--signal); }
+  .footer-bottom{ display:flex; justify-content:space-between; margin-top:26px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); flex-wrap:wrap; gap:10px; }
+
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (max-width: 880px){
+    .hero{ grid-template-columns:1fr; padding-top:130px; }
+    .case-inner{ grid-template-columns:1fr; }
+    .case-meta, .case-body{ border-right:none; border-bottom:1px solid var(--line); flex-direction:row; justify-content:space-between; align-items:center;}
+    .about-grid{ grid-template-columns:1fr; }
+    .speak-card{ grid-template-columns:1fr; }
+    .stat-chip:nth-child(2), .stat-chip:nth-child(3){ margin-left:0; }
+    nav ul{ display:none; }
+    .nav-toggle{ display:block; }
+  }
+  @media (max-width: 560px){
+    .wrap{ padding:0 18px; }
+    .hero-glass{ padding:34px 24px; }
+    .log-item{ grid-template-columns:1fr; gap:4px; }
+    .footer-glass{ padding:30px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .scan-sweep, .case-sweep, .verified-tick, .reveal{ animation:none !important; transition:none !important; opacity:1 !important; transform:none !important; }
+    .status.progress::before{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="netbg"></canvas>
+<div class="ledger-texture"></div>
+
+<header>
+  <div class="nav-inner glass">
+    <div class="mark"><span class="mark-badge">JV</span> Jordan Voss</div>
+    <nav class="nav-links">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#writing">Writing</a></li>
+        <li><a href="#speaking">Speaking</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="#contact">GET IN TOUCH</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="hero-glass glass">
+      <div class="scan-sweep" aria-hidden="true"></div>
+      <span class="eyebrow">REF// PRODUCT · TRUST · RISK · AI</span>
+      <h1>Jordan<br>Voss
+        <span class="verified-tick">✓ VERIFIED</span>
+      </h1>
+      <p class="hero-role">Product Manager, Trust &amp; Risk — [Company]</p>
+      <p class="hero-thesis">I build the systems that decide who to trust, then write and ship the tools that decide who to trust <em>them.</em></p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#work">View the work →</a>
+        <a class="btn btn-ghost" href="#" rel="noopener">Connect on LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="stat-stack">
+      <div class="stat-chip glass reveal">
+        <span class="stat-num">10M+</span>
+        <span class="stat-label">ACCOUNTS PROTECTED</span>
+      </div>
+      <div class="stat-chip glass reveal">
+        <span class="stat-num">$XXM+</span>
+        <span class="stat-label">ANNUAL RISK SAFEGUARDED</span>
+      </div>
+      <div class="stat-chip glass reveal">
+        <span class="stat-num">30%↓</span>
+        <span class="stat-label">FRAUD RATE, VIA A NEW VERIFICATION PIPELINE</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">CASE FILE</span>
+        <h2 class="section-title">Selected builds</h2>
+      </div>
+      <p class="section-note">Independent projects — designed, shipped, and written up outside the day job. Hover a file to run the check.</p>
+    </div>
+
+    <div class="case glass reveal">
+      <div class="case-sweep" aria-hidden="true"></div>
+      <div class="case-inner">
+        <div class="case-meta">
+          <span class="case-ref">REF-0001-ALPHA</span>
+          <span class="status shipped">SHIPPED</span>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">Project Alpha</h3>
+          <p class="case-desc">Open-source library for a well-defined detection problem — a short, honest description of what it does and why it exists.</p>
+          <div class="tags">
+            <span class="tag">AI SAFETY</span>
+            <span class="tag">OPEN DATASET</span>
+            <span class="tag">PYTHON</span>
+          </div>
+        </div>
+        <div class="case-side">
+          <div>
+            <div class="metric-row"><span>Precision</span><span>0.9X</span></div>
+            <div class="metric-row"><span>Recall</span><span>0.XX</span></div>
+            <div class="metric-row"><span>F1</span><span>0.XX</span></div>
+          </div>
+          <div class="case-links">
+            <a href="#" rel="noopener">GITHUB ↗</a>
+            <a href="#" rel="noopener">WRITE-UP ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case glass reveal">
+      <div class="case-sweep" aria-hidden="true"></div>
+      <div class="case-inner">
+        <div class="case-meta">
+          <span class="case-ref">REF-0002-BETA</span>
+          <span class="status shipped">SHIPPED</span>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">Project Beta</h3>
+          <p class="case-desc">A CLI or small tool built in direct response to a real incident or gap — the kind of thing worth a two-line explanation of the "why."</p>
+          <div class="tags">
+            <span class="tag">SECURITY</span>
+            <span class="tag">CLI</span>
+          </div>
+        </div>
+        <div class="case-side">
+          <div>
+            <div class="metric-row"><span>Scope</span><span>Short phrase</span></div>
+            <div class="metric-row"><span>Trigger</span><span>Short phrase</span></div>
+          </div>
+          <div class="case-links">
+            <a href="#" rel="noopener">GITHUB ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case glass reveal">
+      <div class="case-sweep" aria-hidden="true"></div>
+      <div class="case-inner">
+        <div class="case-meta">
+          <span class="case-ref">REF-0003-GAMMA</span>
+          <span class="status shipped">SHIPPED</span>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">Research Note</h3>
+          <p class="case-desc">A small, honest experiment on public data — including the null results, since those are worth publishing too.</p>
+          <div class="tags">
+            <span class="tag">PUBLIC DATASET</span>
+            <span class="tag">RESEARCH NOTE</span>
+          </div>
+        </div>
+        <div class="case-side">
+          <div>
+            <div class="metric-row"><span>Domain</span><span>Short phrase</span></div>
+            <div class="metric-row"><span>Question</span><span>Short phrase</span></div>
+          </div>
+          <div class="case-links">
+            <a href="#" rel="noopener">WRITE-UP ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case glass reveal">
+      <div class="case-sweep" aria-hidden="true"></div>
+      <div class="case-inner">
+        <div class="case-meta">
+          <span class="case-ref">REF-0004-DELTA</span>
+          <span class="status progress">IN PROGRESS</span>
+        </div>
+        <div class="case-body">
+          <h3 class="case-title">Ongoing Build</h3>
+          <p class="case-desc">Something with a real cadence — a pipeline, a weekly-updated site, a series — that shows the work is alive, not a portfolio frozen in time.</p>
+          <div class="tags">
+            <span class="tag">AUTOMATION</span>
+            <span class="tag">ONGOING</span>
+          </div>
+        </div>
+        <div class="case-side">
+          <div>
+            <div class="metric-row"><span>Cadence</span><span>Weekly</span></div>
+            <div class="metric-row"><span>Sources</span><span>N feeds</span></div>
+          </div>
+          <div class="case-links">
+            <a href="#" rel="noopener">FOLLOW BUILD ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="writing">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">DISPATCH LOG</span>
+        <h2 class="section-title">Writing</h2>
+      </div>
+      <p class="section-note">Short notes on the work, written for people outside the room it happened in.</p>
+    </div>
+    <div class="log-list glass reveal" style="padding:8px 26px;">
+      <a class="log-item" href="#" rel="noopener">
+        <span class="log-date">202X</span>
+        <span class="log-title">A short, specific title about one real thing you learned</span>
+        <span class="log-arrow">READ ↗</span>
+      </a>
+      <a class="log-item" href="#" rel="noopener">
+        <span class="log-date">202X</span>
+        <span class="log-title">A null result worth publishing anyway</span>
+        <span class="log-arrow">READ ↗</span>
+      </a>
+      <a class="log-item" href="#" rel="noopener">
+        <span class="log-date">202X</span>
+        <span class="log-title">Why the obvious approach didn't work, and what did</span>
+        <span class="log-arrow">READ ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="speaking">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">ON RECORD</span>
+        <h2 class="section-title">Speaking</h2>
+      </div>
+    </div>
+    <div class="speak-card glass reveal">
+      <div>
+        <span class="case-ref mono">CONFERENCE NAME</span>
+        <h3 class="case-title" style="margin-top:8px;">A talk title that states the actual argument</h3>
+        <p class="case-desc">A short framework or structure worth naming — the kind of thing that gives a talk shape instead of just being a list of tips.</p>
+      </div>
+      <div>
+        <span class="fact-label">A NAMED FRAMEWORK</span>
+        <div class="brics-row">
+          <div class="brics-chip"><span class="brics-letter">1</span>Step one</div>
+          <div class="brics-chip"><span class="brics-letter">2</span>Step two</div>
+          <div class="brics-chip"><span class="brics-letter">3</span>Step three</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">BACKGROUND CHECK</span>
+        <h2 class="section-title">About</h2>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="about-quote">"One real sentence about how you think about the work — specific enough that it couldn't apply to just anyone."</p>
+        <div class="about-body">
+          <p>A short paragraph on the current role and domain — specific enough to be credible, without needing to list every responsibility.</p>
+          <p>A second paragraph on what happens outside the day job — the independent projects, writing, or experiments that show curiosity beyond the paycheck.</p>
+          <p>An optional, brief, human line — a hobby, an interest — that makes the page read as a person, not a resume.</p>
+        </div>
+        <div class="domain-tags">
+          <span class="tag">DOMAIN AREA</span>
+          <span class="tag">DOMAIN AREA</span>
+          <span class="tag">DOMAIN AREA</span>
+        </div>
+      </div>
+      <div class="about-facts glass">
+        <div class="fact">
+          <span class="fact-label">CURRENT</span>
+          <span class="fact-value">Role — Company</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">EDUCATION</span>
+          <span class="fact-value">Degree, Institution</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">EARLIER</span>
+          <span class="fact-value">Previous roles</span>
+        </div>
+        <div class="fact">
+          <span class="fact-label">BASED IN</span>
+          <span class="fact-value">City, State</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-glass glass reveal">
+      <div>
+        <span class="eyebrow">OPEN CHANNEL</span>
+        <h2 class="footer-title">Let's build or talk shop.</h2>
+      </div>
+      <div class="footer-links">
+        <a href="#" rel="noopener">LinkedIn ↗</a>
+        <a href="#" rel="noopener">GitHub ↗</a>
+        <a href="#" rel="noopener">Writing ↗</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 202X JORDAN VOSS</span>
+      <span>CITY, STATE · STATUS: OPEN TO CONVERSATIONS</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+
+  // Network background: slow drifting nodes evoking a signal / trust graph.
+  const canvas = document.getElementById('netbg');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [];
+  const NODE_COUNT = 46;
+  const LINK_DIST = 130;
+
+  function resize(){
+    W = canvas.width = window.innerWidth * devicePixelRatio;
+    H = canvas.height = window.innerHeight * devicePixelRatio;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function initNodes(){
+    nodes = [];
+    for(let i=0;i<NODE_COUNT;i++){
+      nodes.push({
+        x: Math.random()*W,
+        y: Math.random()*H,
+        vx: (Math.random()-0.5)*0.15*devicePixelRatio,
+        vy: (Math.random()-0.5)*0.15*devicePixelRatio,
+      });
+    }
+  }
+  initNodes();
+
+  function drawFrame(){
+    ctx.clearRect(0,0,W,H);
+    for(const n of nodes){
+      n.x += n.vx; n.y += n.vy;
+      if(n.x < 0 || n.x > W) n.vx *= -1;
+      if(n.y < 0 || n.y > H) n.vy *= -1;
+    }
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx*dx+dy*dy);
+        const maxDist = LINK_DIST*devicePixelRatio;
+        if(dist < maxDist){
+          ctx.strokeStyle = `rgba(10,163,189,${0.12 * (1 - dist/maxDist)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    for(const n of nodes){
+      ctx.fillStyle = 'rgba(12,20,32,0.18)';
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 1.6*devicePixelRatio, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  if(!reduceMotion){
+    (function loop(){ drawFrame(); requestAnimationFrame(loop); })();
+  } else {
+    drawFrame();
+  }
+</script>
+
+</body>
+</html>

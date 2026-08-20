@@ -16,13 +16,37 @@ Amara's *specialty* is **conversational AI interfaces** — chat widgets, agent 
 - Optional adapters emitting that token file as **React/Tailwind**, **plain HTML/CSS/JS**, or a **theme-config object** for existing chat-widget SDKs — the point at which "AI-generated design" becomes something you can actually ship.
 - A **self-critique QA pass** run automatically before anything is presented: contrast checks, spacing/type-scale discipline, a consistency audit, and confirmation that at least one thing was deliberately cut from the first draft. The contrast and spacing/type-scale checks aren't just described in prose — `scripts/check-contrast.js` and `scripts/check-tokens.js` mechanically recompute them from the actual token values and rendered CSS, so a passing QA claim is independently verifiable rather than self-reported. See [Verification tooling](#verification-tooling) below.
 
-See it applied across ten style tiers in [`/examples`](examples/) before installing, and two favorites below.
+See it applied across ten style tiers below before installing. No video previews yet — open a `preview.html` locally to see it live (see [Contributing a preview recording](#contributing-a-preview-recording) if you want to add one).
 
-## A couple of favorites
+## Examples
 
-**[Futuristic white/glass chatbot](examples/futuristic-white-glass/)** — cool brushed-chrome + glass, warm rose-gold reserved for exactly two moments, and a genuinely three-dimensional avatar: a real CSS `rotateY` orb you can drag, released with a hand-rolled damped-spring integrator (an actual numerical simulation of the mass-spring-damper equation, not an eased CSS transition standing in for one). Fully schema-conformant — this is what Amara's chatbot pipeline actually produces end to end, contrast-verified and token-scale-verified like every other `/examples` entry.
+Every row is the same sample chatbot (thread, approval checkpoint, input bar) rebuilt from scratch per style — same craft bar, deliberately different anatomy, never a reskin. `theme.json` is the token source; `preview.html` is a self-contained page that renders it, no build step, open the file directly.
 
-**[Water bottle landing page](showcase/waterbottle-landing/)** — a marketing site, built to test the same underlying method (real typographic pairing, a verified color system, one deliberately-cut element) outside Amara's chat-specific schema entirely. Real IntersectionObserver scroll-reveal, a pointer-driven product tilt, and an animated liquid surface drawn frame-by-frame from an actual sine function, not a looping GIF. Lives under `/showcase`, not `/examples`, because it doesn't use `theme.schema.json` — that schema's required components (avatar states, approval banners) don't apply to a page with no agent in it. Same craft bar, honestly different shape of deliverable.
+| Style | Files |
+|---|---|
+| Minimalist / Swiss | [theme.json](examples/minimalist-swiss/theme.json) · [preview.html](examples/minimalist-swiss/preview.html) |
+| Claymorphism | [theme.json](examples/claymorphism/theme.json) · [preview.html](examples/claymorphism/preview.html) |
+| Brutalism | [theme.json](examples/brutalism/theme.json) · [preview.html](examples/brutalism/preview.html) |
+| Maximalist / Editorial | [theme.json](examples/maximalist-editorial/theme.json) · [preview.html](examples/maximalist-editorial/preview.html) |
+| Neumorphism | [theme.json](examples/neumorphism/theme.json) · [preview.html](examples/neumorphism/preview.html) |
+| Glassmorphism | [theme.json](examples/glassmorphism/theme.json) · *(theme only)* |
+| Corporate / Enterprise | [theme.json](examples/corporate-enterprise/theme.json) · *(theme only)* |
+| Playful / Funky | [theme.json](examples/playful-funky/theme.json) · *(theme only)* |
+| Retro / Skeuomorphic | [theme.json](examples/retro-skeuomorphic/theme.json) · *(theme only)* |
+| **Futuristic white/glass** — a real 3D `rotateY` avatar you can drag, released with a hand-rolled damped-spring integrator (an actual numerical simulation, not an eased transition standing in for one) | [theme.json](examples/futuristic-white-glass/theme.json) · [preview.html](examples/futuristic-white-glass/preview.html) |
+
+## Beyond chat — `/showcase`
+
+Same method (divergent concepts, a verified token system, one deliberately-cut element), applied where Amara's chat-specific `theme.schema.json` doesn't reach — no avatar states or approval banners here, because there's no agent. See [What it does](#what-it-does) above for why the method generalizes even though the schema doesn't yet.
+
+| Piece | File | Notes |
+|---|---|---|
+| Water bottle landing page | [index.html](showcase/waterbottle-landing/index.html) | Real IntersectionObserver scroll-reveal, a pointer-driven product tilt, an animated liquid surface redrawn from an actual sine function every frame — not a looping GIF standing in for one. |
+| Portfolio / dossier template | [index.html](showcase/portfolio-dossier/index.html) | Case-file styled personal site — glass cards, a signal-teal/risk-violet duotone, a scan-sweep reveal on load, a drifting network canvas background. Generic placeholder content by design — swap in your own. |
+
+## Contributing a preview recording
+
+None of the examples have a video/GIF preview yet — if you record one (any screen recorder works, even the OS-built-in one), send it over and it'll get embedded next to the file links above and committed to the repo.
 
 ## Prior art, and why the MIT license here is safe
 
@@ -112,7 +136,8 @@ amara/
 │   ├── retro-skeuomorphic/
 │   └── futuristic-white-glass/
 └── showcase/                    Amara's underlying method applied outside the chat-specific schema
-    └── waterbottle-landing/     a marketing page, not a theme.json output -- see its README section above
+    ├── waterbottle-landing/     a marketing page, not a theme.json output -- see its README section above
+    └── portfolio-dossier/       a generic personal-site template -- also not a theme.json output
 ```
 
 ## Adding a new style family
