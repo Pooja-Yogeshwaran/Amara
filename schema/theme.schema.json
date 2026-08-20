@@ -107,8 +107,8 @@
       "properties": {
         "scaleRatio": {
           "type": "number",
-          "enum": [1.25, 1.333],
-          "description": "Type scale ratio. Max 4-5 distinct sizes system-wide, all derived from this ratio off a base size -- no off-scale one-offs."
+          "exclusiveMinimum": 1,
+          "description": "Type scale ratio, chosen for this brief -- not fixed to a house pair. 1.25 (major third) and 1.333 (perfect fourth) are common, well-behaved defaults, but a brief calling for something tighter (1.125-1.2, dense/enterprise), more dramatic (1.5), or editorial (1.618, golden ratio) should use that instead. Max 4-5 distinct sizes system-wide, all derived from this ratio off a base size -- no off-scale one-offs. If the brief genuinely warrants a hand-tuned scale that isn't a clean single ratio (some real type systems are), set this to the closest approximating ratio for documentation purposes and note the deviation in typography's containing meta/notes -- don't force a hand-tuned scale into a ratio it doesn't actually follow."
         },
         "families": {
           "type": "object",
@@ -132,7 +132,7 @@
       "type": "object",
       "required": ["baseUnit", "scale"],
       "properties": {
-        "baseUnit": { "enum": [4, 8] },
+        "baseUnit": { "type": "number", "exclusiveMinimum": 0, "description": "Spacing grid unit, chosen for this brief. 4 and 8 are the common web-safe defaults, but a brief with a real reason for a different grid (a denser enterprise system, a design ported from a platform with its own base unit) isn't restricted to those two -- pick the unit the brief warrants, not the default." },
         "scale": { "type": "array", "items": { "type": "number" }, "description": "All spacing in the system must be a multiple drawn from this array -- no arbitrary values." }
       }
     },
