@@ -58,10 +58,19 @@ Same sample chatbot (thread, approval checkpoint, input bar), ten different styl
 | Playful / Funky | [theme.json](examples/playful-funky/theme.json) | |
 | Retro / Skeuomorphic | [theme.json](examples/retro-skeuomorphic/theme.json) | |
 | Futuristic White/Glass | [theme.json](examples/futuristic-white-glass/theme.json) · [preview.html](examples/futuristic-white-glass/preview.html) | |
-| **Water bottle landing page** *(showcase, not a chat UI)* | [index.html](showcase/waterbottle-landing/index.html) | |
-| **Portfolio / dossier template** *(showcase, not a chat UI)* | [index.html](showcase/portfolio-dossier/index.html) | |
 
-**Adding a video:** record your screen with any recorder (Windows: Win+G / Xbox Game Bar; Mac: Cmd+Shift+5) while opening a `preview.html`/`index.html` file above, then send the recording to me in chat — I'll save it under `docs/previews/<style-name>.<ext>`, embed it in the table row above, and commit + push both. GIF autoplays inline on GitHub without a click; MP4 needs a click to play, so GIF is the better fit for a table cell if the file size stays reasonable.
+Each `theme.json` is a complete, generic style system — no personal branding baked in, drop-in reusable as-is.
+
+**Adding a video:** record your screen with any recorder (Windows: Win+G / Xbox Game Bar; Mac: Cmd+Shift+5) while opening a `preview.html` file above, then send the recording to me in chat — I'll save it under `docs/previews/<style-name>.<ext>`, embed it in the table row above, and commit + push both. GIF autoplays inline on GitHub without a click; MP4 needs a click to play, so GIF is the better fit for a table cell if the file size stays reasonable.
+
+## Beyond chat
+
+Same method, applied where `theme.schema.json` doesn't reach — no chat UI, so not "themes":
+
+| Piece | File |
+|---|---|
+| Water bottle landing page | [index.html](showcase/waterbottle-landing/index.html) |
+| Portfolio / dossier template | [index.html](showcase/portfolio-dossier/index.html) |
 
 
 ## Repo structure
