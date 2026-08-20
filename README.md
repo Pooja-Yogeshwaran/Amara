@@ -59,9 +59,9 @@ Same sample chatbot (thread, approval checkpoint, input bar), ten different styl
 | Retro / Skeuomorphic | [theme.json](examples/retro-skeuomorphic/theme.json) | |
 | Futuristic White/Glass | [theme.json](examples/futuristic-white-glass/theme.json) · [preview.html](examples/futuristic-white-glass/preview.html) | |
 
-Each `theme.json` is a complete, generic style system — no personal branding baked in, drop-in reusable as-is.
+Use any `theme.json` as-is — no personal branding to strip out first — or point Amara at one with a reference/override input to start from it instead of a blank slate.
 
-**Adding a video:** record your screen with any recorder (Windows: Win+G / Xbox Game Bar; Mac: Cmd+Shift+5) while opening a `preview.html` file above, then send the recording to me in chat — I'll save it under `docs/previews/<style-name>.<ext>`, embed it in the table row above, and commit + push both. GIF autoplays inline on GitHub without a click; MP4 needs a click to play, so GIF is the better fit for a table cell if the file size stays reasonable.
+**Adding a preview video:** record a short screen capture of a `preview.html` above (`prefers-reduced-motion` off so real motion shows), export as GIF (autoplays inline on GitHub, no click needed) at a reasonable file size, save it to `docs/previews/<style-name>.gif`, and add it to that row's Video column: `![preview](docs/previews/<style-name>.gif)`.
 
 ## Beyond chat
 
