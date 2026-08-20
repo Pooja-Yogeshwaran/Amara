@@ -4,14 +4,31 @@
 
 Amara is a portable Skill (`SKILL.md`) that generates cohesive, accessible UI systems for AI chatbots and agents — works with Claude Code, Claude.ai, Cursor, Windsurf, and GitHub Copilot.
 
-## What you get
+## What it can do
 
-- A **design-token JSON** (`theme.json`) — color, type, spacing, motion, iconography — plus a full **agent-state component set**: presence, thinking-vs-doing, approval checkpoints, background-task notices, error states.
-- Output as **React/Tailwind**, **plain HTML/CSS/JS**, or a **theme-config object** for existing chat-widget SDKs.
-- Every generation runs through an automated QA pass before it ships: contrast is independently recomputed (not self-reported), spacing/type-scale is checked against the declared grid, and at least one thing is deliberately cut from the first draft. Verification lives in `scripts/` — see [Verification tooling](#verification-tooling).
-- Real open-source resource picks (fonts, icons, UI kits) baked into the output, license-tagged — see [Resource library](#resource-library).
+**Design tokens** — color (real harmony models, not just a hue picker), typography pairing, spacing scale, motion, iconography. Output as **React/Tailwind**, **plain HTML/CSS/JS**, or a **theme-config object** for existing chat-widget SDKs.
 
-Amara's deepest, most differentiated work is chat-specific (approval checkpoints, presence, thinking-vs-doing — see [Scope](#scope)). The underlying *method* — divergent concepts before narrowing, verified tokens, an honest self-critique pass — isn't, and [`/showcase`](showcase/) applies it outside chat.
+**Agent-specific components**, not just a themed chat box:
+- Presence indicator, thinking-vs-doing distinction, optional reasoning panel
+- Approval checkpoints — three different patterns chosen by stakes/reversibility (pre-action gate, post-action review + undo, bounded/scoped grant), not one generic "confirm?" modal
+- Background-task notifications, trustworthy error states, memory indicator
+- Optional named persona roster for products with more than one agent character
+
+**Rich content handled explicitly**, not just tolerated — tables, code blocks, citations, streaming text, interrupted generation, images & video, and generative UI (agent-rendered charts, forms, pickers) all consume the same token system instead of bringing their own default look.
+
+**Motion range** — static through micro-interaction, Lottie, GIF, and video-loop tiers; a real spring-physics signature interaction (an actual physics simulation, not an eased CSS transition) for one high-impact element when warranted; genuine CSS 3D/WebGL dimensionality when the brief calls for it.
+
+**Platform and frame aware** — embedded widget, full app, or mobile layout from the same token file, plus the actual container: borderless overlay, a windowed panel with a title bar, iframe-embedded, or a native app shell.
+
+**Personality that tapers** — highest expression at onboarding, decaying toward routine use, without going cold on failure or re-engagement after a gap.
+
+**Five ways to brief it** — point it at a reference product, describe a vibe, run a short wizard, patch a specific token with a targeted override, or ask it to research current trends before generating.
+
+**Automated QA before anything ships** — contrast is independently recomputed (not self-reported), spacing/type-scale is checked against the declared grid, and at least one element is deliberately cut from the first draft. See [Verification tooling](#verification-tooling).
+
+**Real, license-tagged resources** — fonts, icons, illustrations, charts, UI kits — baked into the output. See [Resource library](#resource-library).
+
+Amara's deepest, most differentiated work is chat-specific (the agent-state components above — see [Scope](#scope)). The underlying *method* — divergent concepts before narrowing, verified tokens, an honest self-critique pass — isn't, and [`/showcase`](showcase/) applies it outside chat.
 
 ## Install
 
@@ -44,7 +61,7 @@ Same sample chatbot (thread, approval checkpoint, input bar), ten different styl
 | **Water bottle landing page** *(showcase, not a chat UI)* | [index.html](showcase/waterbottle-landing/index.html) | |
 | **Portfolio / dossier template** *(showcase, not a chat UI)* | [index.html](showcase/portfolio-dossier/index.html) | |
 
-Video column is empty — drop in a recording (any screen recorder works) and it'll get embedded and committed.
+**Adding a video:** record your screen with any recorder (Windows: Win+G / Xbox Game Bar; Mac: Cmd+Shift+5) while opening a `preview.html`/`index.html` file above, then send the recording to me in chat — I'll save it under `docs/previews/<style-name>.<ext>`, embed it in the table row above, and commit + push both. GIF autoplays inline on GitHub without a click; MP4 needs a click to play, so GIF is the better fit for a table cell if the file size stays reasonable.
 
 ## Scope
 
@@ -81,9 +98,7 @@ Every dimension (icon set, font source, illustrations, chart library, UI kit) is
 
 ## Honest limitations
 
-- Not a replacement for a designer's final sign-off — treat output as a strong first draft, verify against real brand/user/accessibility constraints before shipping.
 - Color and iconography defaults in `references/color-theory.md` are drawn from Western commercial convention and aren't localized — check them for non-Western-commercial audiences rather than trusting them.
-- No third-party source code or proprietary visual assets are vendored — external projects cited in `references/agent-states.md` are pattern references only. See [`references/input-modes.md`](references/input-modes.md) for the reference-mode rule this follows.
 
 ## License
 
