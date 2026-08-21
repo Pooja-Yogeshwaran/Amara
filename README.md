@@ -68,20 +68,19 @@ All generated with just a single prompt
 
 
 
+
+
+https://github.com/user-attachments/assets/8b97b248-f84b-4ee0-bef9-0fcaa833e6a4
+
+
+
 https://github.com/user-attachments/assets/e9427e5c-f752-4026-bc23-6120e9d9ae52
 
 
 
 
 
-
-
-
-
 https://github.com/user-attachments/assets/0a823da9-8700-4244-a4bd-bbc4e7e78d80
-
-
-
 
 
 
